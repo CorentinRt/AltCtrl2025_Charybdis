@@ -262,12 +262,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 2309350998748407080}
+  _parent: {fileID: 5872407553750334156}
   _visualAnchor: {fileID: 8893701618023334432}
   _data: {fileID: 11400000, guid: 31798161bbeb7fd43ba14776035e1057, type: 2}
+  _isAuto: 1
   _trajectoryLine: {fileID: 849006256866372298}
   _predictionSteps: 70
   _timeStep: 0.1
-  _isAuto: 1
 --- !u!1 &8882713515667243389
 GameObject:
   m_ObjectHideFlags: 0

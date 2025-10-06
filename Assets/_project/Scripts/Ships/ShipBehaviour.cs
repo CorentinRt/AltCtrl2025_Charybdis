@@ -1,3 +1,8 @@
+using DG.Tweening;
+using NaughtyAttributes;
+using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
@@ -8,7 +13,7 @@ namespace AltCtrl.Charybdis
         #region Fields
         [Header("Components")]
         [SerializeField] private Rigidbody2D _rb;
-
+        [SerializeField] private GameObject _parent;
         [SerializeField] private Transform _visualAnchor;
 
         [Space]
@@ -16,19 +21,24 @@ namespace AltCtrl.Charybdis
         [Header("Datas")]
         [SerializeField] private SO_ShipData _data;
 
+        [Header("Auto")]
+        [SerializeField] private bool _isAuto;
+
         [Header("Trajectory")]
         [SerializeField] private LineRenderer _trajectoryLine;
         [SerializeField] private int _predictionSteps = 50;
         [SerializeField] private float _timeStep = 0.1f;
 
-        [Header("Auto")]
-        [SerializeField] private bool _isAuto;
+        private Vector3[] _trajectoryPointsBuffer;
 
         private float _currentGouvernailInput;
 
         private float _autoGouvernailValue;
-
         private float _autoSpeed;
+
+        private bool _isDestroyed;
+
+        private Coroutine _destroyShipWithDelayCoroutine;
         #endregion
 
 
@@ -37,6 +47,10 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
+        private void Awake()
+        {
+            _trajectoryPointsBuffer = new Vector3[_predictionSteps];
+        }
 
         private void Start()
         {
@@ -45,6 +59,11 @@ namespace AltCtrl.Charybdis
 
         private void Init()
         {
+            if (ShipsManager.Exist)
+            {
+                ShipsManager.Instance.AddShip(this);
+            }
+
             _currentGouvernailInput = Random.Range(-_data.MaxAutoRotateSpeed, _data.MaxAutoRotateSpeed);
 
             _autoSpeed = Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
@@ -52,6 +71,9 @@ namespace AltCtrl.Charybdis
 
         private void FixedUpdate()
         {
+            if (_isDestroyed)
+                return;
+
             if (_isAuto)
             {
                 MoveAuto();
@@ -62,13 +84,8 @@ namespace AltCtrl.Charybdis
                 Move();
                 Rotate();
             }
-
         }
 
-        private void Update()
-        {
-            PredictTrajectory();
-        }
 
         public void SetAutoGouvernailValue(float value)
         {
@@ -134,40 +151,91 @@ namespace AltCtrl.Charybdis
         #endregion
 
         #region Trajectory
-        private void PredictTrajectory()
+        public void PredictTrajectory()
         {
             Vector2 startPos = _rb.position;
-            Vector2 velocity = _rb.linearVelocity;     // vitesse actuelle en m/s
-            float angularVel = _rb.angularVelocity;    // deg/s
+            Vector2 velocity = _rb.linearVelocity;
+            float angularVel = _rb.angularVelocity;
 
-            Vector3[] points = new Vector3[_predictionSteps];
+            if (_trajectoryPointsBuffer == null || _trajectoryPointsBuffer.Length != _predictionSteps)
+            {
+                _trajectoryPointsBuffer = new Vector3[_predictionSteps];
+            }
 
-            // Inversion du signe pour correspondre à Unity 2D (horaire = positif)
             float rotRadPerStep = angularVel * Mathf.Deg2Rad * _timeStep;
 
             Vector2 pos = startPos;
-            Vector2 dir = velocity.normalized; // direction initiale = direction réelle du mouvement
+            Vector2 dir = velocity.normalized;
 
             for (int i = 0; i < _predictionSteps; i++)
             {
-                pos += dir * velocity.magnitude * _timeStep; // avance dans la direction actuelle
+                pos += dir * velocity.magnitude * _timeStep;
 
-                // fais tourner la direction autour de Z
                 float cos = Mathf.Cos(rotRadPerStep);
                 float sin = Mathf.Sin(rotRadPerStep);
+
                 dir = new Vector2(
                     dir.x * cos - dir.y * sin,
                     dir.x * sin + dir.y * cos
                 );
 
-                points[i] = pos;
+                _trajectoryPointsBuffer[i] = pos;
             }
 
             _trajectoryLine.positionCount = _predictionSteps;
-            _trajectoryLine.SetPositions(points);
+            _trajectoryLine.SetPositions(_trajectoryPointsBuffer);
         }
 
         #endregion
 
+        #region DestroyShip
+        [Button]
+        private void DestroyShip()
+        {
+            if (_isDestroyed)
+            {
+                return;
+            }
+
+            _isDestroyed = true;
+
+            _rb.linearVelocity = Vector2.zero;
+            _rb.angularVelocity = 0f;
+
+            _visualAnchor.DOLocalRotate(new Vector3(0f, 0f, 720f), _data.DestroyDelay * 0.9f, RotateMode.FastBeyond360);
+            
+            if (ShipsManager.Exist)
+            {
+                ShipsManager.Instance.RemoveShip(this);
+            }
+
+            if (_destroyShipWithDelayCoroutine == null)
+            {
+                _destroyShipWithDelayCoroutine = StartCoroutine(DestroyShipWithDelayCoroutine());
+            }
+        }
+
+        private void EndDestroyShipWithDelay()
+        {
+            if (_destroyShipWithDelayCoroutine != null)
+            {
+                StopCoroutine(_destroyShipWithDelayCoroutine);
+                _destroyShipWithDelayCoroutine = null;
+            }
+
+
+            Destroy(_parent);
+        }
+
+        private IEnumerator DestroyShipWithDelayCoroutine()
+        {
+            yield return new WaitForSeconds(_data.DestroyDelay);
+
+            EndDestroyShipWithDelay();
+
+            yield return null;
+        }
+
+        #endregion
     }
 }

@@ -22,3 +22,4 @@ MonoBehaviour:
   _maxAutoSpeed: 4
   _minAutoRotateSpeed: -45
   _maxAutoRotateSpeed: 45
+  _destroyDelay: 0.7

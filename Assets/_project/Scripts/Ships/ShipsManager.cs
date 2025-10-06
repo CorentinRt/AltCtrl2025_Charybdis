@@ -10,7 +10,7 @@ namespace AltCtrl.Charybdis
         #region Fields
 
 
-        private List<ShipBehaviour> _ships;
+        private List<ShipBehaviour> _ships = new List<ShipBehaviour>();
 
         #endregion
 
@@ -19,7 +19,32 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
+        public void AddShip(ShipBehaviour ship)
+        {
+            if (ship == null)
+                return;
 
+            _ships.Add(ship);
+        }
+
+        public void RemoveShip(ShipBehaviour ship)
+        {
+            if (ship == null)
+                return;
+
+            _ships.Remove(ship);
+        }
+
+        private void Update()
+        {
+            foreach (ShipBehaviour shipBehaviour in _ships)
+            {
+                if (shipBehaviour == null)
+                    continue;
+
+                shipBehaviour.PredictTrajectory();
+            }
+        }
 
     }
 }
