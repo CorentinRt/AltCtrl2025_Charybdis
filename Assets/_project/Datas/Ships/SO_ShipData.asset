@@ -15,11 +15,11 @@ MonoBehaviour:
   _acceleration: 4
   _minSpeed: 2
   _maxSpeed: 7
-  _rotateSpeed: 80
-  _maxRotateSpeed: 90
+  _rotateSpeed: 60
+  _maxRotateSpeed: 45
   _decelerationForce: 5
-  _minAutoSpeed: 2
-  _maxAutoSpeed: 4
-  _minAutoRotateSpeed: -45
-  _maxAutoRotateSpeed: 45
+  _minAutoSpeed: 1.5
+  _maxAutoSpeed: 2.5
+  _minAutoRotateSpeed: -10
+  _maxAutoRotateSpeed: 10
   _destroyDelay: 0.7

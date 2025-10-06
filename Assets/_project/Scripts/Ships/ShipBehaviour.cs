@@ -13,7 +13,6 @@ namespace AltCtrl.Charybdis
         #region Fields
         [Header("Components")]
         [SerializeField] private Rigidbody2D _rb;
-        [SerializeField] private GameObject _parent;
         [SerializeField] private Transform _visualAnchor;
 
         [Space]
@@ -224,7 +223,7 @@ namespace AltCtrl.Charybdis
             }
 
 
-            Destroy(_parent);
+            Destroy(gameObject);
         }
 
         private IEnumerator DestroyShipWithDelayCoroutine()
