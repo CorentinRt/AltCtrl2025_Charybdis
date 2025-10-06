@@ -1,4 +1,3 @@
-using NaughtyAttributes;
 using System;
 using UnityEngine;
 
@@ -33,7 +32,7 @@ namespace AltCtrl.Charybdis
                 if (_isBlowindLoud)
                 {
                     _isBlowindLoud = false;
-                    OnStopWindOnBoats();
+                    OnStopWindOnBoats?.Invoke();
                 }
             }
             else

@@ -6,9 +6,11 @@ namespace AltCtrl.Charybdis
     public class Monster : MonoBehaviour
     {
         // ----- FIELDS ----- //
+        [Header("Values")]
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _smoothTime = 0.1f;
 
+        [Header("Screen Limits")]
         [SerializeField] private float objectWidth, objectHeight;
 
         private Vector2 _moveDirection;
