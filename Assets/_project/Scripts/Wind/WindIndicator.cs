@@ -1,4 +1,4 @@
-using NaughtyAttributes;
+using System;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
@@ -14,6 +14,10 @@ namespace AltCtrl.Charybdis
         [SerializeField] private WindDetector _detector;
 
         private bool _isBlowindLoud = false;
+        
+        // TO DO : Inscrire tous les bateaux à ces events pour les affecter
+        public event Action<Vector3> OnStartWindOnBoats; // Vector 3 = rotation indicator
+        public event Action OnStopWindOnBoats;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -25,11 +29,20 @@ namespace AltCtrl.Charybdis
         {
             if (loudness < _minLoudness)
             {
-                _isBlowindLoud = false;
+                if (_isBlowindLoud)
+                {
+                    _isBlowindLoud = false;
+                    OnStopWindOnBoats?.Invoke();
+                }
             }
             else
             {
-                _isBlowindLoud = true;
+                if (!_isBlowindLoud)
+                {
+                    _isBlowindLoud = true;
+                    Debug.Log($"Start blowing loud direction :{transform.rotation.eulerAngles}");
+                    OnStartWindOnBoats?.Invoke(transform.rotation.eulerAngles);
+                }
             }
         }
 
