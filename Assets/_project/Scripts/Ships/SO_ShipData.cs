@@ -15,6 +15,13 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _maxRotateSpeed;
         [SerializeField] private float _decelerationForce;
 
+        [Header("Auto")]
+        [SerializeField] private float _minAutoSpeed;
+        [SerializeField] private float _maxAutoSpeed;
+
+        [SerializeField] private float _minAutoRotateSpeed;
+        [SerializeField] private float _maxAutoRotateSpeed;
+
         #endregion
 
         #region Properties
@@ -25,6 +32,11 @@ namespace AltCtrl.Charybdis
         public float RotateSpeed => _rotateSpeed;
         public float MaxRotateSpeed => _maxRotateSpeed;
         public float DecelerationForce => _decelerationForce;
+
+        public float MinAutoSpeed => _minAutoSpeed;
+        public float MaxAutoSpeed => _maxAutoSpeed;
+        public float MinAutoRotateSpeed => _minAutoRotateSpeed;
+        public float MaxAutoRotateSpeed => _maxAutoRotateSpeed;
 
         #endregion
 

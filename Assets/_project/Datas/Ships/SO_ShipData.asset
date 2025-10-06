@@ -18,3 +18,7 @@ MonoBehaviour:
   _rotateSpeed: 80
   _maxRotateSpeed: 90
   _decelerationForce: 5
+  _minAutoSpeed: 2
+  _maxAutoSpeed: 4
+  _minAutoRotateSpeed: -45
+  _maxAutoRotateSpeed: 45

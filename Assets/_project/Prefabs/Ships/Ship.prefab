@@ -204,7 +204,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 1
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -264,6 +264,10 @@ MonoBehaviour:
   _rb: {fileID: 2309350998748407080}
   _visualAnchor: {fileID: 8893701618023334432}
   _data: {fileID: 11400000, guid: 31798161bbeb7fd43ba14776035e1057, type: 2}
+  _trajectoryLine: {fileID: 849006256866372298}
+  _predictionSteps: 70
+  _timeStep: 0.1
+  _isAuto: 1
 --- !u!1 &8882713515667243389
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +410,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+--- !u!120 &849006256866372298 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+  m_PrefabInstance: {fileID: 7451197512835482769}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4431011113947217838 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6492472715838290751, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
