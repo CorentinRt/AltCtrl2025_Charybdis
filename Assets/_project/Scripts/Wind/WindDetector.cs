@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
@@ -10,16 +11,30 @@ namespace AltCtrl.Charybdis
 
         [SerializeField] private float _loudnessSensibility = 100f;
         [SerializeField] private float _loudnessTreshold = 0.1f;
-        // + min & max scale
+
+        [SerializeField] private float _updateTime = 0.1f;
+
+        private float _currentUpdateTime = 0f;
+
+        public event Action<float> OnWindDetection;
         // ----- FIELDS ----- //
 
         private void Update()
         {
-            float loudness = _detector.GetLoudnessFromMicrophone() * _loudnessSensibility;
+            _currentUpdateTime += Time.deltaTime;
 
-            if (loudness < _loudnessTreshold) loudness = 0;
+            if (_currentUpdateTime > _updateTime)
+            {
+                float loudness = _detector.GetLoudnessFromMicrophone() * _loudnessSensibility;
 
-            Debug.Log($"Loudness : {loudness}");
+                if (loudness < _loudnessTreshold) loudness = 0;
+
+                Debug.Log($"Loudness : {loudness}");
+
+                OnWindDetection?.Invoke(loudness);
+
+                _currentUpdateTime = 0f;
+            }
         }
     }
 }
