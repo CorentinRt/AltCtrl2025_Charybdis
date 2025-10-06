@@ -41,7 +41,7 @@ namespace AltCtrl.Charybdis
 
         public void OnMonsterMove(Vector2 mousePos)
         {
-            Debug.Log(mousePos);
+            //Debug.Log(mousePos);
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
             _targetPosition = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
 
