@@ -34,6 +34,8 @@ namespace AltCtrl.Charybdis
 
         private Vector2 _screenBounds;
 
+        private ShipBehaviour _currentControlledShip;
+
         #endregion
 
         #region Properties
@@ -48,6 +50,11 @@ namespace AltCtrl.Charybdis
         {
             _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 
+            if (RadioManager.Exist)
+            {
+                RadioManager.Instance.OnChangeFrequency += ReactOnChangeFrequency;
+            }
+
             DefineNewRandomTimeSpawn();
         }
 
@@ -56,6 +63,11 @@ namespace AltCtrl.Charybdis
             foreach (ShipBehaviour ship in _ships)
             {
                 ship.OnShipDestroyed -= ReactOnDestroyShip;
+            }
+
+            if (RadioManager.Exist)
+            {
+                RadioManager.Instance.OnChangeFrequency -= ReactOnChangeFrequency;
             }
         }
 
@@ -67,6 +79,8 @@ namespace AltCtrl.Charybdis
             _ships.Add(ship);
 
             ship.OnShipDestroyed += ReactOnDestroyShip;
+
+            _frequencyToShip[ship.AssociatedFrequency] = ship;
         }
 
         public void RemoveShip(ShipBehaviour ship)
@@ -77,6 +91,8 @@ namespace AltCtrl.Charybdis
             _ships.Remove(ship);
 
             ship.OnShipDestroyed -= ReactOnDestroyShip;
+
+            _frequencyToShip[ship.AssociatedFrequency] = null;
         }
 
         private void Update()
@@ -158,6 +174,24 @@ namespace AltCtrl.Charybdis
             ship.OnShipDestroyed -= ReactOnDestroyShip;
 
             OnDestroyShip?.Invoke();
+        }
+
+        private void ReactOnChangeFrequency((int, int) frequency)
+        {
+            if (_currentControlledShip != null)
+            {
+                _currentControlledShip.SetAutoValue(false);
+            }
+
+            if (!_frequencyToShip.ContainsKey(frequency) || _frequencyToShip[frequency] == null)
+            {
+                return;
+            }
+
+            _currentControlledShip = _frequencyToShip[frequency];
+
+            _currentControlledShip.SetAutoValue(true);
+
         }
     }
 }

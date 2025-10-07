@@ -17,6 +17,8 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Transform _visualAnchor;
 
+        [SerializeField] private GameObject _explosionIndicator;
+
         [Space]
 
         [Header("Datas")]
@@ -24,6 +26,7 @@ namespace AltCtrl.Charybdis
 
         [Header("Auto")]
         [SerializeField] private bool _isAuto;
+        [SerializeField] private GameObject _controlledIndicator;
 
         [Header("Trajectory")]
         [SerializeField] private LineRenderer _trajectoryLine;
@@ -54,6 +57,8 @@ namespace AltCtrl.Charybdis
         #region Properties
         public bool IsAuto => _isAuto;
 
+        public (int, int) AssociatedFrequency => _associatedFrequency;
+
         #endregion
 
         public event Action<ShipBehaviour> OnShipDestroyed;
@@ -71,11 +76,6 @@ namespace AltCtrl.Charybdis
 
         private void Init()
         {
-            if (ShipsManager.Exist)
-            {
-                ShipsManager.Instance.AddShip(this);
-            }
-
             if (WindIndicator.Exist)
             {
                 WindIndicator.Instance.OnStartWindOnBoats += OnStartWind;
@@ -94,15 +94,17 @@ namespace AltCtrl.Charybdis
 
                 RadioManager.Instance.AddFrequencyUsed(_associatedFrequency);
 
-                Debug.Log($"item 1 = {_associatedFrequency.Item1}", this);
                 _frequencyLabel.text = $"{_associatedFrequency.Item1} : {_associatedFrequency.Item2}";
+            }
+
+            if (ShipsManager.Exist)
+            {
+                ShipsManager.Instance.AddShip(this);
             }
 
             _currentGouvernailInput = UnityEngine.Random.Range(-_data.MaxAutoRotateSpeed, _data.MaxAutoRotateSpeed);
 
             _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
-
-
         }
 
         private void OnDestroy()
@@ -140,10 +142,11 @@ namespace AltCtrl.Charybdis
         }
 
 
-        public void SetAutoGouvernailValue(float value)
+        public void SetAutoValue(bool controlled)
         {
-            _autoGouvernailValue = value;
+            _isAuto = !controlled;
 
+            _controlledIndicator.SetActive(controlled);
         }
 
         #region Movements
@@ -267,6 +270,8 @@ namespace AltCtrl.Charybdis
                 ShipsManager.Instance.RemoveShip(this);
             }
 
+            _explosionIndicator.SetActive(true);
+
             if (_destroyShipWithDelayCoroutine == null)
             {
                 OnShipDestroyed?.Invoke(this);
@@ -310,6 +315,21 @@ namespace AltCtrl.Charybdis
             _windDirModifier = Vector3.zero;
         }
         #endregion
+
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision == null || collision.gameObject == null)
+                return;
+
+            if (collision.gameObject.CompareTag("Island") || collision.gameObject.CompareTag("Ship"))
+            {
+                if (_isDestroyed)
+                    return;
+
+                DestroyShip();
+            }
+        }
 
     }
 }
