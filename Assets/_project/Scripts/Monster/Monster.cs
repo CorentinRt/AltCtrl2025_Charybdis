@@ -12,6 +12,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _smoothTime = 0.1f;
         [SerializeField] private float _typhoonCantMoveTime = 3f;
         [SerializeField] private float _typhoonCooldown = 5f;
+        [SerializeField] private float _teleportCooldown = 2f;
 
         [Header("Screen Limits")]
         [SerializeField] private float objectWidth, objectHeight;
@@ -25,6 +26,8 @@ namespace AltCtrl.Charybdis
 
         private bool _isMoving = true;
         private bool _canTyphoon = true;
+        private bool _isTeleporting = false;
+        private bool _canTeleport = true;
 
         private Rigidbody2D _rb;
 
@@ -60,7 +63,7 @@ namespace AltCtrl.Charybdis
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
             _targetPosition = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
 
-             // Clamp to screen limits
+            // Clamp to screen limits
             _targetPosition.x = Mathf.Clamp(_targetPosition.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
             _targetPosition.y = Mathf.Clamp(_targetPosition.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
         }
@@ -76,7 +79,7 @@ namespace AltCtrl.Charybdis
                 _monsterTyphoon.SetActive(true);
 
                 StartCoroutine(StartTyphoonCooldown());
-                StartCoroutine(StartTyphoonCantMoveTime()); 
+                StartCoroutine(StartTyphoonCantMoveTime());
             }
         }
 
@@ -110,5 +113,35 @@ namespace AltCtrl.Charybdis
                 _rb.MovePosition(currentPosition + move);
             }
         }
+
+        public void SetTeleporting(bool isTeleporting)
+        {
+            _isTeleporting = isTeleporting;
+
+            if (_isTeleporting)
+            {
+                _canTeleport = false;
+                _isMoving = false;
+            }
+            else
+            {
+                StartCoroutine(TeleportCooldown());
+            }
+        }
+
+        private IEnumerator TeleportCooldown()
+        {
+            yield return new WaitForSeconds(_teleportCooldown);
+            _canTeleport = true;
+        }
+
+        public void SetCanMove(bool canMove)
+        {
+            _isMoving = canMove;
+        }
+
+        public bool IsTeleporting() { return _isTeleporting; }
+
+        public bool CanTeleport() { return _canTeleport; }
     }
 }
