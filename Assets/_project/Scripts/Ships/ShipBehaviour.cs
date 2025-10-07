@@ -19,6 +19,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Transform _visualAnchor;
 
         [SerializeField] private GameObject _explosionIndicator;
+        [SerializeField] private GameObject _validateIndicator;
 
         [Space]
 
@@ -36,6 +37,7 @@ namespace AltCtrl.Charybdis
 
         [Header("Frequency")]
         [SerializeField] private TextMeshProUGUI _frequencyLabel;
+        [SerializeField] private Transform _frequencyHolder;
 
         private Vector3[] _trajectoryPointsBuffer;
 
@@ -54,6 +56,14 @@ namespace AltCtrl.Charybdis
         private (int, int) _associatedFrequency;
 
         private bool _moveTurboPressed;
+
+        private Vector3 _screenBounds;
+
+        private bool _isInsideBound;
+
+        private bool _isValidated;
+
+        private Coroutine _validateShipWithDelayCoroutine;
         #endregion
 
 
@@ -65,6 +75,7 @@ namespace AltCtrl.Charybdis
         #endregion
 
         public event Action<ShipBehaviour> OnShipDestroyed;
+        public event Action<ShipBehaviour> OnShipValidated;
 
 
         private void Awake()
@@ -135,6 +146,13 @@ namespace AltCtrl.Charybdis
                     RadioManager.Instance.RemoveFrequencyUsed(_associatedFrequency);
                 }
             }
+        }
+
+        private void Update()
+        {
+            CheckValidateShip();
+
+            _frequencyHolder.transform.rotation = Quaternion.identity;
         }
 
         private void FixedUpdate()
@@ -286,7 +304,7 @@ namespace AltCtrl.Charybdis
         [Button]
         private void DestroyShip()
         {
-            if (_isDestroyed)
+            if (_isDestroyed || _isValidated)
             {
                 return;
             }
@@ -335,6 +353,73 @@ namespace AltCtrl.Charybdis
             yield return null;
         }
 
+        #endregion
+
+        #region Validate Ship
+        private void CheckValidateShip()
+        {
+            if (_isValidated || _isDestroyed)
+                return;
+
+            _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+
+            if (transform.position.x > -_screenBounds.x && transform.position.x < _screenBounds.x && transform.position.y > -_screenBounds.y && transform.position.y < _screenBounds.y)
+            {
+                if (!_isInsideBound)
+                {
+                    _isInsideBound = true;
+                }
+            }
+            else
+            {
+                if (_isInsideBound)
+                {
+                    ValidateShip();
+                }
+            }
+        }
+
+        private void ValidateShip()
+        {
+            if (_isDestroyed || _isValidated)
+                return;
+
+            _isValidated = true;
+
+            if (ShipsManager.Exist)
+            {
+                ShipsManager.Instance.RemoveShip(this);
+            }
+
+            _validateIndicator.SetActive(true);
+
+            if (_validateShipWithDelayCoroutine == null)
+            {
+                OnShipValidated?.Invoke(this);
+
+                _validateShipWithDelayCoroutine = StartCoroutine(ValidateShipWithDelayCoroutine());
+            }
+        }
+
+        private void EndValidateShipWithDelay()
+        {
+            if (_validateShipWithDelayCoroutine != null)
+            {
+                StopCoroutine(_validateShipWithDelayCoroutine);
+                _validateShipWithDelayCoroutine = null;
+            }
+
+            Destroy(gameObject);
+        }
+
+        private IEnumerator ValidateShipWithDelayCoroutine()
+        {
+            yield return new WaitForSeconds(_data.DestroyDelay);
+
+            EndValidateShipWithDelay();
+
+            yield return null;
+        }
         #endregion
 
         #region Wind Reactions

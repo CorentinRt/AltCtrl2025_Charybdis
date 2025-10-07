@@ -46,6 +46,9 @@ namespace AltCtrl.Charybdis
         // TO DO : S'inscrire ici pour détecter bateaux détruits pour la barre de victoire
         public event Action OnDestroyShip;
 
+        // TO DO : S'inscrire ici pour détecter bateaux validé pour la barre de victoire
+        public event Action OnValidateShip;
+
         private void Start()
         {
             _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
@@ -174,6 +177,13 @@ namespace AltCtrl.Charybdis
             ship.OnShipDestroyed -= ReactOnDestroyShip;
 
             OnDestroyShip?.Invoke();
+        }
+
+        private void ReactOnValidateShip(ShipBehaviour ship)
+        {
+            ship.OnShipValidated -= ReactOnDestroyShip;
+
+            OnValidateShip?.Invoke();
         }
 
         private void ReactOnChangeFrequency((int, int) frequency)
