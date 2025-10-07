@@ -304,6 +304,8 @@ namespace AltCtrl.Charybdis
             }
 
             _explosionIndicator.SetActive(true);
+            _frequencyLabel.gameObject.SetActive(false);
+            _trajectoryLine.gameObject.SetActive(false);
 
             if (_destroyShipWithDelayCoroutine == null)
             {
