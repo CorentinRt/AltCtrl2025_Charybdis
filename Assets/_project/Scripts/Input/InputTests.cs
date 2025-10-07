@@ -6,10 +6,10 @@ public class InputTests : MonoBehaviour
     {
         if (InputManager.Instance == null) return;
 
-        InputManager.Instance.OnMovePressed += OnMoveTest;
-        InputManager.Instance.OnLookPressed += OnLookTest;
-        InputManager.Instance.OnButton0Pressed += OnButton0Test;
-        InputManager.Instance.OnButton1Pressed += OnButton1Test;
+        InputManager.Instance.OnMoveMonsterPressed += OnMoveTest;
+        InputManager.Instance.OnMoveTurboPressed += OnLookTest;
+        InputManager.Instance.OnTotem1Pressed += OnButton0Test;
+        InputManager.Instance.OnTotem2Pressed += OnButton1Test;
     }
 
     private void OnMoveTest(Vector2 moveDirection)
