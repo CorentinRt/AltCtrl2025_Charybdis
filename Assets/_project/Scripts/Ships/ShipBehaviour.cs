@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace AltCtrl.Charybdis
 {
@@ -51,6 +52,8 @@ namespace AltCtrl.Charybdis
         private Coroutine _destroyShipWithDelayCoroutine;
 
         private (int, int) _associatedFrequency;
+
+        private bool _moveTurboPressed;
         #endregion
 
 
@@ -80,6 +83,11 @@ namespace AltCtrl.Charybdis
             {
                 WindIndicator.Instance.OnStartWindOnBoats += OnStartWind;
                 WindIndicator.Instance.OnStopWindOnBoats += OnStopWind;
+            }
+
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.OnMoveTurboPressed += OnMoveTurboPressed;
             }
 
             if (RadioManager.Exist)
@@ -115,6 +123,11 @@ namespace AltCtrl.Charybdis
                 WindIndicator.Instance.OnStopWindOnBoats -= OnStopWind;
             }
 
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.OnMoveTurboPressed -= OnMoveTurboPressed;
+            }
+
             if (RadioManager.Exist)
             {
                 if (_associatedFrequency != (-1, -1))
@@ -141,6 +154,17 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        private void OnMoveTurboPressed(Vector2 value)
+        {
+            if (value.y > 0.1f)
+            {
+                _moveTurboPressed = true;
+            }
+            else
+            {
+                _moveTurboPressed = false;
+            }
+        }
 
         public void SetAutoValue(bool controlled)
         {
@@ -152,7 +176,16 @@ namespace AltCtrl.Charybdis
         #region Movements
         private void Move()
         {
-            float deltaInputVertical = Input.GetAxis("Vertical");
+            float deltaInputVertical = 0f;
+
+            if (_moveTurboPressed)
+            {
+                deltaInputVertical = 1f;
+            }
+            else
+            {
+                deltaInputVertical = 0f;
+            }
 
             Vector3 tempVelocity = _rb.linearVelocity;
 
@@ -186,7 +219,7 @@ namespace AltCtrl.Charybdis
 
         private void Rotate()
         {
-            float deltaInputHorizontal = Input.GetAxis("Horizontal");
+            float deltaInputHorizontal = Input.mousePositionDelta.x;
 
             if (deltaInputHorizontal != 0f)
             {
