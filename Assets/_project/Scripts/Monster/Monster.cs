@@ -14,6 +14,9 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _typhoonCooldown = 5f;
         [SerializeField] private float _teleportCooldown = 2f;
 
+        [Header("Controls")]
+        [SerializeField] private bool _useJoystick = false;
+
         [Header("Screen Limits")]
         [SerializeField] private float objectWidth, objectHeight;
 
@@ -32,6 +35,7 @@ namespace AltCtrl.Charybdis
         private Rigidbody2D _rb;
 
         private Vector2 screenBounds;
+
         // ----- FIELDS ----- //
 
         private void Start()
@@ -44,7 +48,15 @@ namespace AltCtrl.Charybdis
 
             if (InputManager.Instance != null)
             {
-                InputManager.Instance.OnMoveMonsterTempPressed += OnMonsterMove;
+                if (_useJoystick)
+                {
+                    InputManager.Instance.OnMoveMonsterPressed += OnMonsterJoystickMove;
+                }
+                else
+                {
+                    InputManager.Instance.OnMoveMonsterTempPressed += OnMonsterMouseMove;
+                }
+
                 InputManager.Instance.OnTyphonPressed += OnMonsterTyphoon;
             }
         }
@@ -53,12 +65,20 @@ namespace AltCtrl.Charybdis
         {
             if (InputManager.Instance != null)
             {
-                InputManager.Instance.OnMoveMonsterTempPressed -= OnMonsterMove;
+                if (_useJoystick)
+                {
+                    InputManager.Instance.OnMoveMonsterPressed -= OnMonsterJoystickMove;
+                }
+                else
+                {
+                    InputManager.Instance.OnMoveMonsterTempPressed -= OnMonsterMouseMove;
+                }
+
                 InputManager.Instance.OnTyphonPressed -= OnMonsterTyphoon;
             }
         }
 
-        private void OnMonsterMove(Vector2 mousePos)
+        private void OnMonsterMouseMove(Vector2 mousePos)
         {
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
             _targetPosition = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
@@ -66,6 +86,11 @@ namespace AltCtrl.Charybdis
             // Clamp to screen limits
             _targetPosition.x = Mathf.Clamp(_targetPosition.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
             _targetPosition.y = Mathf.Clamp(_targetPosition.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
+        }
+
+        private void OnMonsterJoystickMove(Vector2 moveDirection)
+        {
+            _moveDirection = moveDirection;
         }
 
         private void OnMonsterTyphoon(bool pressed)
@@ -97,7 +122,20 @@ namespace AltCtrl.Charybdis
 
         void FixedUpdate()
         {
-            if (_isMoving)
+            if (!_isMoving)
+                return;
+
+            if (_useJoystick)
+            {
+                Vector2 move = _moveDirection.normalized * _moveSpeed * Time.fixedDeltaTime;
+                Vector2 newPosition = _rb.position + move;
+
+                newPosition.x = Mathf.Clamp(newPosition.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
+                newPosition.y = Mathf.Clamp(newPosition.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
+
+                _rb.MovePosition(newPosition);
+            }
+            else
             {
                 Vector2 currentPosition = _rb.position;
                 Vector2 direction = _targetPosition - currentPosition;
@@ -113,6 +151,7 @@ namespace AltCtrl.Charybdis
                 _rb.MovePosition(currentPosition + move);
             }
         }
+
 
         public void SetTeleporting(bool isTeleporting)
         {
