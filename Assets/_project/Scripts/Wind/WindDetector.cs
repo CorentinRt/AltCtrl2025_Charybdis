@@ -42,7 +42,7 @@ namespace AltCtrl.Charybdis
 
                 if (loudness < _loudnessTreshold) loudness = 0;
 
-                Debug.Log($"Loudness : {loudness}");
+                //Debug.Log($"Loudness : {loudness}");
 
                 OnWindDetection?.Invoke(loudness);
 
