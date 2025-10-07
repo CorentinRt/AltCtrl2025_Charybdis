@@ -16,7 +16,6 @@ namespace AltCtrl.Charybdis
 
         private bool _isBlowindLoud = false;
         
-        // TO DO : Inscrire tous les bateaux à ces events pour les affecter
         public event Action<Vector3> OnStartWindOnBoats; // Vector 3 = rotation indicator
         public event Action OnStopWindOnBoats;
         // ----- FIELDS ----- //

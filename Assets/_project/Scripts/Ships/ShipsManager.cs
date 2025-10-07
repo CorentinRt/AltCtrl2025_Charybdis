@@ -39,6 +39,7 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
+        // TO DO : S'inscrire ici pour détecter bateaux détruits pour la barre de victoire
         public event Action OnDestroyShip;
 
         private void Start()
