@@ -24,6 +24,13 @@ namespace AltCtrl.Charybdis
 
         [Header("Destroy")]
         [SerializeField] private float _destroyDelay;
+
+        [Header("Storm")]
+        [SerializeField] private float _minCooldownBeforeChangeStormModifier;
+        [SerializeField] private float _maxCooldownBeforeChangeStormModifier;
+
+        [SerializeField] private float _minStormModifier;
+        [SerializeField] private float _maxStormModifier;
         #endregion
 
         #region Properties
@@ -41,6 +48,12 @@ namespace AltCtrl.Charybdis
         public float MaxAutoRotateSpeed => _maxAutoRotateSpeed;
 
         public float DestroyDelay => _destroyDelay;
+
+        public float MinCooldownBeforeChangeStormModifier => _minCooldownBeforeChangeStormModifier;
+        public float MaxCooldownBeforeChangeStormModifier => _maxCooldownBeforeChangeStormModifier;
+
+        public float MinStormModifier => _minStormModifier;
+        public float MaxStormModifier => _maxStormModifier;
 
         #endregion
 

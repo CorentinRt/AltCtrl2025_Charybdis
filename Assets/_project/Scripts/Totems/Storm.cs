@@ -8,12 +8,26 @@ namespace AltCtrl.Charybdis
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            // check collision bateau -> direction aléatoire
+            if (collision == null || collision.gameObject == null)
+                return;
+
+            Debug.Log($"Object name : {collision.gameObject.name}", collision.gameObject);
+
+            if (collision.gameObject.CompareTag("Ship"))
+            {
+                collision.gameObject.GetComponent<ShipBehaviour>().SetAffectedByStorm(true);
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            // check collision bateau -> plus de direction aléatoire
+            if (collision == null || collision.gameObject == null)
+                return;
+
+            if (collision.gameObject.CompareTag("Ship"))
+            {
+                collision.gameObject.GetComponent<ShipBehaviour>().SetAffectedByStorm(false);
+            }
         }
     }
 }
