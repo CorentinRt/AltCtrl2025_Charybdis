@@ -27,6 +27,8 @@ namespace AltCtrl.Charybdis
 
         private List<ShipBehaviour> _ships = new List<ShipBehaviour>();
 
+        private Dictionary<(int, int), ShipBehaviour> _frequencyToShip = new Dictionary<(int, int), ShipBehaviour>();
+
         private float _currentTimeSpawn;
         private float _randomTimeSpawn;
 

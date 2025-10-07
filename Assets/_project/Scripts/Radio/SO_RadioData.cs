@@ -16,6 +16,7 @@ namespace AltCtrl.Charybdis
 
         [Header("Switch frequency")]
         [SerializeField] private float _timeToHoldIfNoShipControlled;
+        [SerializeField] private float _timeToHoldIfHasShipControlled;
 
         #endregion
 
@@ -27,6 +28,7 @@ namespace AltCtrl.Charybdis
         public int ExternalFrequencyMax => _externalFrequencyMax;
 
         public float TimeToHoldIfNoShipControlled => _timeToHoldIfNoShipControlled;
+        public float TimeToHoldIfHasShipControlled => _timeToHoldIfHasShipControlled;
 
         #endregion
 

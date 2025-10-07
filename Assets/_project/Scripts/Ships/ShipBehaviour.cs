@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
@@ -29,6 +30,9 @@ namespace AltCtrl.Charybdis
         [SerializeField] private int _predictionSteps = 50;
         [SerializeField] private float _timeStep = 0.1f;
 
+        [Header("Frequency")]
+        [SerializeField] private TextMeshProUGUI _frequencyLabel;
+
         private Vector3[] _trajectoryPointsBuffer;
 
         private float _currentGouvernailInput;
@@ -42,6 +46,8 @@ namespace AltCtrl.Charybdis
         private Vector3 _windDirModifier;
 
         private Coroutine _destroyShipWithDelayCoroutine;
+
+        private (int, int) _associatedFrequency;
         #endregion
 
 
@@ -76,9 +82,27 @@ namespace AltCtrl.Charybdis
                 WindIndicator.Instance.OnStopWindOnBoats += OnStopWind;
             }
 
+            if (RadioManager.Exist)
+            {
+                _associatedFrequency = RadioManager.Instance.GetNewAvailableFrequency();
+
+                if (_associatedFrequency == (-1, -1))
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+
+                RadioManager.Instance.AddFrequencyUsed(_associatedFrequency);
+
+                Debug.Log($"item 1 = {_associatedFrequency.Item1}", this);
+                _frequencyLabel.text = $"{_associatedFrequency.Item1} : {_associatedFrequency.Item2}";
+            }
+
             _currentGouvernailInput = UnityEngine.Random.Range(-_data.MaxAutoRotateSpeed, _data.MaxAutoRotateSpeed);
 
             _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
+
+
         }
 
         private void OnDestroy()
@@ -87,6 +111,14 @@ namespace AltCtrl.Charybdis
             {
                 WindIndicator.Instance.OnStartWindOnBoats -= OnStartWind;
                 WindIndicator.Instance.OnStopWindOnBoats -= OnStopWind;
+            }
+
+            if (RadioManager.Exist)
+            {
+                if (_associatedFrequency != (-1, -1))
+                {
+                    RadioManager.Instance.RemoveFrequencyUsed(_associatedFrequency);
+                }
             }
         }
 

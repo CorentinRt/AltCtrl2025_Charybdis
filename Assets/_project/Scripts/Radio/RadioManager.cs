@@ -14,6 +14,8 @@ namespace AltCtrl.Charybdis
 
         private List<(int, int)> _allFrequencies = new();
 
+        private HashSet<(int, int)> _usedFrequencies = new();
+
         private int _currentIndexFrequency;
 
         private float _currentTimeKeyPressed;
@@ -110,6 +112,31 @@ namespace AltCtrl.Charybdis
         public (int, int) GetCurrentFrequency()
         {
             return _allFrequencies[_currentIndexFrequency];
+        }
+
+        public (int, int) GetNewAvailableFrequency()
+        {
+            if (_usedFrequencies.Count == _allFrequencies.Count)
+                return (-1, -1);
+
+            int randomIndex = UnityEngine.Random.Range(0, _allFrequencies.Count);
+
+            while (_usedFrequencies.Contains(_allFrequencies[randomIndex]))
+            {
+                randomIndex++;
+            }
+
+            return _allFrequencies[randomIndex];
+        }
+
+        public void AddFrequencyUsed((int, int) frequency)
+        {
+            _usedFrequencies.Add(frequency);
+        }
+
+        public void RemoveFrequencyUsed((int, int) frequency)
+        {
+            _usedFrequencies.Remove(frequency);
         }
     }
 }
