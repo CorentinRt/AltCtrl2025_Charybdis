@@ -7,13 +7,14 @@ public class InputManager : MonoBehaviour
    // ----- FIELDS ----- //
    public static InputManager Instance;
 
-    public event Action<Vector2> OnMovePressed;
-    public event Action<Vector2> OnLookPressed;
+    public event Action<Vector2> OnMoveMonsterPressed;
+    public event Action<Vector2> OnMoveMonsterTempPressed;
+    public event Action<Vector2> OnMoveTurboPressed;
 
-    public event Action<bool> OnButton0Pressed;
-    public event Action<bool> OnButton1Pressed;
-    public event Action<bool> OnButton2Pressed;
-    public event Action<bool> OnButton3Pressed;
+    public event Action<bool> OnTotem1Pressed;
+    public event Action<bool> OnTotem2Pressed;
+    public event Action<bool> OnTotem3Pressed;
+    public event Action<bool> OnTyphonPressed;
     // ----- FIELDS ----- //
 
     private void Awake()
@@ -22,72 +23,81 @@ public class InputManager : MonoBehaviour
         Instance = this;
     }
 
-    #region Vector2
-    public void MovePressed(InputAction.CallbackContext context)
+    #region Joysticks
+    public void MoveMonsterPressed(InputAction.CallbackContext context)
     {
         if (context.performed || context.canceled)
         {
-            Vector2 _moveDirection = context.ReadValue<Vector2>();
-            OnMovePressed.Invoke(_moveDirection);
+            Vector2 moveDirection = context.ReadValue<Vector2>();
+            OnMoveMonsterPressed?.Invoke(moveDirection);
         }
     }
 
-    public void LookPressed(InputAction.CallbackContext context)
+    public void MoveMonsterTempPressed(InputAction.CallbackContext context)
     {
         if (context.performed || context.canceled)
         {
-            Vector2 _lookDirection = context.ReadValue<Vector2>();
-            OnLookPressed.Invoke(_lookDirection);
+            Vector2 moveDirection = context.ReadValue<Vector2>();
+            OnMoveMonsterTempPressed?.Invoke(moveDirection);
+        }
+    }
+
+    public void MoveTurboPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed || context.canceled)
+        {
+            Vector2 moveDirection = context.ReadValue<Vector2>();
+            OnMoveTurboPressed?.Invoke(moveDirection);
         }
     }
     #endregion
 
     #region Buttons
-    public void Button0Pressed(InputAction.CallbackContext context)
+    public void Totem1Pressed(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            OnButton0Pressed.Invoke(true);
+            OnTotem1Pressed?.Invoke(true);
         }
         else if (context.canceled)
         {
-            OnButton0Pressed.Invoke(false);
+            OnTotem1Pressed?.Invoke(false);
         }
     }
 
-    public void Button1Pressed(InputAction.CallbackContext context)
+    public void Totem2Pressed(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            OnButton1Pressed.Invoke(true);
+            OnTotem2Pressed?.Invoke(true);
         }
         else if (context.canceled)
         {
-            OnButton1Pressed.Invoke(false);
+            OnTotem2Pressed?.Invoke(false);
         }
     }
 
-    public void Button2Pressed(InputAction.CallbackContext context)
+    public void Totem3Pressed(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            OnButton2Pressed.Invoke(true);
+            OnTotem3Pressed?.Invoke(true);
         }
         else if (context.canceled)
         {
-            OnButton2Pressed.Invoke(false);
+            OnTotem3Pressed?.Invoke(false);
         }
     }
 
-    public void Button3Pressed(InputAction.CallbackContext context)
+    public void TyphonPressed(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            OnButton3Pressed.Invoke(true);
+            OnTyphonPressed?.Invoke(true);
         }
         else if (context.canceled)
         {
-            OnButton3Pressed.Invoke(false);
+            OnTyphonPressed?.Invoke(false);
         }
     }
     #endregion
