@@ -49,6 +49,14 @@ namespace AltCtrl.Charybdis
             DefineNewRandomTimeSpawn();
         }
 
+        private void OnDestroy()
+        {
+            foreach (ShipBehaviour ship in _ships)
+            {
+                ship.OnShipDestroyed -= ReactOnDestroyShip;
+            }
+        }
+
         public void AddShip(ShipBehaviour ship)
         {
             if (ship == null)

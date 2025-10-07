@@ -81,6 +81,15 @@ namespace AltCtrl.Charybdis
             _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
         }
 
+        private void OnDestroy()
+        {
+            if (WindIndicator.Exist)
+            {
+                WindIndicator.Instance.OnStartWindOnBoats -= OnStartWind;
+                WindIndicator.Instance.OnStopWindOnBoats -= OnStopWind;
+            }
+        }
+
         private void FixedUpdate()
         {
             if (_isDestroyed)
