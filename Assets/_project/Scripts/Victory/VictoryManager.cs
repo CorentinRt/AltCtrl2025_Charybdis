@@ -20,12 +20,30 @@ namespace AltCtrl.Charybdis
 
         private void Start()
         {
+            if (_victorySlider == null) return;
+
             SetupSlider();
+
+            if (ShipsManager.Instance != null)
+            {
+                ShipsManager.Instance.OnDestroyShip += AddGodScoreOnDestroyShip;
+                ShipsManager.Instance.OnValidateShip += AddHumanScoreOnDestroyShip;
+            }
         }
-        private void SetupSlider()
+
+        private void OnDestroy()
         {
             if (_victorySlider == null) return;
 
+            if (ShipsManager.Instance != null)
+            {
+                ShipsManager.Instance.OnDestroyShip -= AddGodScoreOnDestroyShip;
+                ShipsManager.Instance.OnValidateShip -= AddHumanScoreOnDestroyShip;
+            }
+        }
+
+        private void SetupSlider()
+        {
             _victorySlider.maxValue = _sliderMaxValue;
             _victorySlider.value = _sliderMaxValue / 2;
         }
@@ -51,6 +69,10 @@ namespace AltCtrl.Charybdis
         private void CheckVictory()
         {
             if (_victorySlider.value == _sliderMaxValue)
+            {
+                Debug.Log("GOD VICTORY");
+            }
+            else
             {
                 Debug.Log("HUMAN VICTORY");
             }
