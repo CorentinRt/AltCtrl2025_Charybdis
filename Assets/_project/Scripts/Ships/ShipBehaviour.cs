@@ -1,6 +1,7 @@
 using DG.Tweening;
 using NaughtyAttributes;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
@@ -37,6 +38,9 @@ namespace AltCtrl.Charybdis
 
         private bool _isDestroyed;
 
+        private bool _affectedByWind;
+        private Vector3 _windDirModifier;
+
         private Coroutine _destroyShipWithDelayCoroutine;
         #endregion
 
@@ -45,6 +49,9 @@ namespace AltCtrl.Charybdis
         public bool IsAuto => _isAuto;
 
         #endregion
+
+        public event Action<ShipBehaviour> OnShipDestroyed;
+
 
         private void Awake()
         {
@@ -63,9 +70,15 @@ namespace AltCtrl.Charybdis
                 ShipsManager.Instance.AddShip(this);
             }
 
-            _currentGouvernailInput = Random.Range(-_data.MaxAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+            if (WindIndicator.Exist)
+            {
+                WindIndicator.Instance.OnStartWindOnBoats += OnStartWind;
+                WindIndicator.Instance.OnStopWindOnBoats += OnStopWind;
+            }
 
-            _autoSpeed = Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
+            _currentGouvernailInput = UnityEngine.Random.Range(-_data.MaxAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+
+            _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
         }
 
         private void FixedUpdate()
@@ -120,6 +133,11 @@ namespace AltCtrl.Charybdis
         private void MoveAuto()
         {
             _rb.linearVelocity = transform.up * _autoSpeed;
+
+            if (_affectedByWind)
+            {
+                _rb.linearVelocity += new Vector2(_windDirModifier.x, _windDirModifier.y);
+            }
         }
 
         private void Rotate()
@@ -210,6 +228,8 @@ namespace AltCtrl.Charybdis
 
             if (_destroyShipWithDelayCoroutine == null)
             {
+                OnShipDestroyed?.Invoke(this);
+
                 _destroyShipWithDelayCoroutine = StartCoroutine(DestroyShipWithDelayCoroutine());
             }
         }
@@ -221,7 +241,6 @@ namespace AltCtrl.Charybdis
                 StopCoroutine(_destroyShipWithDelayCoroutine);
                 _destroyShipWithDelayCoroutine = null;
             }
-
 
             Destroy(gameObject);
         }
@@ -236,5 +255,20 @@ namespace AltCtrl.Charybdis
         }
 
         #endregion
+
+        #region Wind Reactions
+        private void OnStartWind(Vector3 dir)
+        {
+            _affectedByWind = true;
+            _windDirModifier = dir;
+        }
+
+        private void OnStopWind()
+        {
+            _affectedByWind = false;
+            _windDirModifier = Vector3.zero;
+        }
+        #endregion
+
     }
 }

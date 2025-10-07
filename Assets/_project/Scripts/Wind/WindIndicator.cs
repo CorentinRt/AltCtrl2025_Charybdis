@@ -1,9 +1,10 @@
+using CREMOT.GameplayUtilities;
 using System;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
 {
-    public class WindIndicator : MonoBehaviour
+    public class WindIndicator : GenericSingleton<WindIndicator>
     {
         // ----- FIELDS ----- //
         [Header("Values")]

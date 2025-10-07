@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CREMOT.GameplayUtilities;
 using static UnityEngine.GraphicsBuffer;
+using System;
 
 namespace AltCtrl.Charybdis
 {
@@ -38,6 +39,8 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
+        public event Action OnDestroyShip;
+
         private void Start()
         {
             _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
@@ -51,6 +54,8 @@ namespace AltCtrl.Charybdis
                 return;
 
             _ships.Add(ship);
+
+            ship.OnShipDestroyed += ReactOnDestroyShip;
         }
 
         public void RemoveShip(ShipBehaviour ship)
@@ -59,6 +64,8 @@ namespace AltCtrl.Charybdis
                 return;
 
             _ships.Remove(ship);
+
+            ship.OnShipDestroyed -= ReactOnDestroyShip;
         }
 
         private void Update()
@@ -89,19 +96,19 @@ namespace AltCtrl.Charybdis
         private void DefineNewRandomTimeSpawn()
         {
             _currentTimeSpawn = 0f;
-            _randomTimeSpawn = Random.Range(_data.SpawnRandomMinRate, _data.SpawnRandomMaxRate);
+            _randomTimeSpawn = UnityEngine.Random.Range(_data.SpawnRandomMinRate, _data.SpawnRandomMaxRate);
         }
 
         private void SpawnShip()
         {
-            SPAWN_LOCATION randomSpawn = (SPAWN_LOCATION)Random.Range(0, 4);
+            SPAWN_LOCATION randomSpawn = (SPAWN_LOCATION)UnityEngine.Random.Range(0, 4);
 
             Vector3 centerPos = Camera.main.transform.position;
 
             Vector3 targetPosition;
 
-            targetPosition.x = Random.Range(-_screenBounds.x, _screenBounds.x);
-            targetPosition.y = Random.Range(-_screenBounds.y, _screenBounds.y);
+            targetPosition.x = UnityEngine.Random.Range(-_screenBounds.x, _screenBounds.x);
+            targetPosition.y = UnityEngine.Random.Range(-_screenBounds.y, _screenBounds.y);
 
             Vector2 randomPos = Vector2.zero;
 
@@ -133,6 +140,13 @@ namespace AltCtrl.Charybdis
             Quaternion rot = Quaternion.Euler(0f, 0f, angle);
 
             Instantiate(_shipPrefab, randomPos, rot);
+        }
+
+        private void ReactOnDestroyShip(ShipBehaviour ship)
+        {
+            ship.OnShipDestroyed -= ReactOnDestroyShip;
+
+            OnDestroyShip?.Invoke();
         }
     }
 }
