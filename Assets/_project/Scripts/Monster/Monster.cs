@@ -44,8 +44,8 @@ namespace AltCtrl.Charybdis
 
             if (InputManager.Instance != null)
             {
-                InputManager.Instance.OnLookPressed += OnMonsterMove;
-                InputManager.Instance.OnButton0Pressed += OnMonsterTyphoon;
+                InputManager.Instance.OnMoveMonsterTempPressed += OnMonsterMove;
+                InputManager.Instance.OnTyphonPressed += OnMonsterTyphoon;
             }
         }
 
@@ -53,8 +53,8 @@ namespace AltCtrl.Charybdis
         {
             if (InputManager.Instance != null)
             {
-                InputManager.Instance.OnLookPressed -= OnMonsterMove;
-                InputManager.Instance.OnButton0Pressed -= OnMonsterTyphoon;
+                InputManager.Instance.OnMoveMonsterTempPressed -= OnMonsterMove;
+                InputManager.Instance.OnTyphonPressed -= OnMonsterTyphoon;
             }
         }
 
