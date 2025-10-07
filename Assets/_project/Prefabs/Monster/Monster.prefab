@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2984706738746621515}
   m_Layer: 0
   m_Name: Monster
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,8 +140,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 15
   _smoothTime: 0.1
+  _typhoonCantMoveTime: 1
+  _typhoonCooldown: 5
   objectWidth: 0.5
   objectHeight: 0.5
+  _monsterTyphoon: {fileID: 0}
 --- !u!50 &2984706738746621515
 Rigidbody2D:
   serializedVersion: 5
