@@ -1,3 +1,4 @@
+using System;
 using System.IO.Ports;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace AltCtrl.Charybdis
         private SerialPort _arduino;
         [SerializeField] private string _portName = "COM3"; 
         [SerializeField] private int _baudRate = 9600;
+
+        public event Action<int> OnRotator1Move;
         // ----- FIELDS ----- //
 
         void Start()
@@ -30,7 +33,8 @@ namespace AltCtrl.Charybdis
                 {
                     string message = _arduino.ReadLine();
                     int direction = int.Parse(message);
-                    Debug.Log("Direction: " + direction);
+                    OnRotator1Move?.Invoke(direction);
+                    //Debug.Log("Direction: " + direction);
                 }
                 catch (System.Exception)
                 {

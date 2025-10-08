@@ -2162,6 +2162,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1133582490482657222, guid: 33cf4bddf44448645913fb0a7568d8a5, type: 3}
+      propertyPath: _arduinoReader
+      value: 
+      objectReference: {fileID: 3362082149334409019}
     - target: {fileID: 7748705622756511594, guid: 33cf4bddf44448645913fb0a7568d8a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2231,8 +2235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3783c196ff5aed44f8f5dcb84e304886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portName: COM3
-  baudRate: 9600
+  _portName: COM3
+  _baudRate: 9600
 --- !u!1001 &4141468261372223906
 PrefabInstance:
   m_ObjectHideFlags: 0
