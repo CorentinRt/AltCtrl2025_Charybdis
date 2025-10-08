@@ -1,14 +1,9 @@
 using DG.Tweening;
 using NaughtyAttributes;
-using NUnit.Framework;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using TMPro;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace AltCtrl.Charybdis
 {
