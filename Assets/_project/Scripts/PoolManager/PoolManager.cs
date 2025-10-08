@@ -118,6 +118,8 @@ namespace AltCtrl.Charybdis
                 _audioSourceComponents.Add(audioSource);
             }
 
+            //Debug.Log(audioSource);
+
             return audioSource;
         }
 
