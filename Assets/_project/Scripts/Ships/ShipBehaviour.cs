@@ -257,7 +257,15 @@ namespace AltCtrl.Charybdis
                 _currentGouvernailInput = Mathf.Lerp(_currentGouvernailInput, 0f, Time.fixedDeltaTime * _data.DecelerationForce);
             }
 
-            _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, -_data.MaxRotateSpeed, _data.MaxRotateSpeed);
+            
+            if (_affectedByStorm)
+            {
+                _currentGouvernailInput += Time.fixedDeltaTime * _currentStormModifier;
+            }
+            else
+            {
+                _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, -_data.MaxRotateSpeed, _data.MaxRotateSpeed);
+            }
 
             _rb.angularVelocity = -_currentGouvernailInput;
         }
