@@ -278,7 +278,7 @@ namespace AltCtrl.Charybdis
 
             if (deltaInputHorizontal != 0f)
             {
-                _currentGouvernailInput += deltaInputHorizontal * Time.fixedDeltaTime * _data.RotateSpeed;
+                _currentGouvernailInput = deltaInputHorizontal * Time.fixedDeltaTime * _data.RotateSpeed;
             }
             else
             {
