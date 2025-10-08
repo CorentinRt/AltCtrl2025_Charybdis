@@ -1,3 +1,4 @@
+using AltCtrl.Charybdis;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,9 @@ public class InputManager : MonoBehaviour
    // ----- FIELDS ----- //
    public static InputManager Instance;
 
+    [Header("References")]
+    [SerializeField] private ArduinoReader _arduinoReader;
+
     public event Action<Vector2> OnMoveMonsterPressed;
     public event Action<Vector2> OnMoveMonsterTempPressed;
     public event Action<Vector2> OnMoveTurboPressed;
@@ -15,6 +19,8 @@ public class InputManager : MonoBehaviour
     public event Action<bool> OnTotem2Pressed;
     public event Action<bool> OnTotem3Pressed;
     public event Action<bool> OnTyphonPressed;
+
+    public event Action<int> OnMoveShipRotatorPressed;
     // ----- FIELDS ----- //
 
     private void Awake()
@@ -22,6 +28,30 @@ public class InputManager : MonoBehaviour
         if (Instance != null) Destroy(this.gameObject);
         Instance = this;
     }
+
+    private void Start()
+    {
+        if (_arduinoReader != null)
+        {
+            _arduinoReader.OnRotator1Move += MoveShipRotatorPressed;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_arduinoReader != null)
+        {
+            _arduinoReader.OnRotator1Move -= MoveShipRotatorPressed;
+        }
+    }
+
+    #region Arduino
+    public void MoveShipRotatorPressed(int direction)
+    {
+        //Debug.Log($"Move ship in direction {direction}");
+        OnMoveShipRotatorPressed?.Invoke(direction);
+    }
+    #endregion
 
     #region Joysticks
     public void MoveMonsterPressed(InputAction.CallbackContext context)
