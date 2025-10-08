@@ -29,7 +29,6 @@ public class InputManager : MonoBehaviour
         if (context.performed || context.canceled)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
-            Debug.Log(moveDirection);
             OnMoveMonsterPressed?.Invoke(moveDirection);
         }
     }

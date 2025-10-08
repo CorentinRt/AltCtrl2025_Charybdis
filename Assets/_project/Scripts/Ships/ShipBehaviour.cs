@@ -22,6 +22,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private GameObject _explosionIndicator;
         [SerializeField] private GameObject _validateIndicator;
         [SerializeField] private GameObject _stormIndicator;
+        [SerializeField] private GameObject _inTyphonIndicator;
 
         [Space]
 
@@ -41,36 +42,42 @@ namespace AltCtrl.Charybdis
         [SerializeField] private TextMeshProUGUI _frequencyLabel;
         [SerializeField] private Transform _frequencyHolder;
 
+        // Move Rotate
         private Vector3[] _trajectoryPointsBuffer;
 
         private float _currentGouvernailInput;
+        private bool _moveTurboPressed;
 
         private float _autoGouvernailValue;
         private float _autoSpeed;
 
-        private bool _isDestroyed;
-
+        // Wind
         private bool _affectedByWind;
         private Vector3 _windDirModifier;
 
+        // Storm
         private bool _affectedByStorm;
         private float _currentStormModifier;
         private float _currentCooldownNewStormModifier;
         private float _cooldownNewStormModifier;
 
+        // Destroy / Validate
         private Coroutine _destroyShipWithDelayCoroutine;
-
-        private (int, int) _associatedFrequency;
-
-        private bool _moveTurboPressed;
-
-        private Vector3 _screenBounds;
-
-        private bool _isInsideBound;
-
+        private Coroutine _validateShipWithDelayCoroutine;
+        private bool _isDestroyed;
         private bool _isValidated;
 
-        private Coroutine _validateShipWithDelayCoroutine;
+        // Frequency
+        private (int, int) _associatedFrequency;
+
+        // Bounds
+        private Vector3 _screenBounds;
+        private bool _isInsideBound;
+
+
+        // typhon
+        private bool _affectedByTyphon;
+        private Vector3 _typhonCenter;
         #endregion
 
 
@@ -131,6 +138,8 @@ namespace AltCtrl.Charybdis
             _currentGouvernailInput = UnityEngine.Random.Range(-_data.MaxAutoRotateSpeed, _data.MaxAutoRotateSpeed);
 
             _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
+
+            _rb.linearVelocity = transform.up * _autoSpeed;
         }
 
         private void OnDestroy()
@@ -179,6 +188,11 @@ namespace AltCtrl.Charybdis
                 Move();
                 Rotate();
             }
+
+            if (_affectedByTyphon)
+            {
+                FixedUpdateTyphonEffect();
+            }
         }
 
         private void OnMoveTurboPressed(Vector2 value)
@@ -216,7 +230,7 @@ namespace AltCtrl.Charybdis
 
             Vector3 tempVelocity = _rb.linearVelocity;
 
-            tempVelocity += transform.up * Time.fixedDeltaTime * _data.Acceleration;
+            tempVelocity += transform.up * Time.fixedDeltaTime * _autoSpeed;
 
 
             if (tempVelocity.magnitude * deltaInputVertical < _data.MinSpeed)
@@ -236,6 +250,8 @@ namespace AltCtrl.Charybdis
 
         private void MoveAuto()
         {
+
+            _rb.linearVelocity = Vector3.zero;
             _rb.linearVelocity = transform.up * _autoSpeed;
 
             if (_affectedByWind)
@@ -278,7 +294,10 @@ namespace AltCtrl.Charybdis
             }
             else
             {
-                _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, _data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+                if (!_affectedByTyphon)
+                {
+                    _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, _data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+                }
             }
 
             _rb.angularVelocity = -_currentGouvernailInput;
@@ -500,6 +519,45 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
+        #region Typhon
+        public void SetAffectedByTyphon(bool affected, Vector3 typhonPos)
+        {
+            _affectedByTyphon = affected;
+
+            _inTyphonIndicator.SetActive(affected);
+
+            _typhonCenter = typhonPos;
+
+            if (!affected)
+            {
+                _currentGouvernailInput = 0f;
+            }
+        }
+
+        private void FixedUpdateTyphonEffect()
+        {
+            if (!_affectedByTyphon || _isValidated || _isDestroyed)
+                return;
+
+            Vector2 dirToCenter = (_typhonCenter - transform.position);
+            float distance = dirToCenter.magnitude;
+
+            if (distance < 0.5f)
+            {
+                DestroyShip();
+                return;
+            }
+
+            dirToCenter.Normalize();
+
+            float cross = transform.up.x * dirToCenter.y - transform.up.y * dirToCenter.x;
+
+            _currentGouvernailInput += Time.fixedDeltaTime * -cross * _data.TyphonAttractionForce;
+        }
+
+
+
+        #endregion
 
         private void OnCollisionEnter2D(Collision2D collision)
         {

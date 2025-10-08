@@ -31,6 +31,9 @@ namespace AltCtrl.Charybdis
 
         [SerializeField] private float _minStormModifier;
         [SerializeField] private float _maxStormModifier;
+
+        [Header("Typhon")]
+        [SerializeField] private float _typhonAttractionForce = 70f;
         #endregion
 
         #region Properties
@@ -54,6 +57,8 @@ namespace AltCtrl.Charybdis
 
         public float MinStormModifier => _minStormModifier;
         public float MaxStormModifier => _maxStormModifier;
+
+        public float TyphonAttractionForce => _typhonAttractionForce;
 
         #endregion
 
