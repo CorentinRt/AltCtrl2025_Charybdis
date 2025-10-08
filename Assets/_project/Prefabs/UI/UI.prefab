@@ -183,18 +183,6 @@ PrefabInstance:
       value: UI_Victory
       objectReference: {fileID: 0}
     - target: {fileID: 7847940102012819252, guid: ee6fbf13c062e674898d5b6167b210ed, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.9532132
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847940102012819252, guid: ee6fbf13c062e674898d5b6167b210ed, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.53509444
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847940102012819252, guid: ee6fbf13c062e674898d5b6167b210ed, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.022869412
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847940102012819252, guid: ee6fbf13c062e674898d5b6167b210ed, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}

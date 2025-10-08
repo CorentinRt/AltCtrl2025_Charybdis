@@ -371,11 +371,6 @@ namespace AltCtrl.Charybdis
 
             _visualAnchor.DOLocalRotate(new Vector3(0f, 0f, 720f), _data.DestroyDelay * 0.9f, RotateMode.FastBeyond360);
             
-            if (ShipsManager.Exist)
-            {
-                ShipsManager.Instance.RemoveShip(this);
-            }
-
             _explosionIndicator.SetActive(true);
             _frequencyLabel.gameObject.SetActive(false);
             _trajectoryLine.gameObject.SetActive(false);
@@ -384,8 +379,14 @@ namespace AltCtrl.Charybdis
             {
                 OnShipDestroyed?.Invoke(this);
 
+                if (ShipsManager.Exist)
+                {
+                    ShipsManager.Instance.RemoveShip(this);
+                }
+
                 _destroyShipWithDelayCoroutine = StartCoroutine(DestroyShipWithDelayCoroutine());
             }
+
         }
 
         private void EndDestroyShipWithDelay()
@@ -442,19 +443,20 @@ namespace AltCtrl.Charybdis
 
             _isValidated = true;
 
-            if (ShipsManager.Exist)
-            {
-                ShipsManager.Instance.RemoveShip(this);
-            }
-
             _validateIndicator.SetActive(true);
 
             if (_validateShipWithDelayCoroutine == null)
             {
                 OnShipValidated?.Invoke(this);
 
+                if (ShipsManager.Exist)
+                {
+                    ShipsManager.Instance.RemoveShip(this);
+                }
+
                 _validateShipWithDelayCoroutine = StartCoroutine(ValidateShipWithDelayCoroutine());
             }
+
         }
 
         private void EndValidateShipWithDelay()

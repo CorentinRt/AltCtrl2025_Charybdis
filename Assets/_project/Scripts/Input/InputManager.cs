@@ -51,13 +51,13 @@ public class InputManager : MonoBehaviour
     #region Arduino
     public void MoveShipRotatorPressed(int direction)
     {
-        Debug.Log($"Move ship in direction {direction}");
+        //Debug.Log($"Move ship in direction {direction}");
         OnMoveShipRotatorPressed?.Invoke(direction);
     }
 
     public void MoveRadioRotatorPressed(int direction)
     {
-        Debug.Log($"Move radio in direction {direction}");
+        //Debug.Log($"Move radio in direction {direction}");
         OnMoveRadioRotatorPressed?.Invoke(direction);
     }
     #endregion

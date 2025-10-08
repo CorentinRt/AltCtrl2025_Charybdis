@@ -26,8 +26,9 @@ namespace AltCtrl.Charybdis
 
             SetupSlider();
 
-            if (ShipsManager.Instance != null)
+            if (ShipsManager.Exist)
             {
+                Debug.Log("Bind victory events", this);
                 ShipsManager.Instance.OnDestroyShip += AddGodScoreOnDestroyShip;
                 ShipsManager.Instance.OnValidateShip += AddHumanScoreOnDestroyShip;
             }
@@ -37,7 +38,7 @@ namespace AltCtrl.Charybdis
         {
             if (_victorySlider == null) return;
 
-            if (ShipsManager.Instance != null)
+            if (ShipsManager.Exist)
             {
                 ShipsManager.Instance.OnDestroyShip -= AddGodScoreOnDestroyShip;
                 ShipsManager.Instance.OnValidateShip -= AddHumanScoreOnDestroyShip;

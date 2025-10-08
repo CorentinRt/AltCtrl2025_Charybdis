@@ -131,10 +131,6 @@ PrefabInstance:
       propertyPath: _portName
       value: COM3
       objectReference: {fileID: 0}
-    - target: {fileID: 2331364974966538694, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: _radioInputCooldown
-      value: 0.07
-      objectReference: {fileID: 0}
     - target: {fileID: 2339606751654585059, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -154,6 +150,10 @@ PrefabInstance:
     - target: {fileID: 3742828705125423112, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751567457981110902, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: m_MaxValue
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5527571011718250371, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_LocalPosition.x
