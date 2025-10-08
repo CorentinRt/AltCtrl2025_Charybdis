@@ -152,8 +152,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3751567457981110902, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: m_MaxValue
-      value: 100
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5527571011718250371, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_LocalPosition.x

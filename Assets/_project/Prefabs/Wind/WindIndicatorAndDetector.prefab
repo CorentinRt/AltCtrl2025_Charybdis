@@ -48,11 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a276522e24cb8514e8bdbd6cb0e71941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _source: {fileID: 8151443429481934271}
-  _detector: {fileID: 3158803636960810346}
   _loudnessSensibility: 100
   _loudnessTreshold: 0.1
+  _maxLoudness: 50
   _updateTime: 0.25
+  _source: {fileID: 8151443429481934271}
+  _detector: {fileID: 3158803636960810346}
+  _slider: {fileID: 0}
 --- !u!114 &3158803636960810346
 MonoBehaviour:
   m_ObjectHideFlags: 0

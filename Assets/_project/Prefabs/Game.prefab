@@ -676,6 +676,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3942024227133561643 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2044088504355191328, guid: cbaeadf50a52b6d41a3a32f2d74b2cc2, type: 3}
+  m_PrefabInstance: {fileID: 3092545280731209995}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4344293545902890620 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1630560878008680311, guid: cbaeadf50a52b6d41a3a32f2d74b2cc2, type: 3}
@@ -824,6 +835,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4647602504391851185, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: _slider
+      value: 
+      objectReference: {fileID: 3942024227133561643}
     - target: {fileID: 6427156384872047294, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
       propertyPath: _victorySlider
       value: 
