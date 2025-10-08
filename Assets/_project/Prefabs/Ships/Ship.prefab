@@ -320,9 +320,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2979703847078876011}
   - component: {fileID: 6881633907653200777}
+  - component: {fileID: 4072644590628111926}
   m_Layer: 0
   m_Name: Circle_Collider
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -378,6 +379,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &4072644590628111926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4332422867204474611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea99588bc678d0429dbb64f7b1fd668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _associatedShip: {fileID: 7661433361847865183}
 --- !u!1 &4945549071248948642
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,11 +11,10 @@ namespace AltCtrl.Charybdis
             if (collision == null || collision.gameObject == null)
                 return;
 
-            Debug.Log($"Object name : {collision.gameObject.name}", collision.gameObject);
-
             if (collision.gameObject.CompareTag("Ship"))
             {
-                collision.gameObject.GetComponent<ShipBehaviour>().SetAffectedByStorm(true);
+                Debug.Log($"Ship name = {collision.gameObject.name}", collision.gameObject);
+                collision.gameObject.GetComponent<IShipBehaviour>().GetShip().SetAffectedByStorm(true);
             }
         }
 
@@ -26,7 +25,7 @@ namespace AltCtrl.Charybdis
 
             if (collision.gameObject.CompareTag("Ship"))
             {
-                collision.gameObject.GetComponent<ShipBehaviour>().SetAffectedByStorm(false);
+                collision.gameObject.GetComponent<IShipBehaviour>().GetShip().SetAffectedByStorm(false);
             }
         }
     }

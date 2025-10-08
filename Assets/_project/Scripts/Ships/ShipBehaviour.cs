@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 
 namespace AltCtrl.Charybdis
 {
-    public class ShipBehaviour : MonoBehaviour
+    public class ShipBehaviour : MonoBehaviour, IShipBehaviour
     {
         #region Fields
         [Header("Components")]
@@ -472,7 +472,9 @@ namespace AltCtrl.Charybdis
 
             _cooldownNewStormModifier = UnityEngine.Random.Range(_data.MinCooldownBeforeChangeStormModifier, _data.MaxCooldownBeforeChangeStormModifier);
 
-            _currentStormModifier = UnityEngine.Random.Range(_data.MinStormModifier, _data.MaxStormModifier);
+            _currentStormModifier = UnityEngine.Random.Range(_data.MinStormModifier, _data.MaxStormModifier) * Mathf.Sign(-_currentStormModifier);
+
+            _currentGouvernailInput = -_currentGouvernailInput;
         }
 
         private void UpdateStormEffect()
@@ -505,5 +507,12 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        #region IShipBehaviour
+        public ShipBehaviour GetShip()
+        {
+            return this;
+        }
+
+        #endregion
     }
 }

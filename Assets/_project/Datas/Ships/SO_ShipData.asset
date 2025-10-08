@@ -18,12 +18,12 @@ MonoBehaviour:
   _rotateSpeed: 60
   _maxRotateSpeed: 45
   _decelerationForce: 5
-  _minAutoSpeed: 1.5
-  _maxAutoSpeed: 2.5
+  _minAutoSpeed: 1
+  _maxAutoSpeed: 2
   _minAutoRotateSpeed: -10
   _maxAutoRotateSpeed: 10
   _destroyDelay: 0.7
-  _minCooldownBeforeChangeStormModifier: 1
-  _maxCooldownBeforeChangeStormModifier: 3
-  _minStormModifier: 90
-  _maxStormModifier: 160
+  _minCooldownBeforeChangeStormModifier: 0.5
+  _maxCooldownBeforeChangeStormModifier: 1
+  _minStormModifier: 40
+  _maxStormModifier: 100
