@@ -23,3 +23,7 @@ MonoBehaviour:
   _minAutoRotateSpeed: -10
   _maxAutoRotateSpeed: 10
   _destroyDelay: 0.7
+  _minCooldownBeforeChangeStormModifier: 1
+  _maxCooldownBeforeChangeStormModifier: 3
+  _minStormModifier: 90
+  _maxStormModifier: 160

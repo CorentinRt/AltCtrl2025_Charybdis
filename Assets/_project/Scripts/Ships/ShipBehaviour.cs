@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace AltCtrl.Charybdis
 
         [SerializeField] private GameObject _explosionIndicator;
         [SerializeField] private GameObject _validateIndicator;
+        [SerializeField] private GameObject _stormIndicator;
 
         [Space]
 
@@ -50,6 +52,11 @@ namespace AltCtrl.Charybdis
 
         private bool _affectedByWind;
         private Vector3 _windDirModifier;
+
+        private bool _affectedByStorm;
+        private float _currentStormModifier;
+        private float _currentCooldownNewStormModifier;
+        private float _cooldownNewStormModifier;
 
         private Coroutine _destroyShipWithDelayCoroutine;
 
@@ -153,6 +160,8 @@ namespace AltCtrl.Charybdis
             CheckValidateShip();
 
             _frequencyHolder.transform.rotation = Quaternion.identity;
+
+            UpdateStormEffect();
         }
 
         private void FixedUpdate()
@@ -255,7 +264,14 @@ namespace AltCtrl.Charybdis
 
         private void RotateAuto()
         {
-            _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, _data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+            if (_affectedByStorm)
+            {
+                _currentGouvernailInput += Time.fixedDeltaTime * _currentStormModifier;
+            }
+            else
+            {
+                _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, _data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+            }
 
             _rb.angularVelocity = -_currentGouvernailInput;
         }
@@ -356,6 +372,7 @@ namespace AltCtrl.Charybdis
         #endregion
 
         #region Validate Ship
+        [Button]
         private void CheckValidateShip()
         {
             if (_isValidated || _isDestroyed)
@@ -434,6 +451,43 @@ namespace AltCtrl.Charybdis
             _affectedByWind = false;
             _windDirModifier = Vector3.zero;
         }
+        #endregion
+
+        #region Storm
+        public void SetAffectedByStorm(bool affected)
+        {
+            _affectedByStorm = affected;
+
+            _stormIndicator.SetActive(affected);
+
+            if (_affectedByStorm)
+            {
+                SetNewRandomStormModifier();
+            }
+        }
+
+        private void SetNewRandomStormModifier()
+        {
+            _currentCooldownNewStormModifier = 0f;
+
+            _cooldownNewStormModifier = UnityEngine.Random.Range(_data.MinCooldownBeforeChangeStormModifier, _data.MaxCooldownBeforeChangeStormModifier);
+
+            _currentStormModifier = UnityEngine.Random.Range(_data.MinStormModifier, _data.MaxStormModifier);
+        }
+
+        private void UpdateStormEffect()
+        {
+            if (!_affectedByStorm)
+                return;
+
+            _currentCooldownNewStormModifier += Time.deltaTime;
+
+            if (_currentCooldownNewStormModifier >= _cooldownNewStormModifier)
+            {
+                SetNewRandomStormModifier();
+            }
+        }
+
         #endregion
 
 
