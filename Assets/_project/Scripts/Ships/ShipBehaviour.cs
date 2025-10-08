@@ -73,6 +73,9 @@ namespace AltCtrl.Charybdis
         // typhon
         private bool _affectedByTyphon;
         private Vector3 _typhonCenter;
+
+        // Gouvernail
+        private int _currentGouvernailAmplitude;
         #endregion
 
 
@@ -108,6 +111,8 @@ namespace AltCtrl.Charybdis
             if (InputManager.Instance != null)
             {
                 InputManager.Instance.OnMoveTurboPressed += OnMoveTurboPressed;
+
+                InputManager.Instance.OnMoveShipRotatorPressed += OnMoveShipRotateInput;
             }
 
             if (RadioManager.Exist)
@@ -148,6 +153,8 @@ namespace AltCtrl.Charybdis
             if (InputManager.Instance != null)
             {
                 InputManager.Instance.OnMoveTurboPressed -= OnMoveTurboPressed;
+
+                InputManager.Instance.OnMoveShipRotatorPressed -= OnMoveShipRotateInput;
             }
 
             if (RadioManager.Exist)
@@ -157,6 +164,13 @@ namespace AltCtrl.Charybdis
                     RadioManager.Instance.RemoveFrequencyUsed(_associatedFrequency);
                 }
             }
+        }
+
+        private void OnMoveShipRotateInput(int dir)
+        {
+            _currentGouvernailAmplitude += dir;
+
+            _currentGouvernailAmplitude = Mathf.Clamp(_currentGouvernailAmplitude, -_data.GouvernailMaxAmplitude, _data.GouvernailMaxAmplitude);
         }
 
         private void Update()
@@ -207,6 +221,8 @@ namespace AltCtrl.Charybdis
             _isAuto = !controlled;
 
             _controlledIndicator.SetActive(controlled);
+
+            _currentGouvernailAmplitude = 0;
         }
 
         #region Movements
@@ -257,7 +273,8 @@ namespace AltCtrl.Charybdis
 
         private void Rotate()
         {
-            float deltaInputHorizontal = Input.mousePositionDelta.x;
+            float percentGouvernail = (float)_currentGouvernailAmplitude / (float)_data.GouvernailMaxAmplitude;
+            float deltaInputHorizontal = percentGouvernail;
 
             if (deltaInputHorizontal != 0f)
             {

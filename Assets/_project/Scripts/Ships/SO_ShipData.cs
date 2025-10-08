@@ -34,6 +34,9 @@ namespace AltCtrl.Charybdis
 
         [Header("Typhon")]
         [SerializeField] private float _typhonAttractionForce = 70f;
+
+        [Header("Gouvernail")]
+        [SerializeField] private int _gouvernailMaxAmplitude = 20;
         #endregion
 
         #region Properties
@@ -60,6 +63,7 @@ namespace AltCtrl.Charybdis
 
         public float TyphonAttractionForce => _typhonAttractionForce;
 
+        public int GouvernailMaxAmplitude => _gouvernailMaxAmplitude;
         #endregion
 
     }

@@ -127,9 +127,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 819137420177436991, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: _portName
+      value: COM3
+      objectReference: {fileID: 0}
     - target: {fileID: 2339606751654585059, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939954652333781005, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 71.36987
       objectReference: {fileID: 0}
     - target: {fileID: 3435289947024658862, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_Name
