@@ -203,5 +203,15 @@ namespace AltCtrl.Charybdis
             _currentControlledShip.SetAutoValue(true);
 
         }
+
+        public bool CheckShipWithFrequencyExist((int, int) frequency)
+        {
+            if (!_frequencyToShip.ContainsKey(frequency) || _frequencyToShip[frequency] == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

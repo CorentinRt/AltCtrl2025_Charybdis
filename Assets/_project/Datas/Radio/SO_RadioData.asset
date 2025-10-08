@@ -16,4 +16,5 @@ MonoBehaviour:
   _mainFrequencyMax: 110
   _externalFrequencyMin: 0
   _externalFrequencyMax: 9
-  _timeToHoldIfNoShipControlled: 0.05
+  _timeToHoldIfNoShipControlled: 0.03
+  _timeToHoldIfHasShipControlled: 0.2
