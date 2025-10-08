@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 51c5c083579c12143afd0495bb749953
+guid: f087f437840a5134c840e44b5155082c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8279979103427406983
-    second: ShipSprite2 Right_0
+      213: 32665089532985896
+    second: ShipSprite3 LowerPart_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ShipSprite2 Right_0
+      name: ShipSprite3 LowerPart_0
       rect:
         serializedVersion: 2
-        x: 1095
-        y: 147
-        width: 447
-        height: 1634
+        x: 704
+        y: 66
+        width: 638
+        height: 753
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 78ca277102568e270800000000000000
-      internalID: 8279979103427406983
+      spriteID: 8228b22d9bc047000800000000000000
+      internalID: 32665089532985896
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ShipSprite2 Right_0: 8279979103427406983
+      ShipSprite3 LowerPart_0: 32665089532985896
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
