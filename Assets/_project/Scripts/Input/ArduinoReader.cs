@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading;
@@ -16,8 +18,9 @@ namespace AltCtrl.Charybdis
 
         private readonly ConcurrentQueue<string> _messageQueue = new();
 
-        [SerializeField] private string _portName = "COM3";
+        [SerializeField] private List<string> _possiblePortNames = new List<string>();
         [SerializeField] private int _baudRate = 9600;
+        private string _portName = "COM3";
 
         public event Action<int> OnRotator1Move;
         public event Action<int> OnRotator2Move;
@@ -27,9 +30,23 @@ namespace AltCtrl.Charybdis
         {
             try
             {
-                if (!SerialPort.GetPortNames().Contains(_portName))
+                var availablePorts = SerialPort.GetPortNames();
+                bool portFound = false;
+
+                foreach (string possiblePort in _possiblePortNames)
                 {
-                    Debug.LogError($"Le port série '{_portName}' n'existe pas.");
+                    if (availablePorts.Contains(possiblePort))
+                    {
+                        _portName = possiblePort;
+                        portFound = true;
+                        Debug.Log($"Port valide trouvé et assigné : {_portName}");
+                        break;
+                    }
+                }
+
+                if (!portFound)
+                {
+                    Debug.LogError("Aucun port valide trouvé parmi ceux listés dans _possiblePortNames.");
                     return;
                 }
 
@@ -48,13 +65,15 @@ namespace AltCtrl.Charybdis
                 };
                 _readThread.Start();
 
-                Debug.Log("Connexion à l'Arduino réussie.");
+                Debug.Log($"Connexion à l'Arduino réussie sur {_portName}.");
             }
             catch (Exception e)
             {
                 Debug.LogError("Erreur d'initialisation Arduino : " + e.Message);
             }
         }
+
+
 
         private void ReadSerial()
         {
