@@ -8,14 +8,16 @@ namespace AltCtrl.Charybdis
     {
         // ----- FIELDS ----- //
         [Header("Values")]
-        [SerializeField] private float _sliderMaxValue = 10f;
+        [SerializeField] private float _sliderMaxValue = 20f;
         [SerializeField] private float _addGodScoreOnDestroyShip = 1;
         [SerializeField] private float _addHumanScoreOnLeaveShip = 1;
+        [SerializeField] private float _add1MultiplierEachTime = 10f;
+
+        private float _currentMultiplier = 1f;
+        private float _currentWaitTime = 0f;
 
         [Header("References")]
         [SerializeField] private Slider _victorySlider; // HUMAN 0 - GOD MAX
-
-        // TODO : + de score en fonction du temps qui passe
         // ----- FIELDS ----- //
 
         private void Start()
@@ -42,6 +44,17 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        private void Update()
+        {
+            _currentWaitTime += Time.deltaTime;
+
+            if (_currentWaitTime > _add1MultiplierEachTime)
+            {
+                _currentMultiplier++;
+                _currentWaitTime = 0f;
+            }
+        }
+
         private void SetupSlider()
         {
             _victorySlider.maxValue = _sliderMaxValue;
@@ -50,7 +63,7 @@ namespace AltCtrl.Charybdis
 
         private void AddGodScoreOnDestroyShip()
         {
-            _victorySlider.value += _addGodScoreOnDestroyShip;
+            _victorySlider.value += _addGodScoreOnDestroyShip * _currentMultiplier;
 
             _victorySlider.value = Mathf.Clamp(_victorySlider.value, 0, _sliderMaxValue);
 
@@ -59,7 +72,7 @@ namespace AltCtrl.Charybdis
 
         private void AddHumanScoreOnDestroyShip()
         {
-            _victorySlider.value -= _addHumanScoreOnLeaveShip;
+            _victorySlider.value -= _addHumanScoreOnLeaveShip * _currentMultiplier;
 
             _victorySlider.value = Mathf.Clamp(_victorySlider.value, 0, _sliderMaxValue);
 
