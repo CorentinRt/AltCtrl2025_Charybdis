@@ -6,40 +6,60 @@ namespace AltCtrl.Charybdis
 {
     public class ArduinoReader : MonoBehaviour
     {
-        // ----- FIELDS ----- //
         private SerialPort _arduino;
-        [SerializeField] private string _portName = "COM3"; 
+        [SerializeField] private string _portName = "COM3";
         [SerializeField] private int _baudRate = 9600;
 
         public event Action<int> OnRotator1Move;
-        // ----- FIELDS ----- //
+        public event Action<int> OnRotator2Move;
 
         void Start()
         {
             _arduino = new SerialPort(_portName, _baudRate);
-            if (_arduino == null) return;
-
-            _arduino.Open();
-            _arduino.ReadTimeout = 50;  
+            try
+            {
+                _arduino.Open();
+                _arduino.ReadTimeout = 50;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Impossible d'ouvrir le port Arduino : " + e.Message);
+            }
         }
 
         void Update()
         {
-            if (_arduino == null) return;
+            if (_arduino == null || !_arduino.IsOpen) return;
 
-            if (_arduino.IsOpen)
+            try
             {
-                try
+                string message = _arduino.ReadLine();
+
+                // Exemple de message : "Encodeur 1: 1"
+                if (message.StartsWith("Encodeur 1:"))
                 {
-                    string message = _arduino.ReadLine();
-                    int direction = int.Parse(message);
-                    OnRotator1Move?.Invoke(direction);
-                    //Debug.Log("Direction: " + direction);
+                    string valueStr = message.Replace("Encodeur 1:", "").Trim();
+                    if (int.TryParse(valueStr, out int dir))
+                        OnRotator1Move?.Invoke(dir);
                 }
-                catch (System.Exception)
+                else if (message.StartsWith("Encodeur 2:"))
                 {
-                    // Ignore timeout
+                    string valueStr = message.Replace("Encodeur 2:", "").Trim();
+                    if (int.TryParse(valueStr, out int dir))
+                        OnRotator2Move?.Invoke(dir);
                 }
+                else if (message.Contains("Bouton Encodeur 1"))
+                {
+                    Debug.Log("Bouton Encodeur 1 pressé");
+                }
+                else if (message.Contains("Bouton Encodeur 2"))
+                {
+                    Debug.Log("Bouton Encodeur 2 pressé");
+                }
+            }
+            catch (TimeoutException)
+            {
+                // ignore
             }
         }
 
