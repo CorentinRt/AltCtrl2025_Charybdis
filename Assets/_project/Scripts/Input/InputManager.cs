@@ -21,6 +21,7 @@ public class InputManager : MonoBehaviour
     public event Action<bool> OnTyphonPressed;
 
     public event Action<int> OnMoveShipRotatorPressed;
+    public event Action<int> OnMoveRadioRotatorPressed;
     // ----- FIELDS ----- //
 
     private void Awake()
@@ -34,6 +35,7 @@ public class InputManager : MonoBehaviour
         if (_arduinoReader != null)
         {
             _arduinoReader.OnRotator1Move += MoveShipRotatorPressed;
+            _arduinoReader.OnRotator2Move += MoveRadioRotatorPressed;
         }
     }
 
@@ -42,14 +44,21 @@ public class InputManager : MonoBehaviour
         if (_arduinoReader != null)
         {
             _arduinoReader.OnRotator1Move -= MoveShipRotatorPressed;
+            _arduinoReader.OnRotator2Move -= MoveRadioRotatorPressed;
         }
     }
 
     #region Arduino
     public void MoveShipRotatorPressed(int direction)
     {
-        //Debug.Log($"Move ship in direction {direction}");
+        Debug.Log($"Move ship in direction {direction}");
         OnMoveShipRotatorPressed?.Invoke(direction);
+    }
+
+    public void MoveRadioRotatorPressed(int direction)
+    {
+        Debug.Log($"Move radio in direction {direction}");
+        OnMoveRadioRotatorPressed?.Invoke(direction);
     }
     #endregion
 
