@@ -13,7 +13,6 @@ namespace AltCtrl.Charybdis
 
             if (collision.gameObject.CompareTag("Ship"))
             {
-                Debug.Log($"Ship name = {collision.gameObject.name}", collision.gameObject);
                 collision.gameObject.GetComponent<IShipBehaviour>().GetShip().SetAffectedByStorm(true);
             }
         }
