@@ -34,7 +34,12 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null) Destroy(this.gameObject);
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
 
         if (transform.parent != null) transform.parent = null;
