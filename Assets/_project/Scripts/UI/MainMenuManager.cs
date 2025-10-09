@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Localization;
@@ -13,13 +14,18 @@ namespace AltCtrl.Charybdis
         // ----- FIELDS ----- //
         [Header("Language")]
         [SerializeField] private LocalizeStringEvent _languageLocalizeStringEvent;
+        private Coroutine _changeLanguageCouroutine;
 
         [Header("Microphone")]
         [SerializeField] private LocalizeStringEvent _microphoneLocalizeStringEvent;
+        private Coroutine _changeMicrophoneCouroutine;
 
         [Header("Volume")]
         [SerializeField] private Slider _volumeSlider;
         [SerializeField] private AudioMixer _audioMixer;
+
+        [Header("Values")]
+        [SerializeField] private float _showDebugTextsTime = 2f;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -70,6 +76,9 @@ namespace AltCtrl.Charybdis
             (localizedString["language"] as StringVariable).Value = currentLanguage;
 
             _languageLocalizeStringEvent.RefreshString();
+
+            if (_changeLanguageCouroutine != null) StopCoroutine(_changeLanguageCouroutine);
+            _changeLanguageCouroutine = StartCoroutine(ShowAndHideLanguage());
         }
 
         private void SetNextLanguage(bool pressed)
@@ -86,6 +95,14 @@ namespace AltCtrl.Charybdis
 
             UpdateLanguageTxt();
         }
+
+        private IEnumerator ShowAndHideLanguage()
+        {
+            yield return new WaitForSeconds(0.2f); // temps refresh string
+            _languageLocalizeStringEvent.gameObject.SetActive(true);
+            yield return new WaitForSeconds(_showDebugTextsTime);
+            _languageLocalizeStringEvent.gameObject.SetActive(false);
+        }
         #endregion
 
         #region Microphone
@@ -96,6 +113,9 @@ namespace AltCtrl.Charybdis
             (localizedString["micName"] as StringVariable).Value = InputManager.Instance.GetCurrentOrFirstMicrophone();
 
             _microphoneLocalizeStringEvent.RefreshString();
+
+            if (_changeMicrophoneCouroutine != null) StopCoroutine(_changeMicrophoneCouroutine);
+            _changeMicrophoneCouroutine = StartCoroutine(ShowAndHideMicrophone());
         }
 
         private void SetNextMicrophone(bool pressed)
@@ -104,6 +124,14 @@ namespace AltCtrl.Charybdis
 
             InputManager.Instance.SetNextMicrophone();
             UpdateMicrophoneTxt();
+        }
+
+        private IEnumerator ShowAndHideMicrophone()
+        {
+            yield return new WaitForSeconds(0.2f); // temps refresh string
+            _microphoneLocalizeStringEvent.gameObject.SetActive(true);
+            yield return new WaitForSeconds(_showDebugTextsTime);
+            _microphoneLocalizeStringEvent.gameObject.SetActive(false);
         }
         #endregion
 
