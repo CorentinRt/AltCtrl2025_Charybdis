@@ -117,7 +117,7 @@ namespace AltCtrl.Charybdis
 
         private void ResetValues()
         {
-            _isAuto = false;
+            _isAuto = true;
             _isInsideBound = false;
             _isDestroyed = false;
             _isValidated = false;
