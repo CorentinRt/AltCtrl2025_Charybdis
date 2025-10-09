@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-English (en)
   m_GUID: 05f225c823876d14bacaaa42372cc44f
   m_SerializeEntries:
+  - m_GUID: 895da3d2a92ba6340a087137326bcc4e
+    m_Address: UI_Victory_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b482cc6f2d575d4aa94b7d81293e0f9
     m_Address: GameLocalization_en
     m_ReadOnly: 1
