@@ -705,6 +705,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7847940102012819252}
+  - component: {fileID: 6542934747672882218}
   m_Layer: 0
   m_Name: UI_Victory
   m_TagString: Untagged
@@ -728,6 +729,21 @@ Transform:
   - {fileID: 2399412543091913236}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6542934747672882218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7209224001483811259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ee99bec4754554ebb6632fba57d06c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainContainerVictory: {fileID: 8154305980632712849}
+  _humanContainerVictory: {fileID: 2068714039434618474}
+  _godContainerVictory: {fileID: 2349625375425782977}
 --- !u!1 &7571921259338358627
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4335825988145961237}
   m_Layer: 0
-  m_Name: EndGame_Victory
+  m_Name: Main_Victory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

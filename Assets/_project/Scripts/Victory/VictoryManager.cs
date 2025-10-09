@@ -1,10 +1,12 @@
+using CREMOT.GameplayUtilities;
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace AltCtrl.Charybdis
 {
-    public class VictoryManager : MonoBehaviour
+    public class VictoryManager : GenericSingleton<VictoryManager>
     {
         // ----- FIELDS ----- //
         [Header("Values")]
@@ -16,9 +18,15 @@ namespace AltCtrl.Charybdis
         private float _currentMultiplier = 1f;
         private float _currentWaitTime = 0f;
 
+        private bool _hasWon;
+
         [Header("References")]
         [SerializeField] private Slider _victorySlider; // HUMAN 0 - GOD MAX
         // ----- FIELDS ----- //
+
+        public event Action OnGodVictory;
+        public event Action OnHumanVictory;
+
 
         private void Start()
         {
@@ -28,7 +36,6 @@ namespace AltCtrl.Charybdis
 
             if (ShipsManager.Exist)
             {
-                Debug.Log("Bind victory events", this);
                 ShipsManager.Instance.OnDestroyShip += AddGodScoreOnDestroyShip;
                 ShipsManager.Instance.OnValidateShip += AddHumanScoreOnDestroyShip;
             }
@@ -64,6 +71,9 @@ namespace AltCtrl.Charybdis
 
         private void AddGodScoreOnDestroyShip()
         {
+            if (_hasWon)
+                return;
+
             _victorySlider.value += _addGodScoreOnDestroyShip * _currentMultiplier;
 
             _victorySlider.value = Mathf.Clamp(_victorySlider.value, 0, _sliderMaxValue);
@@ -73,6 +83,9 @@ namespace AltCtrl.Charybdis
 
         private void AddHumanScoreOnDestroyShip()
         {
+            if (_hasWon)
+                return;
+
             _victorySlider.value -= _addHumanScoreOnLeaveShip * _currentMultiplier;
 
             _victorySlider.value = Mathf.Clamp(_victorySlider.value, 0, _sliderMaxValue);
@@ -82,13 +95,18 @@ namespace AltCtrl.Charybdis
 
         private void CheckVictory()
         {
+            if (_hasWon)
+                return;
+
             if (_victorySlider.value == _sliderMaxValue)
             {
-                Debug.Log("GOD VICTORY");
+                OnGodVictory?.Invoke();
+                _hasWon = true;
             }
-            else
+            else if (_victorySlider.value == 0f)
             {
-                Debug.Log("HUMAN VICTORY");
+                OnHumanVictory?.Invoke();
+                _hasWon = true;
             }
         }
     }
