@@ -10,6 +10,9 @@ namespace AltCtrl.Charybdis
     public class ShipBehaviour : MonoBehaviour, IShipBehaviour
     {
         #region Fields
+        [Header("Init")]
+        [SerializeField] private bool _autoInit;
+
         [Header("Components")]
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Transform _visualAnchor;
@@ -90,18 +93,13 @@ namespace AltCtrl.Charybdis
         public event Action<ShipBehaviour> OnShipValidated;
 
 
-        private void Awake()
-        {
-            _trajectoryPointsBuffer = new Vector3[_predictionSteps];
-        }
-
         private void Start()
         {
-            Init();
-        }
+            if (_autoInit)
+            {
+                Init();
+            }
 
-        private void Init()
-        {
             if (WindIndicator.Exist)
             {
                 WindIndicator.Instance.OnStartWindOnBoats += OnStartWind;
@@ -115,13 +113,62 @@ namespace AltCtrl.Charybdis
                 InputManager.Instance.OnMoveShipRotatorPressed += OnMoveShipRotateInput;
             }
 
+        }
+
+        private void ResetValues()
+        {
+            _isAuto = false;
+            _isInsideBound = false;
+            _isDestroyed = false;
+            _isValidated = false;
+            _affectedByStorm = false;
+            _affectedByTyphon = false;
+            _affectedByWind = false;
+
+            _currentStormModifier = 0f;
+            _currentCooldownNewStormModifier = 0f;
+            _cooldownNewStormModifier = 0f;
+
+            _currentGouvernailAmplitude = 0;
+
+            _autoGouvernailValue = 0f;
+            _autoSpeed = 0f;
+
+            _currentGouvernailInput = 0f;
+            _moveTurboPressed = false;
+
+            _associatedFrequency = (-1, -1);
+
+            _explosionIndicator.SetActive(false);
+            _validateIndicator.SetActive(false);
+            _stormIndicator.SetActive(false);
+            _inTyphonIndicator.SetActive(false);
+            _controlledIndicator.SetActive(false);
+
+            _trajectoryLine.positionCount = 0;
+
+            _trajectoryLine.gameObject.SetActive(true);
+
+            _frequencyLabel.gameObject.SetActive(true);
+
+            _rb.angularVelocity = 0f;
+            _rb.linearVelocity = Vector2.zero;
+        }
+
+        public void Init()
+        {
+            ResetValues();
+            
+            _trajectoryPointsBuffer = new Vector3[_predictionSteps];
+
             if (RadioManager.Exist)
             {
                 _associatedFrequency = RadioManager.Instance.GetNewAvailableFrequency();
 
                 if (_associatedFrequency == (-1, -1))
                 {
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
+                    ReactOnDestroyShip();
                     return;
                 }
 
@@ -156,7 +203,10 @@ namespace AltCtrl.Charybdis
 
                 InputManager.Instance.OnMoveShipRotatorPressed -= OnMoveShipRotateInput;
             }
+        }
 
+        private void ReactOnDestroyShip()
+        {
             if (RadioManager.Exist)
             {
                 if (_associatedFrequency != (-1, -1))
@@ -397,7 +447,8 @@ namespace AltCtrl.Charybdis
                 _destroyShipWithDelayCoroutine = null;
             }
 
-            Destroy(gameObject);
+            gameObject.SetActive(false);    // Set active false instead of destroy for pool manager
+            ReactOnDestroyShip();
         }
 
         private IEnumerator DestroyShipWithDelayCoroutine()
@@ -467,7 +518,8 @@ namespace AltCtrl.Charybdis
                 _validateShipWithDelayCoroutine = null;
             }
 
-            Destroy(gameObject);
+            gameObject.SetActive(false);    // Set active false instead of destroy for pool manager
+            ReactOnDestroyShip();
         }
 
         private IEnumerator ValidateShipWithDelayCoroutine()

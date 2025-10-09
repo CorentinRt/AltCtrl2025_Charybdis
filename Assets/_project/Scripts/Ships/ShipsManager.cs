@@ -184,7 +184,11 @@ namespace AltCtrl.Charybdis
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             Quaternion rot = Quaternion.Euler(0f, 0f, angle);
 
-            Instantiate(_shipPrefab, randomPos, rot);
+            if (PoolManager.Instance != null)
+            {
+                GameObject ship = PoolManager.Instance.ActivateShip(randomPos, rot, true);
+                ship.GetComponent<IShipBehaviour>().Init();
+            }
         }
 
         private void ReactOnDestroyShip(ShipBehaviour ship)
