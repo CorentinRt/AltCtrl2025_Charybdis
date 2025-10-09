@@ -1028,7 +1028,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7391779466701175025}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7565986378894958743}
+        m_TargetAssemblyTypeName: AltCtrl.Charybdis.MainMenuManager, AltCtrl.Charybdis
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8790082872849991894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,6 +1164,7 @@ MonoBehaviour:
   _microphoneLocalizeStringEvent: {fileID: 8148962560603444566}
   _volumeSlider: {fileID: 1136914803584541282}
   _audioMixer: {fileID: 24100000, guid: 0d0069bdf6852804d8ce8ef180058476, type: 2}
+  _showDebugTextsTime: 2
 --- !u!1 &9053500901905923928
 GameObject:
   m_ObjectHideFlags: 0
