@@ -25,6 +25,8 @@ namespace AltCtrl.Charybdis
 
         private float _canRadioInputCooldown;
 
+        private bool _inputEnable;
+
         #endregion
 
         #region Properties
@@ -72,6 +74,9 @@ namespace AltCtrl.Charybdis
 
         private void OnMoveRadioRotateInput(int dir)
         {
+            if (!_inputEnable)
+                return;
+
             if (_canRadioInputCooldown > 0f)
             {
                 return;
@@ -113,35 +118,6 @@ namespace AltCtrl.Charybdis
 
                 _pressedRadioInputThisFrame = false;
             }
-
-            /*
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                _currentTimeKeyPressed += Time.deltaTime;
-
-                if (_currentTimeKeyPressed >= _data.TimeToHoldIfNoShipControlled)
-                {
-                    _currentTimeKeyPressed = 0f;
-
-                    GoPreviousFrequency();
-                }
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                _currentTimeKeyPressed += Time.deltaTime;
-
-                if (_currentTimeKeyPressed >= _data.TimeToHoldIfNoShipControlled)
-                {
-                    _currentTimeKeyPressed = 0f;
-
-                    GoNextFrequency();
-                }
-            }
-            else
-            {
-                _currentTimeKeyPressed = 0f;
-            }
-            */
         }
 
         private void GoNextFrequency()
@@ -198,6 +174,11 @@ namespace AltCtrl.Charybdis
         public void RemoveFrequencyUsed((int, int) frequency)
         {
             _usedFrequencies.Remove(frequency);
+        }
+
+        public void SetEnableRadioInput(bool enable)
+        {
+            _inputEnable = enable;
         }
     }
 }

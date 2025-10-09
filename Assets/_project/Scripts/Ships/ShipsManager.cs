@@ -95,6 +95,8 @@ namespace AltCtrl.Charybdis
             if (ship == null)
                 return;
 
+            Debug.Log("Remove ship", this);
+
             _ships.Remove(ship);
 
             ship.OnShipDestroyed -= ReactOnDestroyShip;
@@ -188,6 +190,26 @@ namespace AltCtrl.Charybdis
             {
                 GameObject ship = PoolManager.Instance.ActivateShip(randomPos, rot, true);
                 ship.GetComponent<IShipBehaviour>().Init();
+            }
+        }
+
+        public void ValidateAllShip()
+        {
+            ShipBehaviour[] allShips = GameObject.FindObjectsByType<ShipBehaviour>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+
+            foreach (ShipBehaviour ship in allShips)
+            {
+                ship.ValidateShip();
+            }
+        }
+
+        public void DestroyAllShips()
+        {
+            ShipBehaviour[] allShips = GameObject.FindObjectsByType<ShipBehaviour>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+
+            foreach (ShipBehaviour ship in allShips)
+            {
+                ship.DestroyShip();
             }
         }
 

@@ -407,7 +407,7 @@ namespace AltCtrl.Charybdis
 
         #region DestroyShip
         [Button]
-        private void DestroyShip()
+        public void DestroyShip()
         {
             if (_isDestroyed || _isValidated)
             {
@@ -487,7 +487,7 @@ namespace AltCtrl.Charybdis
             }
         }
 
-        private void ValidateShip()
+        public void ValidateShip()
         {
             if (_isDestroyed || _isValidated)
                 return;

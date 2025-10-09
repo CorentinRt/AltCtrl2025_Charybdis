@@ -77,6 +77,16 @@ namespace AltCtrl.Charybdis
                         ShipsManager.Instance.SetEnableShipsSpawn(false);
                     }
 
+                    if (Monster.Exist)
+                    {
+                        Monster.Instance.SetEnableMonsterInput(false);
+                    }
+
+                    if (RadioManager.Exist)
+                    {
+                        RadioManager.Instance.SetEnableRadioInput(false);
+                    }
+
                     StartPreGameCoroutine();
 
                     break;
@@ -88,13 +98,44 @@ namespace AltCtrl.Charybdis
                         ShipsManager.Instance.SetEnableShipsSpawn(true);
                     }
 
+                    if (Monster.Exist)
+                    {
+                        Monster.Instance.SetEnableMonsterInput(true);
+                    }
+
+                    if (RadioManager.Exist)
+                    {
+                        RadioManager.Instance.SetEnableRadioInput(true);
+                    }
+
                     break;
 
                 case GAME_PHASES.POST_GAME:
-
                     if (ShipsManager.Exist)
                     {
                         ShipsManager.Instance.SetEnableShipsSpawn(false);
+
+                        if (VictoryManager.Exist)
+                        {
+                            if (VictoryManager.Instance.GodHasWon)
+                            {
+                                ShipsManager.Instance.DestroyAllShips();
+                            }
+                            else if (VictoryManager.Instance.HumanHasWon)
+                            {
+                                ShipsManager.Instance.ValidateAllShip();
+                            }
+                        }
+                    }
+
+                    if (Monster.Exist)
+                    {
+                        Monster.Instance.SetEnableMonsterInput(false);
+                    }
+
+                    if (RadioManager.Exist)
+                    {
+                        RadioManager.Instance.SetEnableRadioInput(false);
                     }
 
                     break;
