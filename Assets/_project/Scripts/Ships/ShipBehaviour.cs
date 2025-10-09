@@ -1,17 +1,13 @@
 using DG.Tweening;
 using NaughtyAttributes;
-using NUnit.Framework;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace AltCtrl.Charybdis
 {
-    public class ShipBehaviour : MonoBehaviour
+    public class ShipBehaviour : MonoBehaviour, IShipBehaviour
     {
         #region Fields
         [Header("Components")]
@@ -20,6 +16,8 @@ namespace AltCtrl.Charybdis
 
         [SerializeField] private GameObject _explosionIndicator;
         [SerializeField] private GameObject _validateIndicator;
+        [SerializeField] private GameObject _stormIndicator;
+        [SerializeField] private GameObject _inTyphonIndicator;
 
         [Space]
 
@@ -39,31 +37,45 @@ namespace AltCtrl.Charybdis
         [SerializeField] private TextMeshProUGUI _frequencyLabel;
         [SerializeField] private Transform _frequencyHolder;
 
+        // Move Rotate
         private Vector3[] _trajectoryPointsBuffer;
 
         private float _currentGouvernailInput;
+        private bool _moveTurboPressed;
 
         private float _autoGouvernailValue;
         private float _autoSpeed;
 
-        private bool _isDestroyed;
-
+        // Wind
         private bool _affectedByWind;
         private Vector3 _windDirModifier;
 
+        // Storm
+        private bool _affectedByStorm;
+        private float _currentStormModifier;
+        private float _currentCooldownNewStormModifier;
+        private float _cooldownNewStormModifier;
+
+        // Destroy / Validate
         private Coroutine _destroyShipWithDelayCoroutine;
-
-        private (int, int) _associatedFrequency;
-
-        private bool _moveTurboPressed;
-
-        private Vector3 _screenBounds;
-
-        private bool _isInsideBound;
-
+        private Coroutine _validateShipWithDelayCoroutine;
+        private bool _isDestroyed;
         private bool _isValidated;
 
-        private Coroutine _validateShipWithDelayCoroutine;
+        // Frequency
+        private (int, int) _associatedFrequency;
+
+        // Bounds
+        private Vector3 _screenBounds;
+        private bool _isInsideBound;
+
+
+        // typhon
+        private bool _affectedByTyphon;
+        private Vector3 _typhonCenter;
+
+        // Gouvernail
+        private int _currentGouvernailAmplitude;
         #endregion
 
 
@@ -99,6 +111,8 @@ namespace AltCtrl.Charybdis
             if (InputManager.Instance != null)
             {
                 InputManager.Instance.OnMoveTurboPressed += OnMoveTurboPressed;
+
+                InputManager.Instance.OnMoveShipRotatorPressed += OnMoveShipRotateInput;
             }
 
             if (RadioManager.Exist)
@@ -124,6 +138,8 @@ namespace AltCtrl.Charybdis
             _currentGouvernailInput = UnityEngine.Random.Range(-_data.MaxAutoRotateSpeed, _data.MaxAutoRotateSpeed);
 
             _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
+
+            _rb.linearVelocity = transform.up * _autoSpeed;
         }
 
         private void OnDestroy()
@@ -137,6 +153,8 @@ namespace AltCtrl.Charybdis
             if (InputManager.Instance != null)
             {
                 InputManager.Instance.OnMoveTurboPressed -= OnMoveTurboPressed;
+
+                InputManager.Instance.OnMoveShipRotatorPressed -= OnMoveShipRotateInput;
             }
 
             if (RadioManager.Exist)
@@ -148,11 +166,20 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        private void OnMoveShipRotateInput(int dir)
+        {
+            _currentGouvernailAmplitude += dir;
+
+            _currentGouvernailAmplitude = Mathf.Clamp(_currentGouvernailAmplitude, -_data.GouvernailMaxAmplitude, _data.GouvernailMaxAmplitude);
+        }
+
         private void Update()
         {
             CheckValidateShip();
 
             _frequencyHolder.transform.rotation = Quaternion.identity;
+
+            UpdateStormEffect();
         }
 
         private void FixedUpdate()
@@ -169,6 +196,11 @@ namespace AltCtrl.Charybdis
             {
                 Move();
                 Rotate();
+            }
+
+            if (_affectedByTyphon)
+            {
+                FixedUpdateTyphonEffect();
             }
         }
 
@@ -189,6 +221,8 @@ namespace AltCtrl.Charybdis
             _isAuto = !controlled;
 
             _controlledIndicator.SetActive(controlled);
+
+            _currentGouvernailAmplitude = 0;
         }
 
         #region Movements
@@ -207,7 +241,7 @@ namespace AltCtrl.Charybdis
 
             Vector3 tempVelocity = _rb.linearVelocity;
 
-            tempVelocity += transform.up * Time.fixedDeltaTime * _data.Acceleration;
+            tempVelocity += transform.up * Time.fixedDeltaTime * _autoSpeed;
 
 
             if (tempVelocity.magnitude * deltaInputVertical < _data.MinSpeed)
@@ -227,6 +261,8 @@ namespace AltCtrl.Charybdis
 
         private void MoveAuto()
         {
+
+            _rb.linearVelocity = Vector3.zero;
             _rb.linearVelocity = transform.up * _autoSpeed;
 
             if (_affectedByWind)
@@ -237,25 +273,44 @@ namespace AltCtrl.Charybdis
 
         private void Rotate()
         {
-            float deltaInputHorizontal = Input.mousePositionDelta.x;
+            float percentGouvernail = (float)_currentGouvernailAmplitude / (float)_data.GouvernailMaxAmplitude;
+            float deltaInputHorizontal = percentGouvernail;
 
             if (deltaInputHorizontal != 0f)
             {
-                _currentGouvernailInput += deltaInputHorizontal * Time.fixedDeltaTime * _data.RotateSpeed;
+                _currentGouvernailInput = deltaInputHorizontal * Time.fixedDeltaTime * _data.RotateSpeed;
             }
             else
             {
                 _currentGouvernailInput = Mathf.Lerp(_currentGouvernailInput, 0f, Time.fixedDeltaTime * _data.DecelerationForce);
             }
 
-            _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, -_data.MaxRotateSpeed, _data.MaxRotateSpeed);
+            
+            if (_affectedByStorm)
+            {
+                _currentGouvernailInput += Time.fixedDeltaTime * _currentStormModifier;
+            }
+            else
+            {
+                _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, -_data.MaxRotateSpeed, _data.MaxRotateSpeed);
+            }
 
             _rb.angularVelocity = -_currentGouvernailInput;
         }
 
         private void RotateAuto()
         {
-            _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, _data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+            if (_affectedByStorm)
+            {
+                _currentGouvernailInput += Time.fixedDeltaTime * _currentStormModifier;
+            }
+            else
+            {
+                if (!_affectedByTyphon)
+                {
+                    _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, _data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+                }
+            }
 
             _rb.angularVelocity = -_currentGouvernailInput;
         }
@@ -316,11 +371,6 @@ namespace AltCtrl.Charybdis
 
             _visualAnchor.DOLocalRotate(new Vector3(0f, 0f, 720f), _data.DestroyDelay * 0.9f, RotateMode.FastBeyond360);
             
-            if (ShipsManager.Exist)
-            {
-                ShipsManager.Instance.RemoveShip(this);
-            }
-
             _explosionIndicator.SetActive(true);
             _frequencyLabel.gameObject.SetActive(false);
             _trajectoryLine.gameObject.SetActive(false);
@@ -329,8 +379,14 @@ namespace AltCtrl.Charybdis
             {
                 OnShipDestroyed?.Invoke(this);
 
+                if (ShipsManager.Exist)
+                {
+                    ShipsManager.Instance.RemoveShip(this);
+                }
+
                 _destroyShipWithDelayCoroutine = StartCoroutine(DestroyShipWithDelayCoroutine());
             }
+
         }
 
         private void EndDestroyShipWithDelay()
@@ -356,6 +412,7 @@ namespace AltCtrl.Charybdis
         #endregion
 
         #region Validate Ship
+        [Button]
         private void CheckValidateShip()
         {
             if (_isValidated || _isDestroyed)
@@ -386,19 +443,20 @@ namespace AltCtrl.Charybdis
 
             _isValidated = true;
 
-            if (ShipsManager.Exist)
-            {
-                ShipsManager.Instance.RemoveShip(this);
-            }
-
             _validateIndicator.SetActive(true);
 
             if (_validateShipWithDelayCoroutine == null)
             {
                 OnShipValidated?.Invoke(this);
 
+                if (ShipsManager.Exist)
+                {
+                    ShipsManager.Instance.RemoveShip(this);
+                }
+
                 _validateShipWithDelayCoroutine = StartCoroutine(ValidateShipWithDelayCoroutine());
             }
+
         }
 
         private void EndValidateShipWithDelay()
@@ -436,6 +494,84 @@ namespace AltCtrl.Charybdis
         }
         #endregion
 
+        #region Storm
+        public void SetAffectedByStorm(bool affected)
+        {
+            _affectedByStorm = affected;
+
+            _stormIndicator.SetActive(affected);
+
+            if (_affectedByStorm)
+            {
+                SetNewRandomStormModifier();
+            }
+        }
+
+        private void SetNewRandomStormModifier()
+        {
+            _currentCooldownNewStormModifier = 0f;
+
+            _cooldownNewStormModifier = UnityEngine.Random.Range(_data.MinCooldownBeforeChangeStormModifier, _data.MaxCooldownBeforeChangeStormModifier);
+
+            _currentStormModifier = UnityEngine.Random.Range(_data.MinStormModifier, _data.MaxStormModifier) * Mathf.Sign(-_currentStormModifier);
+
+            _currentGouvernailInput = -_currentGouvernailInput;
+        }
+
+        private void UpdateStormEffect()
+        {
+            if (!_affectedByStorm)
+                return;
+
+            _currentCooldownNewStormModifier += Time.deltaTime;
+
+            if (_currentCooldownNewStormModifier >= _cooldownNewStormModifier)
+            {
+                SetNewRandomStormModifier();
+            }
+        }
+
+        #endregion
+
+        #region Typhon
+        public void SetAffectedByTyphon(bool affected, Vector3 typhonPos)
+        {
+            _affectedByTyphon = affected;
+
+            _inTyphonIndicator.SetActive(affected);
+
+            _typhonCenter = typhonPos;
+
+            if (!affected)
+            {
+                _currentGouvernailInput = 0f;
+            }
+        }
+
+        private void FixedUpdateTyphonEffect()
+        {
+            if (!_affectedByTyphon || _isValidated || _isDestroyed)
+                return;
+
+            Vector2 dirToCenter = (_typhonCenter - transform.position);
+            float distance = dirToCenter.magnitude;
+
+            if (distance < 0.5f)
+            {
+                DestroyShip();
+                return;
+            }
+
+            dirToCenter.Normalize();
+
+            float cross = transform.up.x * dirToCenter.y - transform.up.y * dirToCenter.x;
+
+            _currentGouvernailInput += Time.fixedDeltaTime * -cross * _data.TyphonAttractionForce;
+        }
+
+
+
+        #endregion
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -451,5 +587,12 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        #region IShipBehaviour
+        public ShipBehaviour GetShip()
+        {
+            return this;
+        }
+
+        #endregion
     }
 }

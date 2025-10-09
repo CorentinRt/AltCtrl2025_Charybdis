@@ -20,6 +20,11 @@ namespace AltCtrl.Charybdis
 
         private float _currentTimeKeyPressed;
 
+        private bool _pressedRadioInputThisFrame;
+        private int _radioInputDir;
+
+        private float _canRadioInputCooldown;
+
         #endregion
 
         #region Properties
@@ -51,10 +56,65 @@ namespace AltCtrl.Charybdis
         private void Start()
         {
             SetFrequencyIndex(UnityEngine.Random.Range(0, _allFrequencies.Count));
+
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.OnMoveRadioRotatorPressed += OnMoveRadioRotateInput;
+            }
+        }
+        private void OnDestroy()
+        {
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.OnMoveRadioRotatorPressed -= OnMoveRadioRotateInput;
+            }
+        }
+
+        private void OnMoveRadioRotateInput(int dir)
+        {
+            if (_canRadioInputCooldown > 0f)
+            {
+                return;
+            }
+
+            _pressedRadioInputThisFrame = true;
+            _radioInputDir = dir;
         }
 
         private void Update()
         {
+            if (_canRadioInputCooldown >= 0f)
+            {
+                _canRadioInputCooldown -= Time.deltaTime;
+            }
+
+            if (_pressedRadioInputThisFrame)
+            {
+                if (_radioInputDir > 0)
+                {
+                    GoNextFrequency();
+                }
+                else
+                {
+                    GoPreviousFrequency();
+                }
+
+                if (ShipsManager.Exist)
+                {
+                    if (ShipsManager.Instance.CheckShipWithFrequencyExist(_allFrequencies[_currentIndexFrequency]))
+                    {
+                        _canRadioInputCooldown = _data.TimeToHoldIfHasShipControlled;
+                    }
+                    else
+                    {
+                        _canRadioInputCooldown = _data.TimeToHoldIfNoShipControlled;
+                    }
+                }
+
+                _pressedRadioInputThisFrame = false;
+            }
+
+            /*
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 _currentTimeKeyPressed += Time.deltaTime;
@@ -81,6 +141,7 @@ namespace AltCtrl.Charybdis
             {
                 _currentTimeKeyPressed = 0f;
             }
+            */
         }
 
         private void GoNextFrequency()

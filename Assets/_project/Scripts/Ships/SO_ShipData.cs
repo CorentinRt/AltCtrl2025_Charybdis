@@ -24,6 +24,19 @@ namespace AltCtrl.Charybdis
 
         [Header("Destroy")]
         [SerializeField] private float _destroyDelay;
+
+        [Header("Storm")]
+        [SerializeField] private float _minCooldownBeforeChangeStormModifier;
+        [SerializeField] private float _maxCooldownBeforeChangeStormModifier;
+
+        [SerializeField] private float _minStormModifier;
+        [SerializeField] private float _maxStormModifier;
+
+        [Header("Typhon")]
+        [SerializeField] private float _typhonAttractionForce = 70f;
+
+        [Header("Gouvernail")]
+        [SerializeField] private int _gouvernailMaxAmplitude = 20;
         #endregion
 
         #region Properties
@@ -42,6 +55,15 @@ namespace AltCtrl.Charybdis
 
         public float DestroyDelay => _destroyDelay;
 
+        public float MinCooldownBeforeChangeStormModifier => _minCooldownBeforeChangeStormModifier;
+        public float MaxCooldownBeforeChangeStormModifier => _maxCooldownBeforeChangeStormModifier;
+
+        public float MinStormModifier => _minStormModifier;
+        public float MaxStormModifier => _maxStormModifier;
+
+        public float TyphonAttractionForce => _typhonAttractionForce;
+
+        public int GouvernailMaxAmplitude => _gouvernailMaxAmplitude;
         #endregion
 
     }

@@ -66,6 +66,7 @@ namespace AltCtrl.Charybdis
             foreach (ShipBehaviour ship in _ships)
             {
                 ship.OnShipDestroyed -= ReactOnDestroyShip;
+                ship.OnShipValidated -= ReactOnValidateShip;
             }
 
             if (RadioManager.Exist)
@@ -82,6 +83,7 @@ namespace AltCtrl.Charybdis
             _ships.Add(ship);
 
             ship.OnShipDestroyed += ReactOnDestroyShip;
+            ship.OnShipValidated += ReactOnValidateShip;
 
             _frequencyToShip[ship.AssociatedFrequency] = ship;
         }
@@ -94,6 +96,7 @@ namespace AltCtrl.Charybdis
             _ships.Remove(ship);
 
             ship.OnShipDestroyed -= ReactOnDestroyShip;
+            ship.OnShipValidated -= ReactOnValidateShip;
 
             _frequencyToShip[ship.AssociatedFrequency] = null;
         }
@@ -174,6 +177,8 @@ namespace AltCtrl.Charybdis
 
         private void ReactOnDestroyShip(ShipBehaviour ship)
         {
+            Debug.Log("Destroy ship", this);
+
             ship.OnShipDestroyed -= ReactOnDestroyShip;
 
             OnDestroyShip?.Invoke();
@@ -181,7 +186,9 @@ namespace AltCtrl.Charybdis
 
         private void ReactOnValidateShip(ShipBehaviour ship)
         {
-            ship.OnShipValidated -= ReactOnDestroyShip;
+            Debug.Log("Validate ship", this);
+
+            ship.OnShipValidated -= ReactOnValidateShip;
 
             OnValidateShip?.Invoke();
         }
@@ -202,6 +209,16 @@ namespace AltCtrl.Charybdis
 
             _currentControlledShip.SetAutoValue(true);
 
+        }
+
+        public bool CheckShipWithFrequencyExist((int, int) frequency)
+        {
+            if (!_frequencyToShip.ContainsKey(frequency) || _frequencyToShip[frequency] == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
