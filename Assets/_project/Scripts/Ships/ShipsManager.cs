@@ -189,8 +189,6 @@ namespace AltCtrl.Charybdis
 
         private void ReactOnDestroyShip(ShipBehaviour ship)
         {
-            Debug.Log("Destroy ship", this);
-
             ship.OnShipDestroyed -= ReactOnDestroyShip;
 
             OnDestroyShip?.Invoke();
@@ -198,8 +196,6 @@ namespace AltCtrl.Charybdis
 
         private void ReactOnValidateShip(ShipBehaviour ship)
         {
-            Debug.Log("Validate ship", this);
-
             ship.OnShipValidated -= ReactOnValidateShip;
 
             OnValidateShip?.Invoke();

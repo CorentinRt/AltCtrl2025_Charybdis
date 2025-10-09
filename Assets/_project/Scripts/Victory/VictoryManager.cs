@@ -27,6 +27,7 @@ namespace AltCtrl.Charybdis
 
         public event Action OnGodVictory;
         public event Action OnHumanVictory;
+        public event Action OnVictory;
 
 
         private void Start()
@@ -116,11 +117,13 @@ namespace AltCtrl.Charybdis
             if (_victorySlider.value == _sliderMaxValue)
             {
                 OnGodVictory?.Invoke();
+                OnVictory?.Invoke();
                 _hasWon = true;
             }
             else if (_victorySlider.value == 0f)
             {
                 OnHumanVictory?.Invoke();
+                OnVictory?.Invoke();
                 _hasWon = true;
             }
         }

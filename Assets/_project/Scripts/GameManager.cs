@@ -40,7 +40,28 @@ namespace AltCtrl.Charybdis
 
         private void Init()
         {
+            if (VictoryManager.Exist)
+            {
+                VictoryManager.Instance.OnVictory += ReactOnVictory;
+            }
+
             SetGamePhase(GAME_PHASES.PRE_GAME);
+        }
+
+        private void OnDestroy()
+        {
+            if (VictoryManager.Exist)
+            {
+                VictoryManager.Instance.OnVictory -= ReactOnVictory;
+            }
+        }
+
+        private void ReactOnVictory()
+        {
+            if (_currentGamePhase == GAME_PHASES.POST_GAME)
+                return;
+
+            SetGamePhase(GAME_PHASES.POST_GAME);
         }
 
         private void SetGamePhase(GAME_PHASES gamePhase)
@@ -101,7 +122,7 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator PreGameCoroutine()
         {
-            yield return new WaitForSeconds(_data.CooldownSecondsDuration);
+            yield return new WaitForSeconds(_data.CooldownSecondsDuration + 1); // +1 to let 0 text display
 
             SetGamePhase(GAME_PHASES.IN_GAME);
 
