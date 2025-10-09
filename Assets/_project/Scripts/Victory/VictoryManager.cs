@@ -2,6 +2,7 @@ using CREMOT.GameplayUtilities;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace AltCtrl.Charybdis
@@ -39,6 +40,13 @@ namespace AltCtrl.Charybdis
                 ShipsManager.Instance.OnDestroyShip += AddGodScoreOnDestroyShip;
                 ShipsManager.Instance.OnValidateShip += AddHumanScoreOnDestroyShip;
             }
+
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.OnTotem1Pressed += CheckReturnToMainMenu;
+                InputManager.Instance.OnTotem2Pressed += CheckReturnToMainMenu;
+                InputManager.Instance.OnTotem3Pressed += CheckReturnToMainMenu;
+            }
         }
 
         private void OnDestroy()
@@ -49,6 +57,13 @@ namespace AltCtrl.Charybdis
             {
                 ShipsManager.Instance.OnDestroyShip -= AddGodScoreOnDestroyShip;
                 ShipsManager.Instance.OnValidateShip -= AddHumanScoreOnDestroyShip;
+            }
+
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.OnTotem1Pressed -= CheckReturnToMainMenu;
+                InputManager.Instance.OnTotem2Pressed -= CheckReturnToMainMenu;
+                InputManager.Instance.OnTotem3Pressed -= CheckReturnToMainMenu;
             }
         }
 
@@ -108,6 +123,14 @@ namespace AltCtrl.Charybdis
                 OnHumanVictory?.Invoke();
                 _hasWon = true;
             }
+        }
+
+        private void CheckReturnToMainMenu(bool pressed)
+        {
+            if (!pressed || !_hasWon)
+                return;
+
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }
