@@ -14,7 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: GameLocalization
   m_TableCollectionNameGuidString: 434ca65569dab3242acd99bd6fba60b3
-  m_Entries: []
+  m_Entries:
+  - m_Id: 365614772224
+    m_Key: PlayBtn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1228366327808
+    m_Key: SelectectedMic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2271871414272
+    m_Key: SelectedLanguage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3031128518656
+    m_Key: Volume
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

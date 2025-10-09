@@ -73,8 +73,6 @@ namespace AltCtrl.Charybdis
             }
         }
 
-
-
         private void ReadSerial()
         {
             try
