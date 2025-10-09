@@ -36,6 +36,8 @@ namespace AltCtrl.Charybdis
 
         private ShipBehaviour _currentControlledShip;
 
+        private bool _enabledShipsSpawn;
+
         #endregion
 
         #region Properties
@@ -116,6 +118,9 @@ namespace AltCtrl.Charybdis
 
         private void HandleShipsSpawn()
         {
+            if (!_enabledShipsSpawn)
+                return;
+
             _currentTimeSpawn += Time.deltaTime;
 
             if (_currentTimeSpawn >= _randomTimeSpawn)
@@ -124,6 +129,13 @@ namespace AltCtrl.Charybdis
 
                 SpawnShip();
             }
+        }
+
+        public void SetEnableShipsSpawn(bool enabled)
+        {
+            _enabledShipsSpawn = enabled;
+
+            Debug.Log($"Set enabled Ship spawn : {enabled}", this);
         }
 
         private void DefineNewRandomTimeSpawn()
