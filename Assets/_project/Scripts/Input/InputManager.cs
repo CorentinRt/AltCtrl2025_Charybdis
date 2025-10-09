@@ -20,14 +20,25 @@ public class InputManager : MonoBehaviour
     public event Action<bool> OnTotem3Pressed;
     public event Action<bool> OnTyphonPressed;
 
+    public event Action<bool> OnNextMicrophonePressed;
+    public event Action<bool> OnNextLanguagePressed;
+
     public event Action<int> OnMoveShipRotatorPressed;
     public event Action<int> OnMoveRadioRotatorPressed;
+
+    // Microphone
+    private string _currentMicrophone = "";
+    private int _currentMicrophoneIndex = -1;
+    private int _nbrMicrophoneDevices = -1;
     // ----- FIELDS ----- //
 
     private void Awake()
     {
         if (Instance != null) Destroy(this.gameObject);
         Instance = this;
+
+        if (transform.parent != null) transform.parent = null;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start()
@@ -37,6 +48,8 @@ public class InputManager : MonoBehaviour
             _arduinoReader.OnRotator1Move += MoveShipRotatorPressed;
             _arduinoReader.OnRotator2Move += MoveRadioRotatorPressed;
         }
+
+        GetCurrentOrFirstMicrophone();
     }
 
     private void OnDestroy()
@@ -47,6 +60,34 @@ public class InputManager : MonoBehaviour
             _arduinoReader.OnRotator2Move -= MoveRadioRotatorPressed;
         }
     }
+
+    #region Microphone
+    public string GetCurrentOrFirstMicrophone()
+    {
+        if (_currentMicrophone == "")
+        {
+            if (Microphone.devices.Length == 0)
+            {
+                Debug.LogError("Aucun microphone détecté !");
+                return "";
+            }
+
+            _nbrMicrophoneDevices = Microphone.devices.Length;
+            _currentMicrophoneIndex = 0;
+            _currentMicrophone = Microphone.devices[_currentMicrophoneIndex];
+        }
+
+        return _currentMicrophone;
+    }
+
+    public void SetNextMicrophone()
+    {
+        _currentMicrophoneIndex++;
+        if (_currentMicrophoneIndex > _nbrMicrophoneDevices - 1) _currentMicrophoneIndex = 0;
+
+        _currentMicrophone = Microphone.devices[_currentMicrophoneIndex];
+    }
+    #endregion
 
     #region Arduino
     public void MoveShipRotatorPressed(int direction)
@@ -137,6 +178,30 @@ public class InputManager : MonoBehaviour
         else if (context.canceled)
         {
             OnTyphonPressed?.Invoke(false);
+        }
+    }
+
+    public void NextMicrophonePressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnNextMicrophonePressed?.Invoke(true);
+        }
+        else if (context.canceled)
+        {
+            OnNextMicrophonePressed?.Invoke(false);
+        }
+    }
+
+    public void NextLanguagePressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnNextLanguagePressed?.Invoke(true);
+        }
+        else if (context.canceled)
+        {
+            OnNextLanguagePressed?.Invoke(false);
         }
     }
     #endregion

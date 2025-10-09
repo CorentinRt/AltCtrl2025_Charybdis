@@ -68,6 +68,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "NextMicrophone",
+                    "type": "Button",
+                    "id": "b88e5339-3d69-486c-936b-ae6ee89026c4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NextLanguage",
+                    "type": "Button",
+                    "id": "407151ac-df81-4bf5-9a31-fc0688f79bc5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -233,6 +251,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Totem2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5bf8764-8dbb-4cc0-9ac9-2a2da6cfa0fe",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextMicrophone",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a99aa879-88aa-458e-a9d8-c3522912d268",
+                    "path": "<Keyboard>/f2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextLanguage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

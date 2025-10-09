@@ -16,8 +16,34 @@ MonoBehaviour:
     m_Code: fr-FR
   m_SharedData: {fileID: 11400000, guid: 434ca65569dab3242acd99bd6fba60b3, type: 2}
   m_Metadata:
-    m_Items: []
-  m_TableData: []
+    m_Items:
+    - rid: 7762080612882055415
+  m_TableData:
+  - m_Id: 365614772224
+    m_Localized: JOUER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1228366327808
+    m_Localized: "Microphone s\xE9lectionn\xE9 : {micName} - Next : F1"
+    m_Metadata:
+      m_Items:
+      - rid: 7762080612882055415
+  - m_Id: 2271871414272
+    m_Localized: "Langue s\xE9lectionn\xE9e : {language} - Next : F2"
+    m_Metadata:
+      m_Items:
+      - rid: 7762080612882055415
+  - m_Id: 3031128518656
+    m_Localized: Volume
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7762080612882055415
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 1228366327808
+        - id: 2271871414272
