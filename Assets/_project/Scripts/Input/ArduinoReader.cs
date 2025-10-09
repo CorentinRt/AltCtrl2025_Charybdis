@@ -33,23 +33,47 @@ namespace AltCtrl.Charybdis
                 var availablePorts = SerialPort.GetPortNames();
                 bool portFound = false;
 
-                foreach (string possiblePort in _possiblePortNames)
+                foreach (string port in availablePorts)
                 {
-                    if (availablePorts.Contains(possiblePort))
+                    Debug.Log($"Test du port {port}...");
+                    using (var testPort = new SerialPort(port, _baudRate))
                     {
-                        _portName = possiblePort;
-                        portFound = true;
-                        Debug.Log($"Port valide trouvé et assigné : {_portName}");
-                        break;
+                        testPort.ReadTimeout = 500;
+                        testPort.DtrEnable = true;
+                        testPort.RtsEnable = true;
+
+                        try
+                        {
+                            testPort.Open();
+                            Thread.Sleep(2000); // attendre le reset de lâ€™Arduino
+
+                            string line = testPort.ReadLine();
+                            if (line.Contains("ARDUINO_CHARYBDIS_READY"))
+                            {
+                                _portName = port;
+                                portFound = true;
+                                Debug.Log($"Arduino dÃ©tectÃ© sur {port}");
+                                break;
+                            }
+                        }
+                        catch (TimeoutException)
+                        {
+                            Debug.Log($"Aucun message sur {port}");
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.Log($"Erreur sur {port}: {e.Message}");
+                        }
                     }
                 }
 
                 if (!portFound)
                 {
-                    Debug.LogError("Aucun port valide trouvé parmi ceux listés dans _possiblePortNames.");
+                    Debug.LogError("Aucun Arduino dÃ©tectÃ© parmi les ports disponibles.");
                     return;
                 }
 
+                // Ensuite, ouvre le port rÃ©ellement
                 _arduino = new SerialPort(_portName, _baudRate)
                 {
                     ReadTimeout = 100,
@@ -57,21 +81,18 @@ namespace AltCtrl.Charybdis
                     RtsEnable = true
                 };
                 _arduino.Open();
-
                 _keepReading = true;
-                _readThread = new Thread(ReadSerial)
-                {
-                    IsBackground = true
-                };
+                _readThread = new Thread(ReadSerial) { IsBackground = true };
                 _readThread.Start();
 
-                Debug.Log($"Connexion à l'Arduino réussie sur {_portName}.");
+                Debug.Log($"Connexion Ã  lâ€™Arduino rÃ©ussie sur {_portName}.");
             }
             catch (Exception e)
             {
                 Debug.LogError("Erreur d'initialisation Arduino : " + e.Message);
             }
         }
+
 
         private void ReadSerial()
         {
@@ -99,15 +120,15 @@ namespace AltCtrl.Charybdis
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning("Erreur lors de la lecture série : " + e.Message);
+                        Debug.LogWarning("Erreur lors de la lecture serie : " + e.Message);
                     }
 
-                    Thread.Sleep(1); // éviter de surcharger le CPU
+                    Thread.Sleep(1); // ï¿½viter de surcharger le CPU
                 }
             }
             catch (Exception e)
             {
-                Debug.LogError("Thread Arduino crashé : " + e.Message);
+                Debug.LogError("Thread Arduino crash : " + e.Message);
             }
         }
 
@@ -156,7 +177,7 @@ namespace AltCtrl.Charybdis
             }
             catch (Exception e)
             {
-                Debug.LogWarning("Erreur lors de l'arrêt du thread Arduino : " + e.Message);
+                Debug.LogWarning("Erreur lors de l'arret du thread Arduino : " + e.Message);
             }
 
             try
@@ -166,7 +187,7 @@ namespace AltCtrl.Charybdis
             }
             catch (Exception e)
             {
-                Debug.LogWarning("Erreur lors de la fermeture du port série : " + e.Message);
+                Debug.LogWarning("Erreur lors de la fermeture du port serie : " + e.Message);
             }
 
             _arduino = null;
