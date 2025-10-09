@@ -36,6 +36,8 @@ namespace AltCtrl.Charybdis
 
         private ShipBehaviour _currentControlledShip;
 
+        private bool _enabledShipsSpawn;
+
         #endregion
 
         #region Properties
@@ -116,6 +118,9 @@ namespace AltCtrl.Charybdis
 
         private void HandleShipsSpawn()
         {
+            if (!_enabledShipsSpawn)
+                return;
+
             _currentTimeSpawn += Time.deltaTime;
 
             if (_currentTimeSpawn >= _randomTimeSpawn)
@@ -124,6 +129,13 @@ namespace AltCtrl.Charybdis
 
                 SpawnShip();
             }
+        }
+
+        public void SetEnableShipsSpawn(bool enabled)
+        {
+            _enabledShipsSpawn = enabled;
+
+            Debug.Log($"Set enabled Ship spawn : {enabled}", this);
         }
 
         private void DefineNewRandomTimeSpawn()
@@ -172,13 +184,15 @@ namespace AltCtrl.Charybdis
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             Quaternion rot = Quaternion.Euler(0f, 0f, angle);
 
-            Instantiate(_shipPrefab, randomPos, rot);
+            if (PoolManager.Instance != null)
+            {
+                GameObject ship = PoolManager.Instance.ActivateShip(randomPos, rot, true);
+                ship.GetComponent<IShipBehaviour>().Init();
+            }
         }
 
         private void ReactOnDestroyShip(ShipBehaviour ship)
         {
-            Debug.Log("Destroy ship", this);
-
             ship.OnShipDestroyed -= ReactOnDestroyShip;
 
             OnDestroyShip?.Invoke();
@@ -186,8 +200,6 @@ namespace AltCtrl.Charybdis
 
         private void ReactOnValidateShip(ShipBehaviour ship)
         {
-            Debug.Log("Validate ship", this);
-
             ship.OnShipValidated -= ReactOnValidateShip;
 
             OnValidateShip?.Invoke();
