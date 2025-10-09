@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 819137420177436991, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: _portName
-      value: COM3
+      value: COM6
       objectReference: {fileID: 0}
     - target: {fileID: 2339606751654585059, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_AnchorMax.y
