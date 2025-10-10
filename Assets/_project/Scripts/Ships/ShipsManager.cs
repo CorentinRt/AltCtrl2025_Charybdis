@@ -24,6 +24,10 @@ namespace AltCtrl.Charybdis
         [Header("Prefab")]
         [SerializeField] private GameObject _shipPrefab;
 
+        [Header("Spawn Parameters")]
+        [SerializeField] private LayerMask _islandsLayerMask;
+        [SerializeField] private float _spawnDistanceCheck = 10f;
+        [SerializeField] private float _checkRadius = 5f;
 
         private List<ShipBehaviour> _ships = new List<ShipBehaviour>();
 
@@ -139,7 +143,7 @@ namespace AltCtrl.Charybdis
             _randomTimeSpawn = UnityEngine.Random.Range(_data.SpawnRandomMinRate, _data.SpawnRandomMaxRate);
         }
 
-        private void SpawnShip()
+        private void SpawnShip(int iteration = 0)
         {
             SPAWN_LOCATION randomSpawn = (SPAWN_LOCATION)UnityEngine.Random.Range(0, 4);
 
@@ -178,6 +182,20 @@ namespace AltCtrl.Charybdis
             Vector2 dir = -randomPos;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             Quaternion rot = Quaternion.Euler(0f, 0f, angle);
+
+
+            if (iteration < 10)
+            {
+                RaycastHit2D hit = Physics2D.CircleCast(randomPos, _checkRadius, dir, _spawnDistanceCheck, _islandsLayerMask);
+
+                Debug.DrawLine(randomPos, hit.point, Color.red, 2f);
+
+                if (hit.collider != null)
+                {
+                    SpawnShip(++iteration);
+                    return;
+                }
+            }
 
             if (PoolManager.Instance != null)
             {

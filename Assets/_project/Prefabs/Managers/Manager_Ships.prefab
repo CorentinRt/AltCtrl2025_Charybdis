@@ -46,3 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: f1062b5b4c784b34fac076f2ce2b214d, type: 2}
   _shipPrefab: {fileID: 5872407553750334156, guid: 3240a37bf75d5cf4298bd641daa5082d, type: 3}
+  _islandsLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _spawnDistanceCheck: 5
+  _checkRadius: 0.3
