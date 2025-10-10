@@ -17,14 +17,14 @@ MonoBehaviour:
   _maxSpeed: 2.5
   _rotateAcceleration: 3
   _maxRotateSpeed: 1000
-  _decelerationForce: 1
+  _gouvernailDecelerationForce: 0
   _minAutoSpeed: 0.5
   _maxAutoSpeed: 1.5
   _minAutoRotateSpeed: -7
   _maxAutoRotateSpeed: 7
   _gouvernailMaxAmplitude: 10
   _destroyDelay: 0.7
-  _windForceMultiplier: 0
+  _windForceMultiplier: 10
   _minCooldownBeforeChangeStormModifier: 0.5
   _maxCooldownBeforeChangeStormModifier: 1
   _minStormModifier: 30
