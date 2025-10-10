@@ -20,8 +20,8 @@ MonoBehaviour:
   _decelerationForce: 1
   _minAutoSpeed: 0.5
   _maxAutoSpeed: 1.5
-  _minAutoRotateSpeed: 0
-  _maxAutoRotateSpeed: 0
+  _minAutoRotateSpeed: -7
+  _maxAutoRotateSpeed: 7
   _destroyDelay: 0.7
   _minCooldownBeforeChangeStormModifier: 0.5
   _maxCooldownBeforeChangeStormModifier: 1
