@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: SO_ShipData
   m_EditorClassIdentifier: 
   _acceleration: 5
-  _minSpeed: 1
+  _minSpeed: 0.5
   _maxSpeed: 2.5
-  _rotateAcceleration: 3
-  _maxRotateSpeed: 1000
-  _gouvernailDecelerationForce: 0
+  _rotateAcceleration: 1
+  _maxRotateSpeed: 25
+  _gouvernailDecelerationForce: 2
   _minAutoSpeed: 0.5
   _maxAutoSpeed: 1.5
-  _minAutoRotateSpeed: -7
-  _maxAutoRotateSpeed: 7
+  _minAutoRotateSpeed: 0
+  _maxAutoRotateSpeed: 0
   _gouvernailMaxAmplitude: 10
   _destroyDelay: 0.7
   _windForceMultiplier: 10
