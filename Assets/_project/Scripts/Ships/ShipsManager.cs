@@ -284,7 +284,7 @@ namespace AltCtrl.Charybdis
         {
             if (_currentControlledShip != null)
             {
-                _currentControlledShip.SetAutoValue(false);
+                _currentControlledShip.SetControlledValue(false);
             }
 
             if (!_frequencyToShip.ContainsKey(frequency) || _frequencyToShip[frequency] == null)
@@ -294,7 +294,7 @@ namespace AltCtrl.Charybdis
 
             _currentControlledShip = _frequencyToShip[frequency];
 
-            _currentControlledShip.SetAutoValue(true);
+            _currentControlledShip.SetControlledValue(true);
 
         }
 

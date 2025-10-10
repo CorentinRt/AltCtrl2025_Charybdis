@@ -189,7 +189,7 @@ namespace AltCtrl.Charybdis
                 ShipsManager.Instance.AddShip(this);
             }
 
-            _currentGouvernailInput = UnityEngine.Random.Range(-_data.MaxAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+            _currentGouvernailInput = UnityEngine.Random.Range(-_data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
 
             _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
 
@@ -248,13 +248,11 @@ namespace AltCtrl.Charybdis
             {
                 MoveAutoReworked();
                 RotateAutoReworked();
-                //RotateAuto();
             }
             else
             {
                 MoveControlledReworked();
                 RotateControlledReworked();
-                //Rotate();
             }
 
             if (_affectedByTyphon)
@@ -263,6 +261,7 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        #region Turbo
         private void OnMoveTurboPressed(Vector2 value)
         {
             if (value.y > 0.1f)
@@ -274,52 +273,35 @@ namespace AltCtrl.Charybdis
                 _moveTurboPressed = false;
             }
         }
+        #endregion
 
+        #region Set Controlled / Auto
         [Button]
         private void DebugSetControlled()
         {
-            SetAutoValue(true);
+            SetControlledValue(true);
         }
 
         [Button]
         private void DebugSetAuto()
         {
-            SetAutoValue(false);
+            SetControlledValue(false);
         }
 
-        public void SetAutoValue(bool controlled)
+        public void SetControlledValue(bool controlled)
         {
             _isAuto = !controlled;
 
             _controlledIndicator.SetActive(controlled);
-
-            //_currentGouvernailAmplitude = 0;
         }
+        #endregion
 
-        #region Movements
+        #region Controlled movements
         private void MoveControlledReworked()
         {
             _moveTurboPressed = Input.GetKey(KeyCode.Z);
 
             float targetSpeed = _moveTurboPressed ? _data.MaxSpeed : _data.MinSpeed;
-
-            _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.Acceleration);
-
-            _currentSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
-
-            Vector2 targetVelocity = _currentSpeed * transform.up;
-
-            if (_affectedByWind)
-            {
-                targetVelocity += new Vector2(_windDirModifier.x, _windDirModifier.y) * _data.WindForceMultiplier;
-            }
-
-            _rb.linearVelocity = Vector2.Lerp(_rb.linearVelocity, targetVelocity, Time.fixedDeltaTime * _data.Acceleration);
-        }
-
-        private void MoveAutoReworked()
-        {
-            float targetSpeed = _autoSpeed;
 
             _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.Acceleration);
 
@@ -360,11 +342,32 @@ namespace AltCtrl.Charybdis
             _rb.angularVelocity = _currentAngularVelocity;
         }
 
+        #endregion
+
+        #region Auto movements
+        private void MoveAutoReworked()
+        {
+            float targetSpeed = _autoSpeed;
+
+            _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.Acceleration);
+
+            _currentSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
+
+            Vector2 targetVelocity = _currentSpeed * transform.up;
+
+            if (_affectedByWind)
+            {
+                targetVelocity += new Vector2(_windDirModifier.x, _windDirModifier.y) * _data.WindForceMultiplier;
+            }
+
+            _rb.linearVelocity = Vector2.Lerp(_rb.linearVelocity, targetVelocity, Time.fixedDeltaTime * _data.Acceleration);
+        }
+
         private void RotateAutoReworked()
         {
-            _currentGouvernailAmplitude = Mathf.Lerp(_currentGouvernailAmplitude, 0f, Time.fixedDeltaTime * _data.DecelerationForce);
+            _currentGouvernailAmplitude = Mathf.Lerp(_currentGouvernailAmplitude, 0f, Time.fixedDeltaTime * _data.GouvernailDecelerationForce);
 
-            float gourvernailPercent = Mathf.Abs((float)_currentGouvernailAmplitude) / (float)_data.GouvernailMaxAmplitude;
+            float gourvernailPercent = Mathf.Abs(_currentGouvernailAmplitude) / _data.GouvernailMaxAmplitude;
 
             float targetAngularVelocity = _data.MaxRotateSpeed * gourvernailPercent * Mathf.Sign(_currentGouvernailAmplitude);
 

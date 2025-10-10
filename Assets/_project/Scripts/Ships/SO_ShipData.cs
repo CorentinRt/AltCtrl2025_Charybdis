@@ -16,7 +16,7 @@ namespace AltCtrl.Charybdis
         [Header("Rotate")]
         [SerializeField] private float _rotateAcceleration;
         [SerializeField] private float _maxRotateSpeed;
-        [SerializeField] private float _decelerationForce;
+        [SerializeField] private float _gouvernailDecelerationForce;
 
         [Space]
 
@@ -62,7 +62,7 @@ namespace AltCtrl.Charybdis
 
         public float RotateAcceleration => _rotateAcceleration;
         public float MaxRotateSpeed => _maxRotateSpeed;
-        public float DecelerationForce => _decelerationForce;
+        public float GouvernailDecelerationForce => _gouvernailDecelerationForce;
 
         public float MinAutoSpeed => _minAutoSpeed;
         public float MaxAutoSpeed => _maxAutoSpeed;
