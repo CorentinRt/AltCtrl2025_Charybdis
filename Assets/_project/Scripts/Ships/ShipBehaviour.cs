@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 namespace AltCtrl.Charybdis
 {
@@ -39,6 +40,12 @@ namespace AltCtrl.Charybdis
         [Header("Frequency")]
         [SerializeField] private TextMeshProUGUI _frequencyLabel;
         [SerializeField] private Transform _frequencyHolder;
+
+        // Move
+        private float _currentSpeed;
+
+        // Rotate
+        private float _currentAngularVelocity;
 
         // Move Rotate
         private Vector3[] _trajectoryPointsBuffer;
@@ -78,7 +85,7 @@ namespace AltCtrl.Charybdis
         private Vector3 _typhonCenter;
 
         // Gouvernail
-        private int _currentGouvernailAmplitude;
+        private float _currentGouvernailAmplitude;
         #endregion
 
 
@@ -239,13 +246,15 @@ namespace AltCtrl.Charybdis
 
             if (_isAuto)
             {
-                MoveAuto();
-                RotateAuto();
+                MoveAutoReworked();
+                RotateAutoReworked();
+                //RotateAuto();
             }
             else
             {
-                Move();
-                Rotate();
+                MoveControlledReworked();
+                RotateControlledReworked();
+                //Rotate();
             }
 
             if (_affectedByTyphon)
@@ -284,98 +293,96 @@ namespace AltCtrl.Charybdis
 
             _controlledIndicator.SetActive(controlled);
 
-            _currentGouvernailAmplitude = 0;
+            //_currentGouvernailAmplitude = 0;
         }
 
         #region Movements
-        private void Move()
+        private void MoveControlledReworked()
         {
-            float deltaInputVertical = 0f;
+            _moveTurboPressed = Input.GetKey(KeyCode.Z);
 
-            if (_moveTurboPressed)
-            {
-                deltaInputVertical = 1f;
-            }
-            else
-            {
-                deltaInputVertical = 0f;
-            }
+            float targetSpeed = _moveTurboPressed ? _data.MaxSpeed : _data.MinSpeed;
 
-            Vector3 tempVelocity = _rb.linearVelocity;
+            _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.Acceleration);
 
-            //tempVelocity += transform.up * Time.fixedDeltaTime * _data.Acceleration * deltaInputVertical;
-            tempVelocity += transform.up * Time.fixedDeltaTime * _autoSpeed;
+            _currentSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
 
-
-            if (tempVelocity.magnitude * deltaInputVertical < _data.MinSpeed)
-            {
-                tempVelocity = tempVelocity.normalized;
-
-                tempVelocity *= _data.MinSpeed;
-            }
-            else
-            {
-                tempVelocity *= deltaInputVertical;
-                tempVelocity = Vector3.ClampMagnitude(tempVelocity, _data.MaxSpeed);
-            }
-
-            _rb.linearVelocity = tempVelocity;
-        }
-
-        private void MoveAuto()
-        {
-
-            _rb.linearVelocity = Vector3.zero;
-            _rb.linearVelocity = transform.up * _autoSpeed;
+            Vector2 targetVelocity = _currentSpeed * transform.up;
 
             if (_affectedByWind)
             {
-                _rb.linearVelocity += new Vector2(_windDirModifier.x, _windDirModifier.y);
+                targetVelocity += new Vector2(_windDirModifier.x, _windDirModifier.y) * _data.WindForceMultiplier;
             }
+
+            _rb.linearVelocity = Vector2.Lerp(_rb.linearVelocity, targetVelocity, Time.fixedDeltaTime * _data.Acceleration);
         }
 
-        private void Rotate()
+        private void MoveAutoReworked()
         {
-            float percentGouvernail = (float)_currentGouvernailAmplitude / (float)_data.GouvernailMaxAmplitude;
-            float deltaInputHorizontal = percentGouvernail;
+            float targetSpeed = _autoSpeed;
 
-            if (deltaInputHorizontal != 0f)
-            {
-                _currentGouvernailInput = deltaInputHorizontal * Time.fixedDeltaTime * _data.RotateSpeed;
-            }
-            else
-            {
-                _currentGouvernailInput = Mathf.Lerp(_currentGouvernailInput, 0f, Time.fixedDeltaTime * _data.DecelerationForce);
-            }
+            _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.Acceleration);
 
-            
-            if (_affectedByStorm)
+            _currentSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
+
+            Vector2 targetVelocity = _currentSpeed * transform.up;
+
+            if (_affectedByWind)
             {
-                _currentGouvernailInput += Time.fixedDeltaTime * _currentStormModifier;
-            }
-            else
-            {
-                _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, -_data.MaxRotateSpeed, _data.MaxRotateSpeed);
+                targetVelocity += new Vector2(_windDirModifier.x, _windDirModifier.y) * _data.WindForceMultiplier;
             }
 
-            _rb.angularVelocity = -_currentGouvernailInput;
+            _rb.linearVelocity = Vector2.Lerp(_rb.linearVelocity, targetVelocity, Time.fixedDeltaTime * _data.Acceleration);
         }
 
-        private void RotateAuto()
+        private void RotateControlledReworked()
         {
+            _currentGouvernailAmplitude += Input.GetAxis("Horizontal") * Time.fixedDeltaTime * _data.RotateAcceleration;
+
+            float gourvernailPercent = Mathf.Abs(_currentGouvernailAmplitude) / _data.GouvernailMaxAmplitude;
+
+            float targetAngularVelocity = _data.MaxRotateSpeed * gourvernailPercent * Mathf.Sign(_currentGouvernailAmplitude);
+
+            targetAngularVelocity = Mathf.Lerp(_currentAngularVelocity, targetAngularVelocity, Time.fixedDeltaTime * _data.RotateAcceleration);
+
             if (_affectedByStorm)
             {
-                _currentGouvernailInput += Time.fixedDeltaTime * _currentStormModifier;
-            }
-            else
-            {
-                if (!_affectedByTyphon)
-                {
-                    _currentGouvernailInput = Mathf.Clamp(_currentGouvernailInput, _data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
-                }
+                targetAngularVelocity += _currentStormModifier * Time.fixedDeltaTime;
             }
 
-            _rb.angularVelocity = -_currentGouvernailInput;
+            _currentAngularVelocity = targetAngularVelocity;
+
+            if (!_affectedByStorm)
+            {
+                _currentAngularVelocity = Mathf.Clamp(_currentAngularVelocity, -_data.MaxRotateSpeed, _data.MaxRotateSpeed);
+            }
+
+            _rb.angularVelocity = _currentAngularVelocity;
+        }
+
+        private void RotateAutoReworked()
+        {
+            _currentGouvernailAmplitude = Mathf.Lerp(_currentGouvernailAmplitude, 0f, Time.fixedDeltaTime * _data.DecelerationForce);
+
+            float gourvernailPercent = Mathf.Abs((float)_currentGouvernailAmplitude) / (float)_data.GouvernailMaxAmplitude;
+
+            float targetAngularVelocity = _data.MaxRotateSpeed * gourvernailPercent * Mathf.Sign(_currentGouvernailAmplitude);
+
+            targetAngularVelocity = Mathf.Lerp(_currentAngularVelocity, targetAngularVelocity, Time.fixedDeltaTime * _data.RotateAcceleration);
+
+            if (_affectedByStorm)
+            {
+                targetAngularVelocity += _currentStormModifier * Time.fixedDeltaTime;
+            }
+
+            _currentAngularVelocity = targetAngularVelocity;
+
+            if (!_affectedByStorm)
+            {
+                _currentAngularVelocity = Mathf.Clamp(_currentAngularVelocity, -_data.MaxRotateSpeed, _data.MaxRotateSpeed);
+            }
+
+            _rb.angularVelocity = _currentAngularVelocity;
         }
 
         #endregion

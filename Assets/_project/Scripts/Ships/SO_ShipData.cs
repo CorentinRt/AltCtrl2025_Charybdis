@@ -6,24 +6,42 @@ namespace AltCtrl.Charybdis
     public class SO_ShipData : ScriptableObject
     {
         #region Fields
+        [Header("Controlled")]
+
         [Header("Movements")]
         [SerializeField] private float _acceleration;
         [SerializeField] private float _minSpeed;
         [SerializeField] private float _maxSpeed;
 
-        [SerializeField] private float _rotateSpeed;
+        [Header("Rotate")]
+        [SerializeField] private float _rotateAcceleration;
         [SerializeField] private float _maxRotateSpeed;
         [SerializeField] private float _decelerationForce;
 
+        [Space]
+
         [Header("Auto")]
+
+        [Header("Movements")]
         [SerializeField] private float _minAutoSpeed;
         [SerializeField] private float _maxAutoSpeed;
 
+        [Header("Rotate")]
         [SerializeField] private float _minAutoRotateSpeed;
         [SerializeField] private float _maxAutoRotateSpeed;
+        
+        [Header("Gouvernail")]
+        [SerializeField] private int _gouvernailMaxAmplitude = 20;
+
+        [Header("Other")]
+
+        [Space]
 
         [Header("Destroy")]
         [SerializeField] private float _destroyDelay;
+
+        [Header("Wind")]
+        [SerializeField] private float _windForceMultiplier;
 
         [Header("Storm")]
         [SerializeField] private float _minCooldownBeforeChangeStormModifier;
@@ -35,8 +53,6 @@ namespace AltCtrl.Charybdis
         [Header("Typhon")]
         [SerializeField] private float _typhonAttractionForce = 70f;
 
-        [Header("Gouvernail")]
-        [SerializeField] private int _gouvernailMaxAmplitude = 20;
         #endregion
 
         #region Properties
@@ -44,7 +60,7 @@ namespace AltCtrl.Charybdis
         public float MinSpeed => _minSpeed;
         public float MaxSpeed => _maxSpeed;
 
-        public float RotateSpeed => _rotateSpeed;
+        public float RotateAcceleration => _rotateAcceleration;
         public float MaxRotateSpeed => _maxRotateSpeed;
         public float DecelerationForce => _decelerationForce;
 
@@ -64,6 +80,8 @@ namespace AltCtrl.Charybdis
         public float TyphonAttractionForce => _typhonAttractionForce;
 
         public int GouvernailMaxAmplitude => _gouvernailMaxAmplitude;
+
+        public float WindForceMultiplier => _windForceMultiplier;
         #endregion
 
     }
