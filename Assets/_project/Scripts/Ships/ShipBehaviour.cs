@@ -18,7 +18,6 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Transform _visualAnchor;
 
-        [SerializeField] private GameObject _explosionIndicator;
         [SerializeField] private GameObject _validateIndicator;
         [SerializeField] private GameObject _stormIndicator;
         [SerializeField] private GameObject _inTyphonIndicator;
@@ -53,7 +52,6 @@ namespace AltCtrl.Charybdis
         private float _currentGouvernailInput;
         private float _turboValue;
 
-        private float _autoGouvernailValue;
         private float _autoSpeed;
 
         // Wind
@@ -87,6 +85,10 @@ namespace AltCtrl.Charybdis
 
         // Gouvernail
         private float _currentGouvernailAmplitude;
+
+        // Animations
+        [SerializeField] private GameObject _animatorsHandler;
+        private Animator _animator;
         #endregion
 
 
@@ -100,6 +102,10 @@ namespace AltCtrl.Charybdis
         public event Action<ShipBehaviour> OnShipDestroyed;
         public event Action<ShipBehaviour> OnShipValidated;
 
+        private void Awake()
+        {
+            _animator = _animatorsHandler.GetComponentInChildren<Animator>(true);
+        }
 
         private void Start()
         {
@@ -143,7 +149,6 @@ namespace AltCtrl.Charybdis
 
             _currentGouvernailAmplitude = 0f;
 
-            _autoGouvernailValue = 0f;
             _autoSpeed = 0f;
 
             _currentGouvernailInput = 0f;
@@ -207,6 +212,8 @@ namespace AltCtrl.Charybdis
                     ShipsManager.Instance.ReactOnChangeFrequency(_associatedFrequency);
                 }
             }
+
+            _animator.SetTrigger("Spawn");
         }
 
         private void OnDestroy()
@@ -458,9 +465,10 @@ namespace AltCtrl.Charybdis
             _rb.linearVelocity = Vector2.zero;
             _rb.angularVelocity = 0f;
 
-            _visualAnchor.DOLocalRotate(new Vector3(0f, 0f, 720f), _data.DestroyDelay * 0.9f, RotateMode.FastBeyond360);
-            
-            _explosionIndicator.SetActive(true);
+            //_visualAnchor.DOLocalRotate(new Vector3(0f, 0f, 720f), _data.DestroyDelay * 0.9f, RotateMode.FastBeyond360);
+
+            _animator.SetTrigger("Destroy");
+
             _frequencyLabel.gameObject.SetActive(false);
             _trajectoryLine.gameObject.SetActive(false);
 
