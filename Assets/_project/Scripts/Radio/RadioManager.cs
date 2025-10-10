@@ -77,6 +77,9 @@ namespace AltCtrl.Charybdis
             if (!_inputEnable)
                 return;
 
+            if (Time.timeScale == 0f)
+                return;
+
             if (_canRadioInputCooldown > 0f)
             {
                 return;

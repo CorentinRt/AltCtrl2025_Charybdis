@@ -266,6 +266,18 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        [Button]
+        private void DebugSetControlled()
+        {
+            SetAutoValue(true);
+        }
+
+        [Button]
+        private void DebugSetAuto()
+        {
+            SetAutoValue(false);
+        }
+
         public void SetAutoValue(bool controlled)
         {
             _isAuto = !controlled;
@@ -291,7 +303,7 @@ namespace AltCtrl.Charybdis
 
             Vector3 tempVelocity = _rb.linearVelocity;
 
-            tempVelocity += transform.up * Time.fixedDeltaTime * _autoSpeed;
+            tempVelocity += transform.up * Time.fixedDeltaTime * _data.Acceleration * deltaInputVertical;
 
 
             if (tempVelocity.magnitude * deltaInputVertical < _data.MinSpeed)

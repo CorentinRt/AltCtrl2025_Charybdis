@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8327836882770779041}
   - component: {fileID: 6905743065367227931}
   - component: {fileID: 3565225788295594922}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Island
   m_TagString: Island
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4090648861339499300}
   - component: {fileID: 5723356955246669798}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Totem1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 4629220194148374766}
   - component: {fileID: 2074602717731001896}
   - component: {fileID: 3044241738805738554}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Storm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

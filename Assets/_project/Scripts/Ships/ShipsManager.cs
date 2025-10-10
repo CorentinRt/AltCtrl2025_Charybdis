@@ -45,10 +45,7 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
-        // TO DO : S'inscrire ici pour détecter bateaux détruits pour la barre de victoire
         public event Action OnDestroyShip;
-
-        // TO DO : S'inscrire ici pour détecter bateaux validé pour la barre de victoire
         public event Action OnValidateShip;
 
         private void Start()
@@ -95,8 +92,6 @@ namespace AltCtrl.Charybdis
             if (ship == null)
                 return;
 
-            Debug.Log("Remove ship", this);
-
             _ships.Remove(ship);
 
             ship.OnShipDestroyed -= ReactOnDestroyShip;
@@ -136,8 +131,6 @@ namespace AltCtrl.Charybdis
         public void SetEnableShipsSpawn(bool enabled)
         {
             _enabledShipsSpawn = enabled;
-
-            Debug.Log($"Set enabled Ship spawn : {enabled}", this);
         }
 
         private void DefineNewRandomTimeSpawn()
