@@ -156,7 +156,6 @@ namespace AltCtrl.Charybdis
 
             _associatedFrequency = (-1, -1);
 
-            _explosionIndicator.SetActive(false);
             _validateIndicator.SetActive(false);
             _stormIndicator.SetActive(false);
             _inTyphonIndicator.SetActive(false);
