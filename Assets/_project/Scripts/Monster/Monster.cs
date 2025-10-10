@@ -9,11 +9,7 @@ namespace AltCtrl.Charybdis
     {
         // ----- FIELDS ----- //
         [Header("Values")]
-        [SerializeField] private float _moveSpeed = 5f;
-        [SerializeField] private float _smoothTime = 0.1f;
-        [SerializeField] private float _typhoonCantMoveTime = 3f;
-        [SerializeField] private float _typhoonCooldown = 5f;
-        [SerializeField] private float _teleportCooldown = 2f;
+        [SerializeField] private SO_MonsterData _monsterData;
 
         [Header("Controls")]
         [SerializeField] private bool _useJoystick = false;
@@ -116,13 +112,13 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator StartTyphoonCooldown()
         {
-            yield return new WaitForSeconds(_typhoonCooldown);
+            yield return new WaitForSeconds(_monsterData.TyphoonCooldown);
             _canTyphoon = true;
         }
 
         private IEnumerator StartTyphoonCantMoveTime()
         {
-            yield return new WaitForSeconds(_typhoonCantMoveTime);
+            yield return new WaitForSeconds(_monsterData.TyphoonCantMoveTime);
             _isMoving = true;
         }
 
@@ -133,7 +129,7 @@ namespace AltCtrl.Charybdis
 
             if (_useJoystick)
             {
-                Vector2 move = _moveDirection.normalized * _moveSpeed * Time.fixedDeltaTime;
+                Vector2 move = _moveDirection.normalized * _monsterData.MoveSpeed * Time.fixedDeltaTime;
                 Vector2 newPosition = _rb.position + move;
 
                 newPosition.x = Mathf.Clamp(newPosition.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
@@ -153,7 +149,7 @@ namespace AltCtrl.Charybdis
                     return;
                 }
 
-                Vector2 move = direction.normalized * _moveSpeed * Time.fixedDeltaTime;
+                Vector2 move = direction.normalized * _monsterData.MoveSpeed * Time.fixedDeltaTime;
                 _rb.MovePosition(currentPosition + move);
             }
         }
@@ -176,7 +172,7 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator TeleportCooldown()
         {
-            yield return new WaitForSeconds(_teleportCooldown);
+            yield return new WaitForSeconds(_monsterData.TeleportCooldown);
             _canTeleport = true;
         }
 
