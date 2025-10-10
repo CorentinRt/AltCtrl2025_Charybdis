@@ -303,7 +303,8 @@ namespace AltCtrl.Charybdis
 
             Vector3 tempVelocity = _rb.linearVelocity;
 
-            tempVelocity += transform.up * Time.fixedDeltaTime * _data.Acceleration * deltaInputVertical;
+            //tempVelocity += transform.up * Time.fixedDeltaTime * _data.Acceleration * deltaInputVertical;
+            tempVelocity += transform.up * Time.fixedDeltaTime * _autoSpeed;
 
 
             if (tempVelocity.magnitude * deltaInputVertical < _data.MinSpeed)
