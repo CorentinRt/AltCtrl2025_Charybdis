@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
@@ -5,6 +6,54 @@ namespace AltCtrl.Charybdis
     [RequireComponent(typeof(Collider2D))]
     public class MonsterTyphoon : MonoBehaviour
     {
+        // ----- FIELDS ----- //
+        [Header("References")]
+        [SerializeField] private Collider2D _collider;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private GameObject _visuals;
+
+        [Header("Values")]
+        [SerializeField] private float _activationAnimTime = 2f;
+        [SerializeField] private float _deactivationAnimTime = 2f;
+        [SerializeField] private float _timeBeforeDeactivate = 5f;
+        // ----- FIELDS ----- //
+
+        private void Start()
+        {
+            DeactivateTyphon();
+        }
+
+        public void ActivateTyphon()
+        {
+            StartCoroutine(WaitAndActivateCollider());
+            StartCoroutine(WaitAndDeactivateTyphon());
+
+            _visuals.gameObject.SetActive(true);
+            _animator.SetBool("Thyphon_Actif", true);
+        }
+
+        private IEnumerator WaitAndActivateCollider()
+        {
+            yield return new WaitForSeconds(_activationAnimTime);
+            _collider.enabled = true;
+        }
+
+        private IEnumerator WaitAndDeactivateTyphon()
+        {
+            yield return new WaitForSeconds(_timeBeforeDeactivate);
+            _animator.SetBool("Thyphon_Actif", false);
+            _collider.enabled = false;
+            yield return new WaitForSeconds(_deactivationAnimTime);
+            DeactivateTyphon();
+        }
+
+        public void DeactivateTyphon()
+        {
+            _collider.enabled = false;
+            _visuals.SetActive(false);
+        }
+
+        #region Trigger Enter / Exit
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision == null || collision.gameObject == null)
@@ -26,5 +75,6 @@ namespace AltCtrl.Charybdis
                 collision.gameObject.GetComponent<IShipBehaviour>().GetShip().SetAffectedByTyphon(false, transform.position);
             }
         }
+        #endregion
     }
 }

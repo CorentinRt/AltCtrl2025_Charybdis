@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5
   _typhoonCantMoveTime: 3
-  _typhoonCooldown: 5
+  _typhoonCooldown: 10
   _teleportCooldown: 2
