@@ -18,7 +18,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float objectWidth, objectHeight;
 
         [Header("References")]
-        [SerializeField] private GameObject _monsterTyphoon;
+        [SerializeField] private MonsterTyphoon _monsterTyphoon;
 
         private Vector2 _moveDirection;
         private Vector2 _currentVelocity;
@@ -43,7 +43,7 @@ namespace AltCtrl.Charybdis
 
             screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 
-            _monsterTyphoon.SetActive(false);
+            _monsterTyphoon.DeactivateTyphon();
 
             if (InputManager.Instance != null)
             {
@@ -103,7 +103,7 @@ namespace AltCtrl.Charybdis
                 _canTyphoon = false;
 
                 _monsterTyphoon.transform.position = transform.position;
-                _monsterTyphoon.SetActive(true);
+                _monsterTyphoon.ActivateTyphon();
 
                 StartCoroutine(StartTyphoonCooldown());
                 StartCoroutine(StartTyphoonCantMoveTime());

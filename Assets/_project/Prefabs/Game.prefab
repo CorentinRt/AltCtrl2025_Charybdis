@@ -597,7 +597,7 @@ PrefabInstance:
     - target: {fileID: 1026834675221620134, guid: b520a5f30b8f61b4b90df0a0aa74a030, type: 3}
       propertyPath: _monsterTyphoon
       value: 
-      objectReference: {fileID: 305818960886704730}
+      objectReference: {fileID: 6084210242591469030}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -926,13 +926,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6699cc34bc633740a8d036911699f12, type: 3}
---- !u!1 &305818960886704730 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8541972226871259030, guid: f6699cc34bc633740a8d036911699f12, type: 3}
-  m_PrefabInstance: {fileID: 8265603684936893900}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2867869554059504728 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6159212247711033748, guid: f6699cc34bc633740a8d036911699f12, type: 3}
   m_PrefabInstance: {fileID: 8265603684936893900}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6084210242591469030 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2799592143791319082, guid: f6699cc34bc633740a8d036911699f12, type: 3}
+  m_PrefabInstance: {fileID: 8265603684936893900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 982708bae8bbb9d4e9954e04c78f66d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

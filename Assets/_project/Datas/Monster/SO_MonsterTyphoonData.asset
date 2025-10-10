@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 618de18e5ae4be641b6f2815f08771cb, type: 3}
-  m_Name: SO_MonsterData
+  m_Script: {fileID: 11500000, guid: 570ec74015641a04891c1b27c4fe237c, type: 3}
+  m_Name: SO_MonsterTyphoonData
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _typhoonCantMoveTime: 3
-  _typhoonCooldown: 10
-  _teleportCooldown: 2
+  _activationAnimTime: 2
+  _deactivationAnimTime: 3
+  _timeBeforeDeactivate: 8
