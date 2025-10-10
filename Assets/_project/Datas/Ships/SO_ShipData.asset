@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370aaa5da1321f4419f840e166fc02f9, type: 3}
   m_Name: SO_ShipData
   m_EditorClassIdentifier: 
-  _acceleration: 4
+  _acceleration: 2
   _minSpeed: 1
-  _maxSpeed: 5
-  _rotateSpeed: 1620
-  _maxRotateSpeed: 1620
-  _decelerationForce: 3
-  _minAutoSpeed: 1
-  _maxAutoSpeed: 2
-  _minAutoRotateSpeed: 0
-  _maxAutoRotateSpeed: 0
+  _maxSpeed: 2.5
+  _rotateSpeed: 1000
+  _maxRotateSpeed: 1000
+  _decelerationForce: 1
+  _minAutoSpeed: 0.5
+  _maxAutoSpeed: 1.5
+  _minAutoRotateSpeed: -7
+  _maxAutoRotateSpeed: 7
   _destroyDelay: 0.7
   _minCooldownBeforeChangeStormModifier: 0.5
   _maxCooldownBeforeChangeStormModifier: 1
   _minStormModifier: 30
   _maxStormModifier: 60
-  _typhonAttractionForce: 70
-  _gouvernailMaxAmplitude: 15
+  _typhonAttractionForce: 50
+  _gouvernailMaxAmplitude: 10
