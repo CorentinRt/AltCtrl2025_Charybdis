@@ -138,11 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72afb14836b9b6f48889af668f5b1f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 15
-  _smoothTime: 0.1
-  _typhoonCantMoveTime: 1
-  _typhoonCooldown: 5
-  _teleportCooldown: 2
+  _monsterData: {fileID: 11400000, guid: ad55d538491279949ac1db9483052496, type: 2}
   _useJoystick: 1
   objectWidth: 0.5
   objectHeight: 0.5
