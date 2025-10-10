@@ -199,6 +199,14 @@ namespace AltCtrl.Charybdis
             _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
 
             _rb.linearVelocity = transform.up * _autoSpeed;
+
+            if (RadioManager.Exist && ShipsManager.Exist)
+            {
+                if (_associatedFrequency == RadioManager.Instance.GetCurrentFrequency())
+                {
+                    ShipsManager.Instance.ReactOnChangeFrequency(_associatedFrequency);
+                }
+            }
         }
 
         private void OnDestroy()
@@ -230,10 +238,10 @@ namespace AltCtrl.Charybdis
 
         private void OnMoveShipRotateInput(int dir)
         {
-            if (!_isAuto)
+            if (_isAuto)
                 return;
 
-            _currentGouvernailAmplitude += dir;
+            _currentGouvernailAmplitude -= dir;
 
             _currentGouvernailAmplitude = Mathf.Clamp(_currentGouvernailAmplitude, -_data.GouvernailMaxAmplitude, _data.GouvernailMaxAmplitude);
         }
@@ -263,13 +271,13 @@ namespace AltCtrl.Charybdis
 
             if (_isAuto)
             {
-                MoveAutoReworked();
                 RotateAutoReworked();
+                MoveAutoReworked();
             }
             else
             {
-                MoveControlledReworked();
                 RotateControlledReworked();
+                MoveControlledReworked();
             }
 
             if (_affectedByTyphon)
@@ -329,8 +337,6 @@ namespace AltCtrl.Charybdis
 
         private void RotateControlledReworked()
         {
-            _currentGouvernailAmplitude += Input.GetAxis("Horizontal") * Time.fixedDeltaTime * _data.RotateAcceleration;
-
             float gourvernailPercent = Mathf.Abs(_currentGouvernailAmplitude) / _data.GouvernailMaxAmplitude;
 
             float targetAngularVelocity = _data.MaxRotateSpeed * gourvernailPercent * Mathf.Sign(_currentGouvernailAmplitude);

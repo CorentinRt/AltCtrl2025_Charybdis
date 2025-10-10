@@ -280,7 +280,7 @@ namespace AltCtrl.Charybdis
             OnValidateShip?.Invoke();
         }
 
-        private void ReactOnChangeFrequency((int, int) frequency)
+        public void ReactOnChangeFrequency((int, int) frequency)
         {
             if (_currentControlledShip != null)
             {
