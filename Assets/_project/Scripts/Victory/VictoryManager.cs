@@ -19,11 +19,16 @@ namespace AltCtrl.Charybdis
         private float _currentMultiplier = 1f;
         private float _currentWaitTime = 0f;
 
-        private bool _hasWon;
+        private bool _godHasWon;
+        private bool _humanHasWon;
 
         [Header("References")]
         [SerializeField] private Slider _victorySlider; // HUMAN 0 - GOD MAX
         // ----- FIELDS ----- //
+
+        public bool HasWon => _humanHasWon || _godHasWon;
+        public bool GodHasWon => _godHasWon;
+        public bool HumanHasWon => _humanHasWon;
 
         public event Action OnGodVictory;
         public event Action OnHumanVictory;
@@ -87,7 +92,7 @@ namespace AltCtrl.Charybdis
 
         private void AddGodScoreOnDestroyShip()
         {
-            if (_hasWon)
+            if (HasWon)
                 return;
 
             _victorySlider.value += _addGodScoreOnDestroyShip * _currentMultiplier;
@@ -99,7 +104,7 @@ namespace AltCtrl.Charybdis
 
         private void AddHumanScoreOnDestroyShip()
         {
-            if (_hasWon)
+            if (HasWon)
                 return;
 
             _victorySlider.value -= _addHumanScoreOnLeaveShip * _currentMultiplier;
@@ -111,26 +116,26 @@ namespace AltCtrl.Charybdis
 
         private void CheckVictory()
         {
-            if (_hasWon)
+            if (HasWon)
                 return;
 
             if (_victorySlider.value == _sliderMaxValue)
             {
                 OnGodVictory?.Invoke();
+                _godHasWon = true;
                 OnVictory?.Invoke();
-                _hasWon = true;
             }
             else if (_victorySlider.value == 0f)
             {
                 OnHumanVictory?.Invoke();
+                _humanHasWon = true;
                 OnVictory?.Invoke();
-                _hasWon = true;
             }
         }
 
         private void CheckReturnToMainMenu(bool pressed)
         {
-            if (!pressed || !_hasWon)
+            if (!pressed || !HasWon)
                 return;
 
             SceneManager.LoadScene("MainMenu");

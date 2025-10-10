@@ -73,7 +73,7 @@ public class InputManager : MonoBehaviour
         {
             if (Microphone.devices.Length == 0)
             {
-                Debug.LogError("Aucun microphone détecté !");
+                Debug.LogError("Aucun microphone dï¿½tectï¿½ !");
                 return "";
             }
 
@@ -97,13 +97,13 @@ public class InputManager : MonoBehaviour
     #region Arduino
     public void MoveShipRotatorPressed(int direction)
     {
-        //Debug.Log($"Move ship in direction {direction}");
+        Debug.Log($"Move ship in direction {direction}");
         OnMoveShipRotatorPressed?.Invoke(direction);
     }
 
     public void MoveRadioRotatorPressed(int direction)
     {
-        //Debug.Log($"Move radio in direction {direction}");
+        Debug.Log($"Move radio in direction {direction}");
         OnMoveRadioRotatorPressed?.Invoke(direction);
     }
     #endregion

@@ -1,10 +1,11 @@
+using CREMOT.GameplayUtilities;
 using System.Collections;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Monster : MonoBehaviour
+    public class Monster : GenericSingleton<Monster>
     {
         // ----- FIELDS ----- //
         [Header("Values")]
@@ -35,6 +36,8 @@ namespace AltCtrl.Charybdis
         private Rigidbody2D _rb;
 
         private Vector2 screenBounds;
+
+        private bool _inputEnabled;
 
         // ----- FIELDS ----- //
 
@@ -95,6 +98,9 @@ namespace AltCtrl.Charybdis
 
         private void OnMonsterTyphoon(bool pressed)
         {
+            if (!_inputEnabled)
+                return;
+
             if (pressed & _isMoving && _canTyphoon)
             {
                 _isMoving = false;
@@ -122,7 +128,7 @@ namespace AltCtrl.Charybdis
 
         void FixedUpdate()
         {
-            if (!_isMoving)
+            if (!_isMoving || !_inputEnabled)
                 return;
 
             if (_useJoystick)
@@ -177,6 +183,11 @@ namespace AltCtrl.Charybdis
         public void SetCanMove(bool canMove)
         {
             _isMoving = canMove;
+        }
+
+        public void SetEnableMonsterInput(bool enabled)
+        {
+            _inputEnabled = enabled;
         }
 
         public bool IsTeleporting() { return _isTeleporting; }
