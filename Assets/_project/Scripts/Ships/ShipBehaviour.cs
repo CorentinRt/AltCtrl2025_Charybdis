@@ -74,6 +74,7 @@ namespace AltCtrl.Charybdis
 
         // Frequency
         private (int, int) _associatedFrequency;
+        private float _frequencyLabelOffset;
 
         // Bounds
         private Vector3 _screenBounds;
@@ -102,6 +103,8 @@ namespace AltCtrl.Charybdis
 
         private void Start()
         {
+            _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+
             if (_autoInit)
             {
                 Init();
@@ -119,6 +122,8 @@ namespace AltCtrl.Charybdis
 
                 InputManager.Instance.OnMoveShipRotatorPressed += OnMoveShipRotateInput;
             }
+
+            _frequencyLabelOffset = _frequencyLabel.transform.localPosition.y;
 
         }
 
@@ -235,6 +240,15 @@ namespace AltCtrl.Charybdis
             CheckValidateShip();
 
             _frequencyHolder.transform.rotation = Quaternion.identity;
+
+            if (_frequencyLabel.transform.localPosition.y > 0 && transform.position.y > Camera.main.transform.position.y)
+            {
+                _frequencyLabel.transform.localPosition = new Vector3(0f, -_frequencyLabelOffset, 0f);
+            }
+            else if (_frequencyLabel.transform.localPosition.y < 0 && transform.position.y < Camera.main.transform.position.y)
+            {
+                _frequencyLabel.transform.localPosition = new Vector3(0f, _frequencyLabelOffset, 0f);
+            }
 
             UpdateStormEffect();
         }
@@ -491,8 +505,6 @@ namespace AltCtrl.Charybdis
         {
             if (_isValidated || _isDestroyed)
                 return;
-
-            _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 
             if (transform.position.x > -_screenBounds.x && transform.position.x < _screenBounds.x && transform.position.y > -_screenBounds.y && transform.position.y < _screenBounds.y)
             {
