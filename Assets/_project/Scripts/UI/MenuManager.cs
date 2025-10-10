@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UnityEngine.SceneManagement;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 
 namespace AltCtrl.Charybdis
 {
-    public class MainMenuManager : MonoBehaviour
+    public class MenuManager : MonoBehaviour
     {
         // ----- FIELDS ----- //
         [Header("Language")]
@@ -24,12 +23,19 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Slider _volumeSlider;
         [SerializeField] private AudioMixer _audioMixer;
 
+        [Header("Pause")]
+        [SerializeField] private bool _isPauseMenu = false;
+        [SerializeField] private GameObject _pauseGameObject;
+        private bool _isInPause = false;
+
         [Header("Values")]
         [SerializeField] private float _showDebugTextsTime = 2f;
         // ----- FIELDS ----- //
 
         private void Start()
         {
+            if (_pauseGameObject != null) _pauseGameObject.SetActive(false);
+
             UpdateLanguageTxt();
             UpdateMicrophoneTxt();
 
@@ -46,6 +52,11 @@ namespace AltCtrl.Charybdis
 
                 _volumeSlider.onValueChanged.AddListener(UpdateAudioMixerVolume);
                 InputManager.Instance.OnMoveRadioRotatorPressed += ChangeVolumeWithRadio; 
+
+                if (_isPauseMenu)
+                {
+                    InputManager.Instance.OnPausePressed += TogglePauseMenu;
+                }
             }
         }
 
@@ -62,6 +73,11 @@ namespace AltCtrl.Charybdis
 
                 _volumeSlider.onValueChanged.RemoveListener(UpdateAudioMixerVolume);
                 InputManager.Instance.OnMoveRadioRotatorPressed -= ChangeVolumeWithRadio;
+
+                if (_isPauseMenu)
+                {
+                    InputManager.Instance.OnPausePressed -= TogglePauseMenu;
+                }
 
             }
         }
@@ -84,6 +100,7 @@ namespace AltCtrl.Charybdis
         private void SetNextLanguage(bool pressed)
         {
             if (!pressed) return;
+            if (_isPauseMenu && !_isInPause) return;
 
             var locales = UnityEngine.Localization.Settings.LocalizationSettings.AvailableLocales.Locales;
             var currentLocale = UnityEngine.Localization.Settings.LocalizationSettings.SelectedLocale;
@@ -98,9 +115,9 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator ShowAndHideLanguage()
         {
-            yield return new WaitForSeconds(0.2f); // temps refresh string
+            yield return new WaitForSecondsRealtime(0.2f); // temps refresh string
             _languageLocalizeStringEvent.gameObject.SetActive(true);
-            yield return new WaitForSeconds(_showDebugTextsTime);
+            yield return new WaitForSecondsRealtime(_showDebugTextsTime);
             _languageLocalizeStringEvent.gameObject.SetActive(false);
         }
         #endregion
@@ -121,6 +138,7 @@ namespace AltCtrl.Charybdis
         private void SetNextMicrophone(bool pressed)
         {
             if (!pressed) return;
+            if (_isPauseMenu && !_isInPause) return;
 
             InputManager.Instance.SetNextMicrophone();
             UpdateMicrophoneTxt();
@@ -128,9 +146,9 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator ShowAndHideMicrophone()
         {
-            yield return new WaitForSeconds(0.2f); // temps refresh string
+            yield return new WaitForSecondsRealtime(0.2f); // temps refresh string
             _microphoneLocalizeStringEvent.gameObject.SetActive(true);
-            yield return new WaitForSeconds(_showDebugTextsTime);
+            yield return new WaitForSecondsRealtime(_showDebugTextsTime);
             _microphoneLocalizeStringEvent.gameObject.SetActive(false);
         }
         #endregion
@@ -157,6 +175,8 @@ namespace AltCtrl.Charybdis
 
         public void ChangeVolumeWithRadio(int value)
         {
+            if (_isPauseMenu && !_isInPause) return;
+
             _volumeSlider.value += value;
 
             UpdateAudioMixerVolume(_volumeSlider.value);
@@ -169,5 +189,30 @@ namespace AltCtrl.Charybdis
             _audioMixer.SetFloat("MasterVolume", dB);
         }
         #endregion Volume
+
+        #region Pause
+        public void TogglePauseMenu(bool pressed)
+        {
+            if (!pressed) return;
+
+            _isInPause = !_isInPause;
+
+            if (_isInPause)
+            {
+                Time.timeScale = 0f;
+                _pauseGameObject.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                _pauseGameObject.SetActive(false);
+            }
+        }
+
+        public void ReturnToGame()
+        {
+            TogglePauseMenu(true);
+        }
+        #endregion
     }
 }

@@ -23,6 +23,8 @@ public class InputManager : MonoBehaviour
     public event Action<bool> OnNextMicrophonePressed;
     public event Action<bool> OnNextLanguagePressed;
 
+    public event Action<bool> OnPausePressed;
+
     public event Action<int> OnMoveShipRotatorPressed;
     public event Action<int> OnMoveRadioRotatorPressed;
 
@@ -207,6 +209,18 @@ public class InputManager : MonoBehaviour
         else if (context.canceled)
         {
             OnNextLanguagePressed?.Invoke(false);
+        }
+    }
+
+    public void PausePressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnPausePressed?.Invoke(true);
+        }
+        else if (context.canceled)
+        {
+            OnPausePressed?.Invoke(false);
         }
     }
     #endregion
