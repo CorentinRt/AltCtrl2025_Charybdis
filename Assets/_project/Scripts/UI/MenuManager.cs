@@ -156,7 +156,7 @@ namespace AltCtrl.Charybdis
         #region Play
         public void Play(bool pressed)
         {
-            if (!pressed) return;
+            if (!pressed ||_isPauseMenu) return;
             Play();
         }
 

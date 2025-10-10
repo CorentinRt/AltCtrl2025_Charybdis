@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547ce1ec89d7e7b49820fb1ee69a0f10, type: 3}
   m_Name: SO_GamePhasesData
   m_EditorClassIdentifier: 
-  _cooldownSecondsDuration: 5
+  _cooldownSecondsDuration: 3
