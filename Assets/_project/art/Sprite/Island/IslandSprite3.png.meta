@@ -68,7 +68,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.025
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -146,7 +146,7 @@ TextureImporter:
         width: 279
         height: 285
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -168,7 +168,7 @@ TextureImporter:
         width: 1504
         height: 1560
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -190,7 +190,7 @@ TextureImporter:
         width: 327
         height: 326
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,7 +212,7 @@ TextureImporter:
         width: 689
         height: 575
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,7 +234,7 @@ TextureImporter:
         width: 309
         height: 387
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -249,10 +249,41 @@ TextureImporter:
       weights: []
     outline: []
     customData: 
-    physicsShape: []
+    physicsShape:
+    - - {x: 478, y: -796}
+      - {x: 606, y: -538}
+      - {x: 572, y: -387}
+      - {x: 544, y: -381}
+      - {x: 576, y: -60}
+      - {x: 745, y: 5}
+      - {x: 797, y: 168}
+      - {x: 797, y: 377}
+      - {x: 756, y: 481}
+      - {x: 447, y: 450}
+      - {x: 271, y: 653}
+      - {x: 147, y: 681}
+      - {x: 20, y: 681}
+      - {x: -137, y: 609}
+      - {x: -296, y: 619}
+      - {x: -492, y: 526}
+      - {x: -596, y: 394}
+      - {x: -660, y: 307}
+      - {x: -605, y: 105}
+      - {x: -702, y: 19}
+      - {x: -708, y: -11}
+      - {x: -708, y: -128}
+      - {x: -606, y: -279}
+      - {x: -470, y: -449}
+      - {x: -410, y: -465}
+      - {x: -225, y: -412}
+      - {x: -127, y: -483}
+      - {x: -104, y: -720}
+      - {x: -67, y: -767}
+      - {x: 219, y: -880}
+      - {x: 304, y: -880}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
