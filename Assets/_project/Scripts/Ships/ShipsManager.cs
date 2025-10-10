@@ -186,12 +186,16 @@ namespace AltCtrl.Charybdis
 
             if (iteration < 10)
             {
+                Debug.Log($"Iteration {iteration}", this);
                 RaycastHit2D hit = Physics2D.CircleCast(randomPos, _checkRadius, dir, _spawnDistanceCheck, _islandsLayerMask);
+                //RaycastHit2D hit = Physics2D.Raycast(randomPos, dir, _spawnDistanceCheck, _islandsLayerMask);
 
-                Debug.DrawLine(randomPos, hit.point, Color.red, 2f);
+                DrawCircleCast(randomPos, _checkRadius, dir, _spawnDistanceCheck, Color.red, 2f);
 
                 if (hit.collider != null)
                 {
+                    Debug.Log($"Hit : {hit.collider.gameObject.name}", hit.collider.gameObject);
+
                     SpawnShip(++iteration);
                     return;
                 }
@@ -203,6 +207,44 @@ namespace AltCtrl.Charybdis
                 ship.GetComponent<IShipBehaviour>().Init();
             }
         }
+
+        #region Debug Circle Cast
+        public void DrawCircleCast(Vector2 origin, float radius, Vector2 direction, float distance, Color color, float duration = 0f, int segments = 24)
+        {
+            // Cercle de départ
+            DrawCircle(origin, radius, color, duration, segments);
+
+            // Cercle de fin (là où le cast s'arrête)
+            Vector2 end = origin + direction.normalized * distance;
+            DrawCircle(end, radius, color * 0.8f, duration, segments);
+
+            // Lignes reliant les deux cercles
+            Vector2 dir = direction.normalized;
+            Vector2 perp = new Vector2(-dir.y, dir.x); // vecteur perpendiculaire
+
+            Vector2 startEdge1 = origin + perp * radius;
+            Vector2 startEdge2 = origin - perp * radius;
+            Vector2 endEdge1 = end + perp * radius;
+            Vector2 endEdge2 = end - perp * radius;
+
+            Debug.DrawLine(startEdge1, endEdge1, color, duration);
+            Debug.DrawLine(startEdge2, endEdge2, color, duration);
+        }
+
+        public void DrawCircle(Vector2 center, float radius, Color color, float duration = 0f, int segments = 24)
+        {
+            float angleStep = 360f / segments;
+            Vector3 prevPoint = center + Vector2.right * radius;
+            for (int i = 1; i <= segments; i++)
+            {
+                float angle = angleStep * i * Mathf.Deg2Rad;
+                Vector3 newPoint = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                Debug.DrawLine(prevPoint, newPoint, color, duration);
+                prevPoint = newPoint;
+            }
+        }
+
+        #endregion
 
         public void ValidateAllShip()
         {

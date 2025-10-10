@@ -49,5 +49,5 @@ MonoBehaviour:
   _islandsLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  _spawnDistanceCheck: 5
+  _spawnDistanceCheck: 10
   _checkRadius: 0.3
