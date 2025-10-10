@@ -13,9 +13,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private GameObject _visuals;
 
         [Header("Values")]
-        [SerializeField] private float _activationAnimTime = 2f;
-        [SerializeField] private float _deactivationAnimTime = 2f;
-        [SerializeField] private float _timeBeforeDeactivate = 5f;
+        [SerializeField] private SO_MonsterTyphoonData _data;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -34,16 +32,16 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator WaitAndActivateCollider()
         {
-            yield return new WaitForSeconds(_activationAnimTime);
+            yield return new WaitForSeconds(_data.ActivationAnimTime);
             _collider.enabled = true;
         }
 
         private IEnumerator WaitAndDeactivateTyphon()
         {
-            yield return new WaitForSeconds(_timeBeforeDeactivate);
+            yield return new WaitForSeconds(_data.TimeBeforeDeactivate);
             _animator.SetBool("Thyphon_Actif", false);
             _collider.enabled = false;
-            yield return new WaitForSeconds(_deactivationAnimTime);
+            yield return new WaitForSeconds(_data.DeactivationAnimTime);
             DeactivateTyphon();
         }
 

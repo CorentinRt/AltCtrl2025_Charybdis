@@ -137,9 +137,7 @@ MonoBehaviour:
   _collider: {fileID: 9063590881954823255}
   _animator: {fileID: 8749067955782183226}
   _visuals: {fileID: 7040591724665992943}
-  _activationAnimTime: 2
-  _deactivationAnimTime: 3
-  _timeBeforeDeactivate: 8
+  _data: {fileID: 11400000, guid: 831006ebe986bf24699e7ee0b6cbeb61, type: 2}
 --- !u!58 &9063590881954823255
 CircleCollider2D:
   m_ObjectHideFlags: 0
