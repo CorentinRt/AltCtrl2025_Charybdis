@@ -204,6 +204,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 407151ac-df81-4bf5-9a31-fc0688f79bc5
     m_ActionName: 'Player/NextLanguage[/Keyboard/f2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1133582490482657222}
+        m_TargetAssemblyTypeName: InputManager, AltCtrl.Charybdis
+        m_MethodName: PausePressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 23be85b5-6465-44d2-9a5f-5b04d64e5ab8
+    m_ActionName: 'Player/Pause[/Keyboard/1]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
