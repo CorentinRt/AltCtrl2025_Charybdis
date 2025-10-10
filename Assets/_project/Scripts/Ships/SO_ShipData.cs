@@ -10,6 +10,7 @@ namespace AltCtrl.Charybdis
 
         [Header("Movements")]
         [SerializeField] private float _acceleration;
+        [SerializeField] private float _accelerationSmooth;
         [SerializeField] private float _minSpeed;
         [SerializeField] private float _maxSpeed;
 
@@ -57,6 +58,7 @@ namespace AltCtrl.Charybdis
 
         #region Properties
         public float Acceleration => _acceleration;
+        public float AccelerationSmooth => _accelerationSmooth;
         public float MinSpeed => _minSpeed;
         public float MaxSpeed => _maxSpeed;
 

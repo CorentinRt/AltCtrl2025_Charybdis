@@ -51,7 +51,7 @@ namespace AltCtrl.Charybdis
         private Vector3[] _trajectoryPointsBuffer;
 
         private float _currentGouvernailInput;
-        private bool _moveTurboPressed;
+        private float _turboValue;
 
         private float _autoGouvernailValue;
         private float _autoSpeed;
@@ -141,13 +141,13 @@ namespace AltCtrl.Charybdis
             _currentCooldownNewStormModifier = 0f;
             _cooldownNewStormModifier = 0f;
 
-            _currentGouvernailAmplitude = 0;
+            _currentGouvernailAmplitude = 0f;
 
             _autoGouvernailValue = 0f;
             _autoSpeed = 0f;
 
             _currentGouvernailInput = 0f;
-            _moveTurboPressed = false;
+            _turboValue = 0f;
 
             _associatedFrequency = (-1, -1);
 
@@ -230,6 +230,9 @@ namespace AltCtrl.Charybdis
 
         private void OnMoveShipRotateInput(int dir)
         {
+            if (!_isAuto)
+                return;
+
             _currentGouvernailAmplitude += dir;
 
             _currentGouvernailAmplitude = Mathf.Clamp(_currentGouvernailAmplitude, -_data.GouvernailMaxAmplitude, _data.GouvernailMaxAmplitude);
@@ -278,14 +281,7 @@ namespace AltCtrl.Charybdis
         #region Turbo
         private void OnMoveTurboPressed(Vector2 value)
         {
-            if (value.y > 0.1f)
-            {
-                _moveTurboPressed = true;
-            }
-            else
-            {
-                _moveTurboPressed = false;
-            }
+            _turboValue = value.y;
         }
         #endregion
 
@@ -313,11 +309,11 @@ namespace AltCtrl.Charybdis
         #region Controlled movements
         private void MoveControlledReworked()
         {
-            _moveTurboPressed = Input.GetKey(KeyCode.Z);
+            float targetSpeed = _currentSpeed + _turboValue * Time.fixedDeltaTime * _data.Acceleration;
 
-            float targetSpeed = _moveTurboPressed ? _data.MaxSpeed : _data.MinSpeed;
+            targetSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
 
-            _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.Acceleration);
+            _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.AccelerationSmooth);
 
             _currentSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
 
