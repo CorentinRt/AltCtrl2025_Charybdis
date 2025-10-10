@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: adecebf14c27f1d47b9b6e34e5e08087
+guid: 10fa51c438783dd45bf3ffff4a91237b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2999516810378340170
-    second: IslandSprite3_0
-  - first:
-      213: -3625458087009448746
-    second: IslandSprite3_1
-  - first:
-      213: 3986129733472983828
-    second: IslandSprite3_2
-  - first:
-      213: -6532241350637541259
-    second: IslandSprite3_3
-  - first:
-      213: -4628914053216002319
-    second: IslandSprite3_4
+      213: 5974790454516856465
+    second: RockSprite2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -36,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -138,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IslandSprite3_0
+      name: RockSprite2_0
       rect:
         serializedVersion: 2
-        x: 196
-        y: 1549
-        width: 279
-        height: 285
+        x: 173
+        y: 182
+        width: 165
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,96 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6b816936a539f56d0800000000000000
-      internalID: -2999516810378340170
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IslandSprite3_1
-      rect:
-        serializedVersion: 2
-        x: 317
-        y: 145
-        width: 1504
-        height: 1560
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6dc0cbf0419cfadc0800000000000000
-      internalID: -3625458087009448746
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IslandSprite3_2
-      rect:
-        serializedVersion: 2
-        x: 1383
-        y: 1602
-        width: 327
-        height: 326
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 41b97488fd3915730800000000000000
-      internalID: 3986129733472983828
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IslandSprite3_3
-      rect:
-        serializedVersion: 2
-        x: 101
-        y: 96
-        width: 689
-        height: 575
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 578a124d911d855a0800000000000000
-      internalID: -6532241350637541259
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IslandSprite3_4
-      rect:
-        serializedVersion: 2
-        x: 1616
-        y: 583
-        width: 309
-        height: 387
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1fe1f32913bc2cfb0800000000000000
-      internalID: -4628914053216002319
+      spriteID: 1963fd83348bae250800000000000000
+      internalID: 5974790454516856465
       vertices: []
       indices: 
       edges: []
@@ -261,11 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IslandSprite3_0: -2999516810378340170
-      IslandSprite3_1: -3625458087009448746
-      IslandSprite3_2: 3986129733472983828
-      IslandSprite3_3: -6532241350637541259
-      IslandSprite3_4: -4628914053216002319
+      RockSprite2_0: 5974790454516856465
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
