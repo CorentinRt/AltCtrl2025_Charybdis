@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153e561f1c6027e44b941fa6066f9f6a, type: 3}
   m_Name: SO_RadioData
   m_EditorClassIdentifier: 
-  _mainFrequencyMin: 101
+  _mainFrequencyMin: 100
   _mainFrequencyMax: 110
   _externalFrequencyMin: 0
-  _externalFrequencyMax: 9
+  _externalFrequencyMax: 0
   _timeToHoldIfNoShipControlled: 0.03
   _timeToHoldIfHasShipControlled: 0.2
