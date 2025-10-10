@@ -131,14 +131,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2554129262864611157, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2554129262864611157, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2939954652333781005, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -146,14 +138,6 @@ PrefabInstance:
     - target: {fileID: 3435289947024658862, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_Name
       value: Game
-      objectReference: {fileID: 0}
-    - target: {fileID: 3518613225750297350, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3518613225750297350, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3742828705125423112, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_AnchorMax.x
@@ -202,14 +186,6 @@ PrefabInstance:
     - target: {fileID: 5527571011718250371, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6574692563144912340, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6574692563144912340, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
