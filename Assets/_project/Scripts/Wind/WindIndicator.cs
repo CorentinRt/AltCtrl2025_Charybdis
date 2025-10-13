@@ -34,6 +34,11 @@ namespace AltCtrl.Charybdis
                 {
                     _isBlowindLoud = false;
                     OnStopWindOnBoats?.Invoke();
+
+                    // ----- AUDIO ----- //
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.StopLoopingSound("Wind");
+                    // ----- AUDIO ----- //
                 }
             }
             else
@@ -43,6 +48,11 @@ namespace AltCtrl.Charybdis
                     _isBlowindLoud = true;
                     Debug.Log($"Start blowing loud direction :{transform.rotation.eulerAngles}");
                     OnStartWindOnBoats?.Invoke(transform.rotation.eulerAngles);
+
+                    // ----- AUDIO ----- //
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.PlaySound("Wind", true);
+                    // ----- AUDIO ----- //
                 }
             }
         }
