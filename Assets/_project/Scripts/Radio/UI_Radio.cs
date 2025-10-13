@@ -41,7 +41,7 @@ namespace AltCtrl.Charybdis
 
         private void UpdateFrequencyLabel((int, int) frequency)
         {
-            _frequencyLabel.text = $"{ frequency.Item1 } : { frequency.Item2 }";
+            _frequencyLabel.text = $"{ frequency.Item1 }.{ frequency.Item2 }";
         }
     }
 }

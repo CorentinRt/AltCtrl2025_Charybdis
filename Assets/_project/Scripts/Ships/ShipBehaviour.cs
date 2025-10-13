@@ -199,7 +199,7 @@ namespace AltCtrl.Charybdis
 
                 RadioManager.Instance.AddFrequencyUsed(_associatedFrequency);
 
-                _frequencyLabel.text = $"{_associatedFrequency.Item1} : {_associatedFrequency.Item2}";
+                _frequencyLabel.text = $"{_associatedFrequency.Item1}.{_associatedFrequency.Item2}";
             }
 
             if (ShipsManager.Exist)
