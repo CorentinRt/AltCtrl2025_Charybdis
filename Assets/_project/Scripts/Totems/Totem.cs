@@ -29,6 +29,11 @@ namespace AltCtrl.Charybdis
 
             _visuals.gameObject.SetActive(true);
             _animator.SetBool("Vortex_Actif", true);
+
+            // ----- AUDIO ----- //
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySound("Totem_Click");
+            // ----- AUDIO ----- //
         }
 
         private IEnumerator WaitAndActivateCollider()

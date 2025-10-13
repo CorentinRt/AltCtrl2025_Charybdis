@@ -27,6 +27,11 @@ namespace AltCtrl.Charybdis
                 _monsterInTunnel.SetTeleporting(true);
                 _monsterInTunnel.gameObject.SetActive(false);
                 StartCoroutine(WaitAndActivateMonster());
+
+                // ----- AUDIO ----- //
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.PlaySound("Monster_TP");
+                // ----- AUDIO ----- //
             }
         }
 
