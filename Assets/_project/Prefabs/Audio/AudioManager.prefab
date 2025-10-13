@@ -48,3 +48,24 @@ MonoBehaviour:
   - Name: Test
     Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
     Volume: 0.5
+  - Name: Typhoon_Created
+    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
+    Volume: 0.5
+  - Name: Boat_Sinking
+    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
+    Volume: 0.5
+  - Name: Wind
+    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
+    Volume: 0.5
+  - Name: Monster_TP
+    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
+    Volume: 0.5
+  - Name: Game_Music
+    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
+    Volume: 0.5
+  - Name: Totem_Click
+    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
+    Volume: 0.5
+  - Name: Radio_Change
+    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
+    Volume: 0.5

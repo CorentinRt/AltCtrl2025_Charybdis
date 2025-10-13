@@ -26,6 +26,11 @@ namespace AltCtrl.Charybdis
             StartCoroutine(WaitAndActivateCollider());
             StartCoroutine(WaitAndDeactivateTyphon());
 
+            // ----- AUDIO ----- //
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySound("Typhoon_Created");
+            // ----- AUDIO ----- //
+
             _visuals.gameObject.SetActive(true);
             _animator.SetBool("Thyphon_Actif", true);
         }
