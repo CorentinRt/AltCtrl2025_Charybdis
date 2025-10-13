@@ -26,6 +26,8 @@ namespace AltCtrl.Charybdis
         private void Start()
         {
             _detector.OnWindDetection += OnWindDetection;
+
+            _windVFX.SetActive(false);
         }
 
         private void OnWindDetection(float loudness)

@@ -665,6 +665,8 @@ namespace AltCtrl.Charybdis
             if (!_affectedByTyphon || _isValidated || _isDestroyed)
                 return;
 
+            Debug.Log("Typhon effect", this);
+
             Vector2 dirToCenter = (_typhonCenter - transform.position);
             float distance = dirToCenter.magnitude;
 
