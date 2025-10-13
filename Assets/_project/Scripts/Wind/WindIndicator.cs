@@ -15,6 +15,8 @@ namespace AltCtrl.Charybdis
         [SerializeField] private WindDetector _detector;
         [SerializeField] private Transform[] _visualAnchors;
 
+        [SerializeField] private GameObject _windVFX;
+
         private bool _isBlowindLoud = false;
         
         public event Action<Vector3> OnStartWindOnBoats; // Vector 3 = rotation indicator
@@ -39,6 +41,8 @@ namespace AltCtrl.Charybdis
                     if (AudioManager.Instance != null)
                         AudioManager.Instance.StopLoopingSound("Wind");
                     // ----- AUDIO ----- //
+
+                    _windVFX.SetActive(false);
                 }
             }
             else
@@ -53,6 +57,8 @@ namespace AltCtrl.Charybdis
                     if (AudioManager.Instance != null)
                         AudioManager.Instance.PlaySound("Wind", true);
                     // ----- AUDIO ----- //
+
+                    _windVFX.SetActive(true);
                 }
             }
         }
