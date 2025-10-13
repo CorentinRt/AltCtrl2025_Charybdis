@@ -40,6 +40,10 @@ namespace AltCtrl.Charybdis
         [SerializeField] private TextMeshProUGUI _frequencyLabel;
         [SerializeField] private Transform _frequencyHolder;
 
+        [Header("Animation")]
+        [SerializeField] private GameObject _animatorsHandler;
+        [SerializeField] private Ease _destroyEase;
+
         // Move
         private float _currentSpeed;
 
@@ -87,8 +91,9 @@ namespace AltCtrl.Charybdis
         private float _currentGouvernailAmplitude;
 
         // Animations
-        [SerializeField] private GameObject _animatorsHandler;
         private Animator _animator;
+
+        private Vector2 _visualAnchorLocalScale;
         #endregion
 
 
@@ -105,12 +110,15 @@ namespace AltCtrl.Charybdis
         private void Awake()
         {
             _animator = _animatorsHandler.GetComponentInChildren<Animator>(true);
+
+            _visualAnchorLocalScale = _visualAnchor.transform.localScale;
         }
 
         private void Start()
         {
             _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 
+            
             if (_autoInit)
             {
                 Init();
@@ -130,7 +138,6 @@ namespace AltCtrl.Charybdis
             }
 
             _frequencyLabelOffset = _frequencyLabel.transform.localPosition.y;
-
         }
 
         private void ResetValues()
@@ -169,6 +176,8 @@ namespace AltCtrl.Charybdis
 
             _rb.angularVelocity = 0f;
             _rb.linearVelocity = Vector2.zero;
+
+            _visualAnchor.transform.localScale = _visualAnchorLocalScale;
         }
 
         public void Init()
@@ -464,8 +473,6 @@ namespace AltCtrl.Charybdis
             _rb.linearVelocity = Vector2.zero;
             _rb.angularVelocity = 0f;
 
-            //_visualAnchor.DOLocalRotate(new Vector3(0f, 0f, 720f), _data.DestroyDelay * 0.9f, RotateMode.FastBeyond360);
-
             _animator.SetTrigger("Destroy");
 
             _frequencyLabel.gameObject.SetActive(false);
@@ -499,7 +506,11 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator DestroyShipWithDelayCoroutine()
         {
-            yield return new WaitForSeconds(_data.DestroyDelay);
+            yield return new WaitForSeconds(_data.DestroyDelay * 3f / 4f);
+
+            _visualAnchor.transform.DOScale(0f, _data.DestroyDelay / 5f).SetEase(_destroyEase);
+
+            yield return new WaitForSeconds(_data.DestroyDelay / 4f);
 
             EndDestroyShipWithDelay();
 

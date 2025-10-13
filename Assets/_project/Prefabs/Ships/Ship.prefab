@@ -152,7 +152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1052501206968744357
 Transform:
   m_ObjectHideFlags: 0
@@ -504,12 +504,11 @@ MonoBehaviour:
   _autoInit: 0
   _rb: {fileID: 2309350998748407080}
   _visualAnchor: {fileID: 8893701618023334432}
-  _explosionIndicator: {fileID: 0}
   _validateIndicator: {fileID: 8208267123661400910}
   _stormIndicator: {fileID: 5813049133346056634}
   _inTyphonIndicator: {fileID: 8448395961781363293}
   _data: {fileID: 11400000, guid: 31798161bbeb7fd43ba14776035e1057, type: 2}
-  _isAuto: 1
+  _isAuto: 0
   _controlledIndicator: {fileID: 2814376092408857299}
   _trajectoryLine: {fileID: 849006256866372298}
   _predictionSteps: 70
@@ -517,6 +516,7 @@ MonoBehaviour:
   _frequencyLabel: {fileID: 3739067644504760479}
   _frequencyHolder: {fileID: 846902837564214699}
   _animatorsHandler: {fileID: 3381088668046884981}
+  _destroyEase: 29
 --- !u!1 &5898775988494801471
 GameObject:
   m_ObjectHideFlags: 0

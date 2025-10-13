@@ -19,6 +19,7 @@ namespace AltCtrl.Charybdis
 
         [Header("References")]
         [SerializeField] private MonsterTyphoon _monsterTyphoon;
+        [SerializeField] private Animator _animator;
 
         private Vector2 _moveDirection;
         private Vector2 _currentVelocity;
@@ -101,6 +102,8 @@ namespace AltCtrl.Charybdis
             {
                 _isMoving = false;
                 _canTyphoon = false;
+
+                _animator.SetTrigger("ThyphonSpawn");
 
                 _monsterTyphoon.transform.position = transform.position;
                 _monsterTyphoon.ActivateTyphon();

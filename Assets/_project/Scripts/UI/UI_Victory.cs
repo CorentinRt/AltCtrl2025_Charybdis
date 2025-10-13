@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AltCtrl.Charybdis
 {
@@ -10,6 +11,11 @@ namespace AltCtrl.Charybdis
         [SerializeField] private GameObject _humanContainerVictory;
         [SerializeField] private GameObject _godContainerVictory;
 
+        [Header("Slider")]
+        [SerializeField] private Slider _slider;
+        [SerializeField] private GameObject _movingFill;
+        [SerializeField] private Transform _fillMin;
+        [SerializeField] private Transform _fillMax;
         #endregion
 
         #region Properties
@@ -33,6 +39,8 @@ namespace AltCtrl.Charybdis
                 VictoryManager.Instance.OnGodVictory += ReactOnGodVictory;
                 VictoryManager.Instance.OnHumanVictory += ReactOnHumanVictory;
             }
+
+            _slider.onValueChanged.AddListener(UpdateSliderFillPosition);
         }
 
         private void OnDestroy()
@@ -42,6 +50,8 @@ namespace AltCtrl.Charybdis
                 VictoryManager.Instance.OnGodVictory -= ReactOnGodVictory;
                 VictoryManager.Instance.OnHumanVictory -= ReactOnHumanVictory;
             }
+
+            _slider.onValueChanged.RemoveListener(UpdateSliderFillPosition);
         }
 
         private void ReactOnHumanVictory()
@@ -63,5 +73,13 @@ namespace AltCtrl.Charybdis
             _mainContainerVictory.SetActive(true);
         }
 
+        private void UpdateSliderFillPosition(float value)
+        {
+            float percentage = value / _slider.maxValue;
+
+            Vector2 newPosition = Vector2.Lerp(_fillMin.position, _fillMax.position, percentage);
+
+            _movingFill.transform.position = newPosition;   
+        }
     }
 }
