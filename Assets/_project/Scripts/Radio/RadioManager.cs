@@ -87,6 +87,11 @@ namespace AltCtrl.Charybdis
 
             _pressedRadioInputThisFrame = true;
             _radioInputDir = dir;
+
+            // ----- AUDIO ----- //
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySound("Radio_Change");
+            // ----- AUDIO ----- //
         }
 
         private void Update()

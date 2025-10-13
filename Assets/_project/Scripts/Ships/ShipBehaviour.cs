@@ -475,6 +475,11 @@ namespace AltCtrl.Charybdis
 
             _animator.SetTrigger("Destroy");
 
+            // ----- AUDIO ----- //
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySound("Boat_Sinking");
+            // ----- AUDIO ----- //
+
             _frequencyLabel.gameObject.SetActive(false);
             _trajectoryLine.gameObject.SetActive(false);
 
