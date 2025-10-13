@@ -13,6 +13,7 @@ namespace AltCtrl.Charybdis
 
         [Header("References")]
         [SerializeField] private WindDetector _detector;
+        [SerializeField] private Transform[] _visualAnchors;
 
         private bool _isBlowindLoud = false;
         
@@ -50,7 +51,10 @@ namespace AltCtrl.Charybdis
         {
             if (!_isBlowindLoud)
             {
-                transform.Rotate(Vector3.forward * _rotatingSpeed * Time.deltaTime);
+                foreach (Transform visual in _visualAnchors)
+                {
+                    visual.Rotate(Vector3.forward * _rotatingSpeed * Time.deltaTime);
+                }
             }
         }
     }
