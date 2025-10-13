@@ -24,7 +24,7 @@ MonoBehaviour:
   _minAutoRotateSpeed: 0
   _maxAutoRotateSpeed: 0
   _gouvernailMaxAmplitude: 10
-  _destroyDelay: 2
+  _destroyDelay: 4
   _windForceMultiplier: 10
   _minCooldownBeforeChangeStormModifier: 0.5
   _maxCooldownBeforeChangeStormModifier: 1
