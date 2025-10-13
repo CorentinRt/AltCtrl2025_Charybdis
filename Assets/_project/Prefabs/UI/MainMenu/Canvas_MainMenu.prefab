@@ -1054,6 +1054,7 @@ GameObject:
   - component: {fileID: 8553879724527307071}
   - component: {fileID: 1932834216521088341}
   - component: {fileID: 7565986378894958743}
+  - component: {fileID: 6136313320992800205}
   m_Layer: 5
   m_Name: Canvas_MainMenu
   m_TagString: Untagged
@@ -1164,7 +1165,24 @@ MonoBehaviour:
   _microphoneLocalizeStringEvent: {fileID: 8148962560603444566}
   _volumeSlider: {fileID: 1136914803584541282}
   _audioMixer: {fileID: 24100000, guid: 0d0069bdf6852804d8ce8ef180058476, type: 2}
+  _isPauseMenu: 0
+  _pauseGameObject: {fileID: 0}
   _showDebugTextsTime: 2
+--- !u!114 &6136313320992800205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790082872849991894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b598663488455f49b0768e9b429dc7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundName: Game_Music
+  _playOnEnable: 1
+  _isLooping: 1
 --- !u!1 &9053500901905923928
 GameObject:
   m_ObjectHideFlags: 0

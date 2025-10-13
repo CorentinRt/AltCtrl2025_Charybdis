@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4817403167568778535}
   - component: {fileID: 473809457445908217}
+  - component: {fileID: 5229509752719940095}
   m_Layer: 0
   m_Name: Manager_Game
   m_TagString: Untagged
@@ -45,3 +46,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 35114690f12091346bca0b22c2b006c3, type: 2}
+--- !u!114 &5229509752719940095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850841743455564786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b598663488455f49b0768e9b429dc7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundName: Game_Music
+  _playOnEnable: 1
+  _isLooping: 1
