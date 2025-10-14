@@ -1,6 +1,7 @@
 using CREMOT.GameplayUtilities;
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace AltCtrl.Charybdis
 {
@@ -10,6 +11,14 @@ namespace AltCtrl.Charybdis
         [Header("Values")]
         [SerializeField] private float _rotatingSpeed = 5f;
         [SerializeField] private float _minLoudness = 3f;
+        [SerializeField] private float _minRandomTime = 2f;
+        [SerializeField] private float _maxRandomTime = 5f;
+
+        private float _currentRandomTime = 0f;
+        private float _currentWaitedTime = 0f;
+
+        private float _targetAngle;     
+        private bool _isWaiting = false;
 
         [Header("References")]
         [SerializeField] private WindDetector _detector;
@@ -17,7 +26,7 @@ namespace AltCtrl.Charybdis
 
         [SerializeField] private GameObject _windVFX;
 
-        private bool _isBlowindLoud = false;
+        private bool _isBlowingLoud = false;
         
         public event Action<Vector3> OnStartWindOnBoats; // Vector 3 = rotation indicator
         public event Action OnStopWindOnBoats;
@@ -25,6 +34,8 @@ namespace AltCtrl.Charybdis
 
         private void Start()
         {
+            SetNewTargetRotation();
+
             _detector.OnWindDetection += OnWindDetection;
 
             _windVFX.SetActive(false);
@@ -34,9 +45,9 @@ namespace AltCtrl.Charybdis
         {
             if (loudness < _minLoudness)
             {
-                if (_isBlowindLoud)
+                if (_isBlowingLoud)
                 {
-                    _isBlowindLoud = false;
+                    _isBlowingLoud = false;
                     OnStopWindOnBoats?.Invoke();
 
                     // ----- AUDIO ----- //
@@ -49,9 +60,9 @@ namespace AltCtrl.Charybdis
             }
             else
             {
-                if (!_isBlowindLoud)
+                if (!_isBlowingLoud)
                 {
-                    _isBlowindLoud = true;
+                    _isBlowingLoud = true;
                     Debug.Log($"Start blowing loud direction :{transform.rotation.eulerAngles}");
                     OnStartWindOnBoats?.Invoke(transform.rotation.eulerAngles);
 
@@ -67,13 +78,44 @@ namespace AltCtrl.Charybdis
 
         private void Update()
         {
-            if (!_isBlowindLoud)
+            if (!_isBlowingLoud)
             {
-                foreach (Transform visual in _visualAnchors)
+                if (!_isWaiting)
                 {
-                    visual.Rotate(Vector3.forward * _rotatingSpeed * Time.deltaTime);
+                    bool allReached = true;
+
+                    foreach (Transform visual in _visualAnchors)
+                    {
+                        float currentZ = visual.localEulerAngles.z;
+                        float newZ = Mathf.MoveTowardsAngle(currentZ, _targetAngle, _rotatingSpeed * Time.deltaTime);
+                        visual.localEulerAngles = new Vector3(0f, 0f, newZ);
+
+                        if (Mathf.Abs(Mathf.DeltaAngle(currentZ, _targetAngle)) > 0.5f)
+                            allReached = false;
+                    }
+
+                    if (allReached)
+                    {
+                        _isWaiting = true;
+                        _currentRandomTime = Random.Range(_minRandomTime, _maxRandomTime);
+                        _currentWaitedTime = 0f;
+                    }
+                }
+                else
+                {
+                    _currentWaitedTime += Time.deltaTime;
+                    if (_currentWaitedTime >= _currentRandomTime)
+                    {
+                        _isWaiting = false;
+                        SetNewTargetRotation();
+                    }
                 }
             }
+        }
+
+        private void SetNewTargetRotation()
+        {
+            _targetAngle = Random.Range(0f, 360f);
         }
     }
 }
