@@ -23,14 +23,14 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
-        private void Start()
+        private void Awake()
         {
             Init();
         }
 
         private void Init()
         {
-            if (GameManager.Exist)
+            if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnGamePhaseChanged += ReactOnGamePhaseChanged;
             }
