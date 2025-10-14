@@ -206,5 +206,10 @@ namespace AltCtrl.Charybdis
         public bool IsTeleporting() { return _isTeleporting; }
 
         public bool CanTeleport() { return _canTeleport; }
+
+        public void SetUnderground(bool underground)
+        {
+            _animator.SetBool("Underground", underground);
+        }
     }
 }
