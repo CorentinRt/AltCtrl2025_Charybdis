@@ -63,8 +63,9 @@ namespace AltCtrl.Charybdis
                 if (!_isBlowingLoud)
                 {
                     _isBlowingLoud = true;
-                    Debug.Log($"Start blowing loud direction :{transform.rotation.eulerAngles}");
-                    OnStartWindOnBoats?.Invoke(transform.rotation.eulerAngles);
+
+                    Debug.Log($"Start blowing loud direction :{_visualAnchors[0].up}");
+                    OnStartWindOnBoats?.Invoke(_visualAnchors[0].up);
 
                     // ----- AUDIO ----- //
                     if (AudioManager.Instance != null)
