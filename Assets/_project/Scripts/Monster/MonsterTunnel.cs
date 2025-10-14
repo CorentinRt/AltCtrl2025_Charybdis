@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.Splines;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
@@ -10,7 +11,12 @@ namespace AltCtrl.Charybdis
         [Header("Values")]
         [SerializeField] private float _timeBeforeTP = 3f;
 
+        [Header("Spline Settings")]
+        [SerializeField] private SplineContainer _spline;  // ta spline dans la scène
+        [SerializeField] private float _speed = 5f;
+
         [Header("References")]
+        [SerializeField] private Spline 
         [SerializeField] private MonsterTunnel _otherTunnel;
 
         private Monster _monsterInTunnel;
