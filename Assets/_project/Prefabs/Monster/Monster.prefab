@@ -70,7 +70,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1.15
+  m_Radius: 0.66
 --- !u!114 &1026834675221620134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +89,7 @@ MonoBehaviour:
   objectHeight: 0.5
   _monsterTyphoon: {fileID: 0}
   _animator: {fileID: 6268510938833048107}
+  _monsterVisuals: {fileID: 8017290241604456731}
 --- !u!50 &2984706738746621515
 Rigidbody2D:
   serializedVersion: 5
@@ -124,6 +125,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 556532406030948867}
     m_Modifications:
+    - target: {fileID: 118149465606054332, guid: 63295e6d0cf8b9d4390f78cf24aa3959, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350355188970868279, guid: 63295e6d0cf8b9d4390f78cf24aa3959, type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
     - target: {fileID: 2921306093731535385, guid: 63295e6d0cf8b9d4390f78cf24aa3959, type: 3}
       propertyPath: m_Name
       value: MonsterVisual
@@ -180,6 +189,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3888117705562877597, guid: 63295e6d0cf8b9d4390f78cf24aa3959, type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059426282366740258, guid: 63295e6d0cf8b9d4390f78cf24aa3959, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927523858256828186, guid: 63295e6d0cf8b9d4390f78cf24aa3959, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -193,5 +214,10 @@ Animator:
 --- !u!4 &7607303030582214657 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3340302410992864003, guid: 63295e6d0cf8b9d4390f78cf24aa3959, type: 3}
+  m_PrefabInstance: {fileID: 5172862001323920130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8017290241604456731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2921306093731535385, guid: 63295e6d0cf8b9d4390f78cf24aa3959, type: 3}
   m_PrefabInstance: {fileID: 5172862001323920130}
   m_PrefabAsset: {fileID: 0}

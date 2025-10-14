@@ -30,7 +30,7 @@ namespace AltCtrl.Charybdis
 
                 _monsterInTunnel = monster;
                 _monsterInTunnel.SetTeleporting(true);
-                _monsterInTunnel.gameObject.SetActive(false);
+                _monsterInTunnel.SetVisibilityMonster(false);
                 StartCoroutine(WaitAndActivateMonster());
 
                 // ----- AUDIO ----- //
@@ -43,7 +43,7 @@ namespace AltCtrl.Charybdis
         private IEnumerator WaitAndActivateMonster()
         {
             yield return new WaitForSeconds(_timeBeforeTP);
-            _monsterInTunnel.gameObject.SetActive(true);
+            _monsterInTunnel.SetVisibilityMonster(true);
             _monsterInTunnel.SetCanMove(true);
             _monsterInTunnel.transform.position = _otherTunnel.transform.position;
         }
