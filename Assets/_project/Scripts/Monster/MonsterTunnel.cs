@@ -16,7 +16,6 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _speed = 5f;
 
         [Header("References")]
-        [SerializeField] private Spline 
         [SerializeField] private MonsterTunnel _otherTunnel;
 
         private Monster _monsterInTunnel;
