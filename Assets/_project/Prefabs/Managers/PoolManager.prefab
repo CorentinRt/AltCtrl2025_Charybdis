@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 3671719064026857430}
   - {fileID: 6093054603360735528}
+  - {fileID: 2061980567206002570}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2992956644984033625
@@ -60,6 +61,10 @@ MonoBehaviour:
     - {fileID: 465355268750274567}
     Prefab: {fileID: 5872407553750334156, guid: 3240a37bf75d5cf4298bd641daa5082d, type: 3}
     Parent: {fileID: 3671719064026857430}
+  _typhoon:
+    Items: []
+    Prefab: {fileID: 0}
+    Parent: {fileID: 0}
   _audioSource:
     Items:
     - {fileID: 2965925240953957656}
@@ -74,6 +79,37 @@ MonoBehaviour:
     - {fileID: 8301903993932867650}
     Prefab: {fileID: 5139188618520522285, guid: e416cb1f7bf1f2e489e2b3da5bf7a084, type: 3}
     Parent: {fileID: 6093054603360735528}
+--- !u!1 &3170887317859573606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2061980567206002570}
+  m_Layer: 0
+  m_Name: --- TYPHOON ---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2061980567206002570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170887317859573606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3407499393384103723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3398161192717851817
 GameObject:
   m_ObjectHideFlags: 0
