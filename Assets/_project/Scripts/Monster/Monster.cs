@@ -175,6 +175,7 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator TeleportCooldown()
         {
+            Debug.Log("Teleport cooldown");
             yield return new WaitForSeconds(_monsterData.TeleportCooldown);
             _canTeleport = true;
         }
