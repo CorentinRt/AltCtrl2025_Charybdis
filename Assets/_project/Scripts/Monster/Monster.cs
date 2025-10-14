@@ -176,6 +176,7 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator TeleportCooldown()
         {
+            Debug.Log("Teleport cooldown");
             yield return new WaitForSeconds(_monsterData.TeleportCooldown);
             _canTeleport = true;
         }
@@ -205,5 +206,10 @@ namespace AltCtrl.Charybdis
         public bool IsTeleporting() { return _isTeleporting; }
 
         public bool CanTeleport() { return _canTeleport; }
+
+        public void SetUnderground(bool underground)
+        {
+            _animator.SetBool("Underground", underground);
+        }
     }
 }

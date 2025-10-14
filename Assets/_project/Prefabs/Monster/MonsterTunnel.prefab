@@ -46,10 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c8847e79ea5ce4ca4f2a7151e93ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeBeforeTP: 1
   _spline: {fileID: 0}
-  _speed: 5
+  _timeToTravel: 5
+  _reverse: 1
   _otherTunnel: {fileID: 0}
+  _collider: {fileID: 8912148025580712363}
 --- !u!61 &8912148025580712363
 BoxCollider2D:
   m_ObjectHideFlags: 0
