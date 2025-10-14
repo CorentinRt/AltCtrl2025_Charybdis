@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 namespace AltCtrl.Charybdis
 {
@@ -176,6 +175,12 @@ namespace AltCtrl.Charybdis
             _rb.linearVelocity = Vector2.zero;
 
             _visualAnchor.transform.localScale = _visualAnchorLocalScale;
+
+            _rb.angularVelocity = 0f;
+            _rb.linearVelocity = Vector2.zero;
+
+            _currentAngularVelocity = 0f;
+            _currentSpeed = 0f;
         }
 
         public void Init()

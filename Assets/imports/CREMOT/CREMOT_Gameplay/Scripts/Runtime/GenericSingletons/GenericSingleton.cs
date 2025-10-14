@@ -32,8 +32,11 @@ namespace CREMOT.GameplayUtilities
         {
             if (_instance != null)
             {
-                Destroy(gameObject);
-                return;
+                if (_instance != this)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
             }
 
             _instance = this as T;

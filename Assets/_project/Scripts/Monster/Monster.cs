@@ -20,6 +20,7 @@ namespace AltCtrl.Charybdis
         [Header("References")]
         [SerializeField] private MonsterTyphoon _monsterTyphoon;
         [SerializeField] private Animator _animator;
+        [SerializeField] private GameObject _monsterVisuals;
 
         private Vector2 _moveDirection;
         private Vector2 _currentVelocity;
@@ -188,6 +189,18 @@ namespace AltCtrl.Charybdis
         public void SetEnableMonsterInput(bool enabled)
         {
             _inputEnabled = enabled;
+        }
+
+        public void SetVisibilityMonster(bool visible)
+        {
+            if (visible)
+            {
+                _monsterVisuals.SetActive(true);
+            }
+            else
+            {
+                _monsterVisuals.SetActive(false);
+            }
         }
 
         public bool IsTeleporting() { return _isTeleporting; }

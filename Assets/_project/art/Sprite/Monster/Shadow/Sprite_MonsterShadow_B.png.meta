@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ec531b813b5dce24ab668ccbb8b4cda4
+guid: 4a0ea6cc366519f479e2c26261454a8b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7585118820188928357
-    second: Mer_0
+      213: 4211192914691690403
+    second: Sprite_MonsterShadow_B_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -56,7 +56,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -96,60 +96,63 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mer_0
+      name: Sprite_MonsterShadow_B_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 386
+        y: 387
+        width: 1275
+        height: 1275
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b964287ee9e3cb690800000000000000
-      internalID: -7585118820188928357
+      spriteID: 3af07d0e4a9217a30800000000000000
+      internalID: 4211192914691690403
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
     customData: 
-    physicsShape:
-    - - {x: -785, y: 344}
-      - {x: -633, y: 402}
-      - {x: -488, y: 342}
-      - {x: -385, y: 170}
-      - {x: -391, y: -66}
-      - {x: -638, y: -328}
-      - {x: -770, y: -163}
-      - {x: -861, y: 132}
-    - - {x: -247, y: -269}
-      - {x: -147, y: -400}
-      - {x: 34, y: -449}
-      - {x: 210, y: -413}
-      - {x: 301, y: -214}
-      - {x: 518, y: -26}
-      - {x: 737, y: 7}
-      - {x: 810, y: 135}
-      - {x: 749, y: 347}
-      - {x: 561, y: 417}
-      - {x: 385, y: 353}
-      - {x: 340, y: 194}
-      - {x: 341, y: 103}
-      - {x: 235, y: 25}
-      - {x: -208, y: -74}
+    physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -158,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mer_0: -7585118820188928357
+      Sprite_MonsterShadow_B_0: 4211192914691690403
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
