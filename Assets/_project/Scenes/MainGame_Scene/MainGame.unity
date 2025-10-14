@@ -139,10 +139,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game
       objectReference: {fileID: 0}
-    - target: {fileID: 3538684413056069456, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3742828705125423112, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -191,18 +187,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6084210242591469030, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: _deathZone
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084210242591469030, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: _animTimeBeforeCollider
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4322639990847220548, guid: 55ac55b595f27704eb45787474702829, type: 3}
-    m_RemovedGameObjects:
-    - {fileID: 78217960822771148, guid: 55ac55b595f27704eb45787474702829, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55ac55b595f27704eb45787474702829, type: 3}

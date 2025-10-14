@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 namespace AltCtrl.Charybdis
 {
@@ -53,7 +52,6 @@ namespace AltCtrl.Charybdis
         // Move Rotate
         private Vector3[] _trajectoryPointsBuffer;
 
-        private float _currentGouvernailInput;
         private float _turboValue;
 
         private float _autoSpeed;
@@ -158,7 +156,6 @@ namespace AltCtrl.Charybdis
 
             _autoSpeed = 0f;
 
-            _currentGouvernailInput = 0f;
             _turboValue = 0f;
 
             _associatedFrequency = (-1, -1);
@@ -207,7 +204,7 @@ namespace AltCtrl.Charybdis
                 ShipsManager.Instance.AddShip(this);
             }
 
-            _currentGouvernailInput = UnityEngine.Random.Range(-_data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
+            _currentGouvernailAmplitude = UnityEngine.Random.Range(_data.MinAutoRotateSpeed, _data.MaxAutoRotateSpeed);
 
             _autoSpeed = UnityEngine.Random.Range(_data.MinAutoSpeed, _data.MaxAutoSpeed);
 
@@ -627,7 +624,7 @@ namespace AltCtrl.Charybdis
 
             _currentStormModifier = UnityEngine.Random.Range(_data.MinStormModifier, _data.MaxStormModifier) * Mathf.Sign(-_currentStormModifier);
 
-            _currentGouvernailInput = -_currentGouvernailInput;
+            _currentGouvernailAmplitude = -_currentGouvernailAmplitude;
         }
 
         private void UpdateStormEffect()
@@ -656,7 +653,7 @@ namespace AltCtrl.Charybdis
 
             if (!affected)
             {
-                _currentGouvernailInput = 0f;
+                _currentGouvernailAmplitude = 0f;
             }
         }
 
@@ -678,7 +675,7 @@ namespace AltCtrl.Charybdis
 
             float cross = transform.up.x * dirToCenter.y - transform.up.y * dirToCenter.x;
 
-            _currentGouvernailInput += Time.fixedDeltaTime * -cross * _data.TyphonAttractionForce;
+            _currentGouvernailAmplitude += Time.fixedDeltaTime * cross * _data.TyphonAttractionForce;
         }
 
 

@@ -296,12 +296,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a1d209bdba1fb40b984288e087c598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotatingSpeed: 15
+  _rotatingSpeed: 30
   _minLoudness: 10
+  _minRandomTime: 2
+  _maxRandomTime: 5
   _detector: {fileID: 4275693264058001697}
   _visualAnchors:
   - {fileID: 7590570601160635076}
   - {fileID: 1468744101673698217}
+  _windVFX: {fileID: 9181319543005843912}
 --- !u!1 &9181319543005843912
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,24 +346,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1468744101673698217}
     m_Modifications:
     - target: {fileID: 6538061966192558668, guid: a4ae178777d190242b53775658bff807, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6538061966192558668, guid: a4ae178777d190242b53775658bff807, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6538061966192558668, guid: a4ae178777d190242b53775658bff807, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6538061966192558668, guid: a4ae178777d190242b53775658bff807, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
+      propertyPath: m_LocalPosition.y
+      value: -17.8
       objectReference: {fileID: 0}
     - target: {fileID: 6538061966192558668, guid: a4ae178777d190242b53775658bff807, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6538061966192558668, guid: a4ae178777d190242b53775658bff807, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
