@@ -15,6 +15,8 @@ namespace AltCtrl.Charybdis
         [Header("Values")]
         [SerializeField] private float _activationAnimTime = 2f;
         [SerializeField] private float _deactivationAnimTime = 3f;
+
+        private Coroutine _coroutineBuffer;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -25,7 +27,9 @@ namespace AltCtrl.Charybdis
 
         public void ActivateTotem()
         {
-            StartCoroutine(WaitAndActivateCollider());
+            StopCurrentStormCoroutine();
+
+            _coroutineBuffer = StartCoroutine(WaitAndActivateCollider());
 
             _visuals.gameObject.SetActive(true);
             _animator.SetBool("Vortex_Actif", true);
@@ -51,13 +55,26 @@ namespace AltCtrl.Charybdis
             DeactivateTotem();
         }
 
+        private void StopCurrentStormCoroutine()
+        {
+            if (_coroutineBuffer != null)
+            {
+                StopCoroutine(_coroutineBuffer);
+                _coroutineBuffer = null;
+            }
+        }
+
         public void DeactivateTotem()
         {
-            StartCoroutine(WaitAndDeactivateTotem());
+            StopCurrentStormCoroutine();
+
+            _coroutineBuffer = StartCoroutine(WaitAndDeactivateTotem());
         }
 
         public void SetActive(bool active)
         {
+            StopCurrentStormCoroutine();
+
             StopAllCoroutines();
 
             if (active)
