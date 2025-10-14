@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618de18e5ae4be641b6f2815f08771cb, type: 3}
   m_Name: SO_MonsterData
   m_EditorClassIdentifier: 
-  _moveSpeed: 2.5
-  _typhoonCantMoveTime: 2
-  _typhoonCooldown: 12
-  _teleportCooldown: 2
+  _moveSpeed: 3.5
+  _typhoonCantMoveTime: 1
+  _typhoonCooldown: 4
+  _teleportCooldown: 0.6
