@@ -20,7 +20,7 @@ MonoBehaviour:
     - rid: 7762080612882055415
   m_TableData:
   - m_Id: 365614772224
-    m_Localized: JOUER
+    m_Localized: "Appuyer sur une \xEEle pour jouers"
     m_Metadata:
       m_Items: []
   - m_Id: 1228366327808
