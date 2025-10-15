@@ -1,5 +1,6 @@
 using CREMOT.GameplayUtilities;
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,115 +9,99 @@ namespace AltCtrl.Charybdis
     public class WindIndicator : GenericSingleton<WindIndicator>
     {
         // ----- FIELDS ----- //
-        [Header("Values")]
-        [SerializeField] private float _rotatingSpeed = 5f;
-        [SerializeField] private float _minLoudness = 3f;
-        [SerializeField] private float _minRandomTime = 2f;
-        [SerializeField] private float _maxRandomTime = 5f;
-
-        private float _currentRandomTime = 0f;
-        private float _currentWaitedTime = 0f;
-
-        private float _targetAngle;     
-        private bool _isWaiting = false;
+        [Header("Datas")]
+        [SerializeField] private SO_WindData _data;
 
         [Header("References")]
-        [SerializeField] private WindDetector _detector;
-        [SerializeField] private Transform[] _visualAnchors;
-
         [SerializeField] private GameObject _windVFX;
 
+        [SerializeField] private Transform _directionVisual;
+
         private bool _isBlowingLoud = false;
-        
+
+        private Coroutine _windEffectCoroutine;
+
         public event Action<Vector3> OnStartWindOnBoats; // Vector 3 = rotation indicator
         public event Action OnStopWindOnBoats;
         // ----- FIELDS ----- //
 
         private void Start()
         {
-            SetNewTargetRotation();
-
-            _detector.OnWindDetection += OnWindDetection;
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.OnWindPressed += OnWindPressed;
+            }
 
             _windVFX.SetActive(false);
         }
 
-        private void OnWindDetection(float loudness)
+        private void OnDestroy()
         {
-            if (loudness < _minLoudness)
+            if (InputManager.Instance != null)
             {
-                if (_isBlowingLoud)
-                {
-                    _isBlowingLoud = false;
-                    OnStopWindOnBoats?.Invoke();
-
-                    // ----- AUDIO ----- //
-                    if (AudioManager.Instance != null)
-                        AudioManager.Instance.StopLoopingSound("Wind");
-                    // ----- AUDIO ----- //
-
-                    _windVFX.SetActive(false);
-                }
-            }
-            else
-            {
-                if (!_isBlowingLoud)
-                {
-                    _isBlowingLoud = true;
-
-                    Debug.Log($"Start blowing loud direction :{_visualAnchors[0].up}");
-                    OnStartWindOnBoats?.Invoke(_visualAnchors[0].up);
-
-                    // ----- AUDIO ----- //
-                    if (AudioManager.Instance != null)
-                        AudioManager.Instance.PlaySound("Wind", true);
-                    // ----- AUDIO ----- //
-
-                    _windVFX.SetActive(true);
-                }
+                InputManager.Instance.OnWindPressed -= OnWindPressed;
             }
         }
 
-        private void Update()
+        private void OnWindPressed(bool pressed)
         {
-            if (!_isBlowingLoud)
+            if (!pressed || _windEffectCoroutine != null)
+                return;
+
+            StartWindEffect();
+        }
+
+        private void StartWindEffect()
+        {
+            if (_windEffectCoroutine != null)
+                return;
+
+            OnStartWindOnBoats?.Invoke(_directionVisual.up);
+
+            // ----- AUDIO ----- //
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySound("Wind", true);
+            // ----- AUDIO ----- //
+
+            _windVFX.SetActive(true);
+
+            _windEffectCoroutine = StartCoroutine(WindEffectCoroutine());
+        }
+
+        private void StopWindEffect()
+        {
+            OnStopWindOnBoats?.Invoke();
+
+            // ----- AUDIO ----- //
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.StopLoopingSound("Wind");
+            // ----- AUDIO ----- //
+
+            _windVFX.SetActive(false);
+        }
+
+        private void StopWindCoroutine()
+        {
+            if (_windEffectCoroutine != null)
             {
-                if (!_isWaiting)
-                {
-                    bool allReached = true;
-
-                    foreach (Transform visual in _visualAnchors)
-                    {
-                        float currentZ = visual.localEulerAngles.z;
-                        float newZ = Mathf.MoveTowardsAngle(currentZ, _targetAngle, _rotatingSpeed * Time.deltaTime);
-                        visual.localEulerAngles = new Vector3(0f, 0f, newZ);
-
-                        if (Mathf.Abs(Mathf.DeltaAngle(currentZ, _targetAngle)) > 0.5f)
-                            allReached = false;
-                    }
-
-                    if (allReached)
-                    {
-                        _isWaiting = true;
-                        _currentRandomTime = Random.Range(_minRandomTime, _maxRandomTime);
-                        _currentWaitedTime = 0f;
-                    }
-                }
-                else
-                {
-                    _currentWaitedTime += Time.deltaTime;
-                    if (_currentWaitedTime >= _currentRandomTime)
-                    {
-                        _isWaiting = false;
-                        SetNewTargetRotation();
-                    }
-                }
+                StopCoroutine(_windEffectCoroutine);
+                _windEffectCoroutine = null;
             }
         }
 
-        private void SetNewTargetRotation()
+        private IEnumerator WindEffectCoroutine()
         {
-            _targetAngle = Random.Range(0f, 360f);
+            
+            yield return new WaitForSeconds(_data.WindDuration);
+
+            StopWindEffect();
+            
+
+            yield return new WaitForSeconds(_data.WindCooldown);
+
+            StopWindCoroutine();
+
+            yield return null;
         }
     }
 }
