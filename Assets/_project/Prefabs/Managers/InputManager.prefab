@@ -144,7 +144,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1133582490482657222}
         m_TargetAssemblyTypeName: InputManager, AltCtrl.Charybdis
-        m_MethodName: TyphonPressed
+        m_MethodName: WindPressed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
