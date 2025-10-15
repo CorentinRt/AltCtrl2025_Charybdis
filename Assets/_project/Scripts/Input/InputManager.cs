@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
     public event Action<bool> OnTotem1Pressed;
     public event Action<bool> OnTotem2Pressed;
     public event Action<bool> OnTotem3Pressed;
-    public event Action<bool> OnTyphonPressed;
+    public event Action<bool> OnWindPressed;
 
     public event Action<bool> OnNextMicrophonePressed;
     public event Action<bool> OnNextLanguagePressed;
@@ -176,15 +176,15 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void TyphonPressed(InputAction.CallbackContext context)
+    public void WindPressed(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            OnTyphonPressed?.Invoke(true);
+            OnWindPressed?.Invoke(true);
         }
         else if (context.canceled)
         {
-            OnTyphonPressed?.Invoke(false);
+            OnWindPressed?.Invoke(false);
         }
     }
 

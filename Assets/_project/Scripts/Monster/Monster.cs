@@ -55,7 +55,7 @@ namespace AltCtrl.Charybdis
                     InputManager.Instance.OnMoveMonsterTempPressed += OnMonsterMouseMove;
                 }
 
-                InputManager.Instance.OnTyphonPressed += OnMonsterTyphoon;
+                InputManager.Instance.OnWindPressed += OnMonsterTyphoon;
             }
         }
 
@@ -72,7 +72,7 @@ namespace AltCtrl.Charybdis
                     InputManager.Instance.OnMoveMonsterTempPressed -= OnMonsterMouseMove;
                 }
 
-                InputManager.Instance.OnTyphonPressed -= OnMonsterTyphoon;
+                InputManager.Instance.OnWindPressed -= OnMonsterTyphoon;
             }
         }
 
