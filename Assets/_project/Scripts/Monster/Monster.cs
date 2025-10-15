@@ -18,7 +18,6 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float objectWidth, objectHeight;
 
         [Header("References")]
-        [SerializeField] private MonsterTyphoon _monsterTyphoon;
         [SerializeField] private Animator _animator;
         [SerializeField] private GameObject _monsterVisuals;
 
@@ -44,8 +43,6 @@ namespace AltCtrl.Charybdis
             _rb = GetComponent<Rigidbody2D>();
 
             screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-
-            _monsterTyphoon.DeactivateTyphon();
 
             if (InputManager.Instance != null)
             {
@@ -106,8 +103,17 @@ namespace AltCtrl.Charybdis
 
                 _animator.SetTrigger("ThyphonSpawn");
 
-                _monsterTyphoon.transform.position = transform.position;
-                _monsterTyphoon.ActivateTyphon();
+                if (PoolManager.Instance != null)
+                {
+                    GameObject newTyphoonGO = PoolManager.Instance.ActivateTyphoon(transform.position, transform.rotation);
+                    MonsterTyphoon newTyphoon = newTyphoonGO.GetComponent<MonsterTyphoon>();
+                    newTyphoon.ActivateTyphon();
+                }
+                else
+                {
+                    Debug.LogError("No pool manager found in scene");
+                }
+                
 
                 StartCoroutine(StartTyphoonCooldown());
                 StartCoroutine(StartTyphoonCantMoveTime());

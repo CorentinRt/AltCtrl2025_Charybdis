@@ -16,13 +16,9 @@ namespace AltCtrl.Charybdis
         [SerializeField] private SO_MonsterTyphoonData _data;
         // ----- FIELDS ----- //
 
-        private void Start()
-        {
-            DeactivateTyphon();
-        }
-
         public void ActivateTyphon()
         {
+            //Debug.Log("activate typhoon");
             StartCoroutine(WaitAndActivateCollider());
             StartCoroutine(WaitAndDeactivateTyphon());
 
@@ -52,6 +48,7 @@ namespace AltCtrl.Charybdis
 
         public void DeactivateTyphon()
         {
+            //Debug.Log("deactivate typhoon");
             _collider.enabled = false;
             _visuals.SetActive(false);
         }
