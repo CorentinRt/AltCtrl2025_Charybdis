@@ -34,7 +34,7 @@ namespace AltCtrl.Charybdis
 
         private Vector2 screenBounds;
 
-        private bool _inputEnabled;
+        private bool _inputEnabled = true;
 
         // ----- FIELDS ----- //
 
