@@ -29,6 +29,9 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _spawnDistanceCheck = 10f;
         [SerializeField] private float _checkRadius = 5f;
 
+        [Header("Other")]
+        [SerializeField] private bool _isMainMenu;
+
         private List<ShipBehaviour> _ships = new List<ShipBehaviour>();
 
         private Dictionary<(int, int), ShipBehaviour> _frequencyToShip = new Dictionary<(int, int), ShipBehaviour>();
@@ -61,7 +64,10 @@ namespace AltCtrl.Charybdis
                 RadioManager.Instance.OnChangeFrequency += ReactOnChangeFrequency;
             }
 
-            DefineNewRandomTimeSpawn();
+            if (!_isMainMenu)
+            {
+                DefineNewRandomTimeSpawn();
+            }
         }
 
         private void OnDestroy()
@@ -114,7 +120,10 @@ namespace AltCtrl.Charybdis
                 shipBehaviour.PredictTrajectory();
             }
 
-            HandleShipsSpawn();
+            if (!_isMainMenu)
+            {
+                HandleShipsSpawn();
+            }
         }
 
         private void HandleShipsSpawn()
