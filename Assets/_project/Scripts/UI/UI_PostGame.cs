@@ -1,13 +1,12 @@
 using UnityEngine;
-using TMPro;
 
 namespace AltCtrl.Charybdis
 {
-    public class UI_Radio : MonoBehaviour
+    public class UI_PostGame : MonoBehaviour
     {
         #region Fields
+        [Header("References")]
         [SerializeField] private GameObject _mainAnchor;
-        [SerializeField] private TextMeshProUGUI _frequencyLabel;
 
         #endregion
 
@@ -15,7 +14,6 @@ namespace AltCtrl.Charybdis
 
 
         #endregion
-
 
         private void Awake()
         {
@@ -25,29 +23,8 @@ namespace AltCtrl.Charybdis
             }
         }
 
-        private void Start()
-        {
-            Init();
-        }
-        private void Init()
-        {
-            if (RadioManager.Exist)
-            {
-                RadioManager.Instance.OnChangeFrequency += UpdateFrequencyLabel;
-
-                UpdateFrequencyLabel(RadioManager.Instance.GetCurrentFrequency());
-            }
-
-        }
-
-
         private void OnDestroy()
         {
-            if (RadioManager.Exist)
-            {
-                RadioManager.Instance.OnChangeFrequency -= UpdateFrequencyLabel;
-            }
-
             if (GameManager.Exist)
             {
                 GameManager.Instance.OnGamePhaseChanged -= ReactOnGamePhaseChanged;
@@ -59,13 +36,13 @@ namespace AltCtrl.Charybdis
             switch (gamePhase)
             {
                 case GameManager.GAME_PHASES.PRE_GAME:
-                    SetEnablePostGame(true);
+                    SetEnablePostGame(false);
                     break;
                 case GameManager.GAME_PHASES.IN_GAME:
-                    SetEnablePostGame(true);
+                    SetEnablePostGame(false);
                     break;
                 case GameManager.GAME_PHASES.POST_GAME:
-                    SetEnablePostGame(false);
+                    SetEnablePostGame(true);
                     break;
             }
         }
@@ -75,9 +52,5 @@ namespace AltCtrl.Charybdis
             _mainAnchor.SetActive(enabled);
         }
 
-        private void UpdateFrequencyLabel((int, int) frequency)
-        {
-            _frequencyLabel.text = $"{ frequency.Item1 }.{ frequency.Item2 }";
-        }
     }
 }
