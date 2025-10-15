@@ -10,6 +10,8 @@ namespace AltCtrl.Charybdis
         [Header("Indicators")]
         [SerializeField] private List<GameObject> _indicators;
 
+        [SerializeField] private bool _startDisableIndicators = true;
+
         #endregion
 
         #region Properties
@@ -19,7 +21,7 @@ namespace AltCtrl.Charybdis
 
         private void Start()
         {
-            EnableIndicators(false);
+            EnableIndicators(!_startDisableIndicators);
 
             if (GameManager.Exist)
             {

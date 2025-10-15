@@ -1065,6 +1065,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1684264970917697478, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
+      propertyPath: _startDisableIndicators
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2642743940863320217, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
       propertyPath: m_Name
       value: Blue_Islands_Indicators
