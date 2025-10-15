@@ -673,7 +673,7 @@ namespace AltCtrl.Charybdis
             Vector2 dirToCenter = (_typhonCenter - transform.position);
             float distance = dirToCenter.magnitude;
 
-            if (distance < 0.5f)
+            if (distance < _data.DistanceToTyphonToDestroy)
             {
                 DestroyShip();
                 return;
