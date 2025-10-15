@@ -934,6 +934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ee99bec4754554ebb6632fba57d06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainAnchor: {fileID: 5329488797323077927}
   _mainContainerVictory: {fileID: 8154305980632712849}
   _humanContainerVictory: {fileID: 2068714039434618474}
   _godContainerVictory: {fileID: 2349625375425782977}
@@ -1335,7 +1336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8694607504759875048
 RectTransform:
   m_ObjectHideFlags: 0
