@@ -19,6 +19,9 @@ namespace AltCtrl.Charybdis
         [Header("----- Ship Pool -----")]
         [SerializeField] private PoolItem _ship;
 
+        [Header("----- Typhoon Pool -----")]
+        [SerializeField] private PoolItem _typhoon;
+
         // plus tard : vfx
 
         [Header("----- Audio Source -----")]
@@ -102,6 +105,15 @@ namespace AltCtrl.Charybdis
         public GameObject ActivateShip(Vector3 position, Quaternion rotation, bool activate = true) 
         {
             PoolItem poolItem = _ship;
+
+            return GetChild(poolItem, position, rotation, activate);
+        }
+        #endregion
+
+        #region Typhoon
+        public GameObject ActivateTyphoon(Vector3 position, Quaternion rotation, bool activate = true)
+        {
+            PoolItem poolItem = _typhoon;
 
             return GetChild(poolItem, position, rotation, activate);
         }
