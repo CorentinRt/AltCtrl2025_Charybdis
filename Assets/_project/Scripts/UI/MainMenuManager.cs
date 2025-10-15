@@ -22,54 +22,23 @@ namespace AltCtrl.Charybdis
         private void Start()
         {
             SpawnShip();
-        }
 
-        public void SetShipReady()
-        {
-            Debug.Log("ship ready");
-            _isShipReady = true;
-        }
-
-        public void SetShipNotReady()
-        {
-            Debug.Log("ship not ready");
-            _isShipReady = false;
-        }
-
-        public void SetMonsterReady()
-        {
-            Debug.Log("monster ready");
-            _isMonsterReady = true;
-        }
-
-        public void SetMonsterNotReady()
-        {
-            Debug.Log("monster not ready");
-            _isMonsterReady = false;
-        }
-
-        private void CheckBothPlayersReady()
-        {
-            if (_isShipReady &&  _isMonsterReady && !_isWaitingForLaunch)
+            if (InputManager.Instance != null)
             {
-                Debug.Log("both ready");
-                _isWaitingForLaunch = true;
-                // countdown 3 2 1
-                _launchGameCoroutine = StartCoroutine(WaitAndLaunchGame());
-            }
-            else
-            {
-                if (_launchGameCoroutine != null)
-                    StopCoroutine(_launchGameCoroutine);
-
-                _isWaitingForLaunch = false;
+                InputManager.Instance.OnTotem1Pressed += Play;
+                InputManager.Instance.OnTotem2Pressed += Play;
+                InputManager.Instance.OnTotem3Pressed += Play;
             }
         }
 
-        private IEnumerator WaitAndLaunchGame()
+        private void OnDestroy()
         {
-            yield return new WaitForSeconds(3f);
-            SceneManager.LoadScene("MainGame");
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.OnTotem1Pressed -= Play;
+                InputManager.Instance.OnTotem2Pressed -= Play;
+                InputManager.Instance.OnTotem3Pressed -= Play;
+            }
         }
 
         private void SpawnShip()
@@ -86,6 +55,13 @@ namespace AltCtrl.Charybdis
             _spawnedShip.OnShipDestroyed -= OnSpawnedFishDestroyed;
             _spawnedShip.OnShipValidated -= OnSpawnedFishDestroyed;
             SpawnShip();
+        }
+
+        private void Play(bool pressed)
+        {
+            if (!pressed) return;
+
+            SceneManager.LoadScene("MainGame");
         }
     }
 }
