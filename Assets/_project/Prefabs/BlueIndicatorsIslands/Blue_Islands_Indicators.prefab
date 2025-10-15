@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3473740666621906458}
+  - component: {fileID: 1684264970917697478}
   m_Layer: 0
   m_Name: Blue_Islands_Indicators
   m_TagString: Untagged
@@ -34,6 +35,22 @@ Transform:
   - {fileID: 5952586233488739306}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1684264970917697478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642743940863320217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2edc4df91bb590448b301b08c14f2ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _indicators:
+  - {fileID: 608037579497274058}
+  - {fileID: 672244253564810476}
+  - {fileID: 4856989042178640264}
 --- !u!1001 &787290227400312353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91,6 +108,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}
+--- !u!1 &608037579497274058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 188353760912801003, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}
+  m_PrefabInstance: {fileID: 787290227400312353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1840994359994628264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1396541222338641545, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}
@@ -153,6 +175,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}
+--- !u!1 &672244253564810476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 188353760912801003, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}
+  m_PrefabInstance: {fileID: 849315734538930183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1776919635912357518 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1396541222338641545, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}
@@ -215,6 +242,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}
+--- !u!1 &4856989042178640264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 188353760912801003, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}
+  m_PrefabInstance: {fileID: 4754208510396675427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5952586233488739306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1396541222338641545, guid: 4529a4142c0c0c241b30bd14189f49bb, type: 3}

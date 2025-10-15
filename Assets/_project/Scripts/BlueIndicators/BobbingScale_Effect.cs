@@ -30,7 +30,9 @@ namespace AltCtrl.Charybdis
 
         private void Init()
         {
-            PlayBobbingEffect();
+            transform.localScale = Vector3.zero;
+
+            transform.DOScale(_targetScale, _duration).SetEase(_ease).OnComplete(() => PlayBobbingEffect());
         }
 
         private void PlayBobbingEffect(bool invert = false)
