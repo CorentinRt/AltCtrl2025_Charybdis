@@ -50,7 +50,7 @@ namespace AltCtrl.Charybdis
             if (InputManager.Instance != null)
             {
                 InputManager.Instance.OnTotem1Pressed += CheckReturnToMainMenu;
-                InputManager.Instance.OnTotem2Pressed += CheckReturnToMainMenu;
+                InputManager.Instance.OnTotem2Pressed += CheckPlayAgain;
                 InputManager.Instance.OnTotem3Pressed += CheckReturnToMainMenu;
             }
         }
@@ -68,7 +68,7 @@ namespace AltCtrl.Charybdis
             if (InputManager.Instance != null)
             {
                 InputManager.Instance.OnTotem1Pressed -= CheckReturnToMainMenu;
-                InputManager.Instance.OnTotem2Pressed -= CheckReturnToMainMenu;
+                InputManager.Instance.OnTotem2Pressed -= CheckPlayAgain;
                 InputManager.Instance.OnTotem3Pressed -= CheckReturnToMainMenu;
             }
         }
@@ -139,6 +139,14 @@ namespace AltCtrl.Charybdis
                 return;
 
             SceneManager.LoadScene("MainMenu");
+        }
+
+        private void CheckPlayAgain(bool pressed)
+        {
+            if (!pressed || !HasWon)
+                return;
+
+            SceneManager.LoadScene("MainGame");
         }
     }
 }
