@@ -54,8 +54,19 @@ namespace AltCtrl.Charybdis
                 {
                     InputManager.Instance.OnMoveMonsterTempPressed += OnMonsterMouseMove;
                 }
+            }
 
-                InputManager.Instance.OnWindPressed += OnMonsterTyphoon;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnGamePhaseChanged += Instance_OnGamePhaseChanged;
+            }
+        }
+
+        private void Instance_OnGamePhaseChanged(GameManager.GAME_PHASES obj)
+        {
+            if (obj == GameManager.GAME_PHASES.IN_GAME)
+            {
+                StartCoroutine(StartTyphoonCooldown());
             }
         }
 
@@ -71,8 +82,11 @@ namespace AltCtrl.Charybdis
                 {
                     InputManager.Instance.OnMoveMonsterTempPressed -= OnMonsterMouseMove;
                 }
+            }
 
-                InputManager.Instance.OnWindPressed -= OnMonsterTyphoon;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnGamePhaseChanged -= Instance_OnGamePhaseChanged;
             }
         }
 
@@ -93,6 +107,8 @@ namespace AltCtrl.Charybdis
 
         private void OnMonsterTyphoon(bool pressed)
         {
+            Debug.Log("typhoon");
+
             if (!_inputEnabled)
                 return;
 
@@ -124,6 +140,7 @@ namespace AltCtrl.Charybdis
         {
             yield return new WaitForSeconds(_monsterData.TyphoonCooldown);
             _canTyphoon = true;
+            OnMonsterTyphoon(true);
         }
 
         private IEnumerator StartTyphoonCantMoveTime()
@@ -195,18 +212,6 @@ namespace AltCtrl.Charybdis
         public void SetEnableMonsterInput(bool enabled)
         {
             _inputEnabled = enabled;
-        }
-
-        public void SetVisibilityMonster(bool visible)
-        {
-            if (visible)
-            {
-                _monsterVisuals.SetActive(true);
-            }
-            else
-            {
-                _monsterVisuals.SetActive(false);
-            }
         }
 
         public bool IsTeleporting() { return _isTeleporting; }
