@@ -123,9 +123,29 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        private void OnMonsterTyphoonIndication()
+        {
+            // ----- AUDIO ----- //
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySound("Typhoon_Warning");
+            // ----- AUDIO ----- //
+
+            _animator.SetBool("Indicator", true);
+            StartCoroutine(WaitAndDesacTyphoonIndicator());
+
+        }
+
+        private IEnumerator WaitAndDesacTyphoonIndicator()
+        {
+            yield return new WaitForSeconds(_monsterData.IndicationAnimTime);
+            _animator.SetBool("Indicator", false);
+        }
+
         private IEnumerator StartTyphoonCooldown()
         {
-            yield return new WaitForSeconds(_monsterData.TyphoonCooldown);
+            yield return new WaitForSeconds(_monsterData.TyphoonCooldown - _monsterData.IndicationBeforeTyphoon);
+            OnMonsterTyphoonIndication();
+            yield return new WaitForSeconds(_monsterData.IndicationBeforeTyphoon);
             _canTyphoon = true;
             OnMonsterTyphoon(true);
         }
