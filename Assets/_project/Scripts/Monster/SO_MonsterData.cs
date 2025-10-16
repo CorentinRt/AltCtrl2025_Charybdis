@@ -14,6 +14,8 @@ namespace AltCtrl.Charybdis
         [Header("Typhon")]
         [SerializeField] private float _typhoonCantMoveTime = 3f;
         [SerializeField] private float _typhoonCooldown = 5f;
+        [SerializeField] private float _indicationBeforeTyphoon = 2f;
+        [SerializeField] private float _indicationAnimTime = 1f;
 
         [Header("Teleport")]
         [SerializeField] private float _teleportCooldown = 2f;
@@ -26,6 +28,8 @@ namespace AltCtrl.Charybdis
         public float TyphoonCantMoveTime { get => _typhoonCantMoveTime; set => _typhoonCantMoveTime = value; }
         public float TyphoonCooldown { get => _typhoonCooldown; set => _typhoonCooldown = value; }
         public float TeleportCooldown { get => _teleportCooldown; set => _teleportCooldown = value; }
+        public float IndicationBeforeTyphoon { get => _indicationBeforeTyphoon; set => _indicationBeforeTyphoon = value; }
+        public float IndicationAnimTime { get => _indicationAnimTime; set => _indicationAnimTime = value; }
         // ----- PROPERTIES ----- //
     }
 }
