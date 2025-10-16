@@ -423,6 +423,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Line_ShowPath
       objectReference: {fileID: 0}
+    - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.25490198
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.60784316
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.44041324
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inSlope
+      value: -9.887858
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inWeight
+      value: 0.12035067
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outSlope
+      value: -9.887858
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
