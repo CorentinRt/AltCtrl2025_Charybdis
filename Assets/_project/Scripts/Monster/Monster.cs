@@ -18,6 +18,11 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Animator _animator;
         [SerializeField] private GameObject _monsterVisuals;
 
+        [Header("Trajectory")]
+        [SerializeField] private LineRenderer _trajectoryLine;
+        [SerializeField] private int _predictionSteps = 50;
+        [SerializeField] private float _timeStep = 0.1f;
+
         private Vector2 _moveDirection;
         private Vector2 _currentVelocity;
         private Vector2 _targetPosition;
@@ -34,6 +39,8 @@ namespace AltCtrl.Charybdis
         private Vector2 screenBounds;
 
         private bool _inputEnabled = true;
+
+        private Vector3[] _trajectoryPointsBuffer;
 
         // ----- FIELDS ----- //
 
@@ -54,6 +61,8 @@ namespace AltCtrl.Charybdis
             }
 
             _currentAngularVelocity = _rb.angularVelocity;
+
+            _trajectoryPointsBuffer = new Vector3[_predictionSteps];
         }
 
         private void Instance_OnGamePhaseChanged(GameManager.GAME_PHASES obj)
@@ -156,6 +165,10 @@ namespace AltCtrl.Charybdis
             _isMoving = true;
         }
 
+        private void Update()
+        {
+            PredictTrajectory();
+        }
         void FixedUpdate()
         {
             if (!_isMoving || !_inputEnabled)
@@ -241,5 +254,43 @@ namespace AltCtrl.Charybdis
         {
             _animator.SetBool("Underground", underground);
         }
+
+        #region Trajectory
+        private void PredictTrajectory()
+        {
+            Vector2 startPos = _rb.position;
+            Vector2 velocity = _rb.linearVelocity;
+            float angularVel = _rb.angularVelocity;
+
+            if (_trajectoryPointsBuffer == null || _trajectoryPointsBuffer.Length != _predictionSteps)
+            {
+                _trajectoryPointsBuffer = new Vector3[_predictionSteps];
+            }
+
+            float rotRadPerStep = angularVel * Mathf.Deg2Rad * _timeStep;
+
+            Vector2 pos = startPos;
+            Vector2 dir = velocity.normalized;
+
+            for (int i = 0; i < _predictionSteps; i++)
+            {
+                pos += dir * velocity.magnitude * _timeStep;
+
+                float cos = Mathf.Cos(rotRadPerStep);
+                float sin = Mathf.Sin(rotRadPerStep);
+
+                dir = new Vector2(
+                    dir.x * cos - dir.y * sin,
+                    dir.x * sin + dir.y * cos
+                );
+
+                _trajectoryPointsBuffer[i] = pos;
+            }
+
+            _trajectoryLine.positionCount = _predictionSteps;
+            _trajectoryLine.SetPositions(_trajectoryPointsBuffer);
+        }
+
+        #endregion
     }
 }
