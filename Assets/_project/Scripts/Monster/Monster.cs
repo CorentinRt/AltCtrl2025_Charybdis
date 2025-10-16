@@ -11,9 +11,6 @@ namespace AltCtrl.Charybdis
         [Header("Values")]
         [SerializeField] private SO_MonsterData _monsterData;
 
-        [Header("Controls")]
-        [SerializeField] private bool _useJoystick = false;
-
         [Header("Screen Limits")]
         [SerializeField] private float objectWidth, objectHeight;
 
@@ -24,6 +21,8 @@ namespace AltCtrl.Charybdis
         private Vector2 _moveDirection;
         private Vector2 _currentVelocity;
         private Vector2 _targetPosition;
+
+        private float _currentAngularVelocity;
 
         private bool _isMoving = true;
         private bool _canTyphoon = true;
@@ -46,20 +45,15 @@ namespace AltCtrl.Charybdis
 
             if (InputManager.Instance != null)
             {
-                if (_useJoystick)
-                {
-                    InputManager.Instance.OnMoveMonsterPressed += OnMonsterJoystickMove;
-                }
-                else
-                {
-                    InputManager.Instance.OnMoveMonsterTempPressed += OnMonsterMouseMove;
-                }
+                InputManager.Instance.OnMoveMonsterPressed += OnMonsterJoystickMove;
             }
 
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnGamePhaseChanged += Instance_OnGamePhaseChanged;
             }
+
+            _currentAngularVelocity = _rb.angularVelocity;
         }
 
         private void Instance_OnGamePhaseChanged(GameManager.GAME_PHASES obj)
@@ -74,14 +68,7 @@ namespace AltCtrl.Charybdis
         {
             if (InputManager.Instance != null)
             {
-                if (_useJoystick)
-                {
-                    InputManager.Instance.OnMoveMonsterPressed -= OnMonsterJoystickMove;
-                }
-                else
-                {
-                    InputManager.Instance.OnMoveMonsterTempPressed -= OnMonsterMouseMove;
-                }
+                InputManager.Instance.OnMoveMonsterPressed -= OnMonsterJoystickMove;
             }
 
             if (GameManager.Instance != null)
@@ -112,7 +99,7 @@ namespace AltCtrl.Charybdis
             if (!_inputEnabled)
                 return;
 
-            if (pressed & _isMoving && _canTyphoon)
+            if (pressed && _canTyphoon)
             {
                 _isMoving = false;
                 _canTyphoon = false;
@@ -154,6 +141,7 @@ namespace AltCtrl.Charybdis
             if (!_isMoving || !_inputEnabled)
                 return;
 
+            /*
             if (_useJoystick)
             {
                 Vector2 move = _moveDirection.normalized * _monsterData.MoveSpeed * Time.fixedDeltaTime;
@@ -179,6 +167,17 @@ namespace AltCtrl.Charybdis
                 Vector2 move = direction.normalized * _monsterData.MoveSpeed * Time.fixedDeltaTime;
                 _rb.MovePosition(currentPosition + move);
             }
+            */
+
+            _rb.linearVelocity = _monsterData.MoveSpeed * transform.up;
+
+            float targetAngularVelocity = _monsterData.MaxRotation * -_moveDirection.x;
+
+            targetAngularVelocity = Mathf.Lerp(_currentAngularVelocity, targetAngularVelocity, Time.fixedDeltaTime * _monsterData.RotateAcceleration);
+
+            _currentAngularVelocity = targetAngularVelocity;
+
+            _rb.MoveRotation(_rb.rotation + _currentAngularVelocity * Time.fixedDeltaTime);
         }
 
 
