@@ -161,7 +161,7 @@ namespace AltCtrl.Charybdis
 
         public (int, int) GetNewAvailableFrequency()
         {
-            if (_usedFrequencies.Count == _allFrequencies.Count)
+            if (_usedFrequencies.Count == _allFrequencies.Count || _allFrequencies.Count == 0)
                 return (-1, -1);
 
             int randomIndex = UnityEngine.Random.Range(0, _allFrequencies.Count);
