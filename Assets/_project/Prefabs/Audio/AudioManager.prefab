@@ -49,23 +49,29 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
     Volume: 0.5
   - Name: Typhoon_Created
-    Clip: {fileID: 8300000, guid: 3214c663b48c8564584de0c7ef1110fe, type: 3}
+    Clip: {fileID: 8300000, guid: 0d55f7525461ee94e9ff61a90aca1a94, type: 3}
     Volume: 0.5
   - Name: Boat_Sinking
-    Clip: {fileID: 8300000, guid: a573ade442183ff45baa7a7acc9027c9, type: 3}
+    Clip: {fileID: 8300000, guid: 0741a9e1f58f4e24cac32dea2b6166c7, type: 3}
     Volume: 0.5
   - Name: Wind
-    Clip: {fileID: 8300000, guid: 50fa9b7991f3d46409d6b670a3def623, type: 3}
+    Clip: {fileID: 8300000, guid: 9d6bf7800d965a94cbe4fc5499dceadb, type: 3}
     Volume: 0.5
   - Name: Monster_TP
-    Clip: {fileID: 8300000, guid: 953e8b21d69b26c4fac52e3e4b918ea7, type: 3}
+    Clip: {fileID: 8300000, guid: eefef9d510520214083da080734fb40d, type: 3}
     Volume: 0.5
   - Name: Game_Music
     Clip: {fileID: 8300000, guid: 3b4cd8a52c20de94eb30757bfae4a18b, type: 3}
     Volume: 0.5
   - Name: Totem_Click
-    Clip: {fileID: 8300000, guid: 3c0cb28aac7040b47a463323486d157e, type: 3}
+    Clip: {fileID: 8300000, guid: ebafa015fbdcc244b9f904e5eaa1adcc, type: 3}
     Volume: 0.5
   - Name: Radio_Change
-    Clip: {fileID: 8300000, guid: 49777b14cf0e0044e90dd83d60681688, type: 3}
+    Clip: {fileID: 8300000, guid: 83d853b1df9ecf34b86c19ced978372d, type: 3}
+    Volume: 0.5
+  - Name: Typhoon_Warning
+    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
+    Volume: 0.5
+  - Name: Tempest
+    Clip: {fileID: 8300000, guid: d4fb60391af07fa40a5346d59adb156b, type: 3}
     Volume: 0.5
