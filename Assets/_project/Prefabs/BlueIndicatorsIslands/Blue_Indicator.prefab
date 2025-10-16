@@ -101,6 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _infinite: 0
-  _duration: 1.25
+  _duration: 0.8
   _ease: 13
-  _targetScale: 5.696773
+  _targetScale: 1.25

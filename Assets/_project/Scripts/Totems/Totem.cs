@@ -36,7 +36,10 @@ namespace AltCtrl.Charybdis
 
             // ----- AUDIO ----- //
             if (AudioManager.Instance != null)
+            {
                 AudioManager.Instance.PlaySound("Totem_Click");
+                AudioManager.Instance.PlaySound("Tempest", true);
+            }
             // ----- AUDIO ----- //
         }
 
@@ -49,6 +52,14 @@ namespace AltCtrl.Charybdis
         private IEnumerator WaitAndDeactivateTotem()
         {
             _animator.SetBool("Vortex_Actif", false);
+
+            // ----- AUDIO ----- //
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.StopLoopingSound("Tempest");
+            }
+            // ----- AUDIO ----- //
+
             _storm.Collider.enabled = false;
             yield return new WaitForSeconds(_deactivationAnimTime);
             _visuals.SetActive(false);
