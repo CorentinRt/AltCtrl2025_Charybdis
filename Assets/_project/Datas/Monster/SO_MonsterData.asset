@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618de18e5ae4be641b6f2815f08771cb, type: 3}
   m_Name: SO_MonsterData
   m_EditorClassIdentifier: 
-  _moveSpeed: 1.5
-  _maxRotation: 45
-  _rotateAcceleration: 1
-  _typhoonCantMoveTime: 2
-  _typhoonCooldown: 10
+  _moveSpeed: 2.5
+  _maxRotation: 150
+  _rotateAcceleration: 2.5
+  _typhoonCantMoveTime: 0
+  _typhoonCooldown: 4
+  _indicationBeforeTyphoon: 2
+  _indicationAnimTime: 2
   _teleportCooldown: 2
