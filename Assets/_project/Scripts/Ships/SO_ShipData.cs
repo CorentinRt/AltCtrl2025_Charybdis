@@ -53,6 +53,7 @@ namespace AltCtrl.Charybdis
 
         [Header("Typhon")]
         [SerializeField] private float _typhonAttractionForce = 70f;
+        [SerializeField] private float _distanceToTyphonToDestroy = 1f;
 
         #endregion
 
@@ -80,6 +81,7 @@ namespace AltCtrl.Charybdis
         public float MaxStormModifier => _maxStormModifier;
 
         public float TyphonAttractionForce => _typhonAttractionForce;
+        public float DistanceToTyphonToDestroy => _distanceToTyphonToDestroy;
 
         public int GouvernailMaxAmplitude => _gouvernailMaxAmplitude;
 

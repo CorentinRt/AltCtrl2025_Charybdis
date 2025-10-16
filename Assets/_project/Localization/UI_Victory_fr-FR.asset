@@ -34,6 +34,14 @@ MonoBehaviour:
     m_Localized: Humain - Dieux
     m_Metadata:
       m_Items: []
+  - m_Id: 2197854927400960
+    m_Localized: Retour au Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2197893296893952
+    m_Localized: Nouvelle partie
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

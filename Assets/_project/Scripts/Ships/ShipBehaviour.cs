@@ -348,6 +348,7 @@ namespace AltCtrl.Charybdis
             if (_affectedByWind)
             {
                 targetVelocity += new Vector2(_windDirModifier.x, _windDirModifier.y) * _data.WindForceMultiplier;
+                Debug.DrawRay(transform.position, _windDirModifier * _data.WindForceMultiplier, Color.red, 1f);
             }
 
             _rb.linearVelocity = Vector2.Lerp(_rb.linearVelocity, targetVelocity, Time.fixedDeltaTime * _data.Acceleration);
@@ -392,6 +393,7 @@ namespace AltCtrl.Charybdis
             if (_affectedByWind)
             {
                 targetVelocity += new Vector2(_windDirModifier.x, _windDirModifier.y) * _data.WindForceMultiplier;
+                Debug.DrawRay(transform.position, _windDirModifier * _data.WindForceMultiplier, Color.red, 1f);
             }
 
             _rb.linearVelocity = Vector2.Lerp(_rb.linearVelocity, targetVelocity, Time.fixedDeltaTime * _data.Acceleration);
@@ -671,7 +673,7 @@ namespace AltCtrl.Charybdis
             Vector2 dirToCenter = (_typhonCenter - transform.position);
             float distance = dirToCenter.magnitude;
 
-            if (distance < 0.5f)
+            if (distance < _data.DistanceToTyphonToDestroy)
             {
                 DestroyShip();
                 return;

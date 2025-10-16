@@ -6,6 +6,7 @@ namespace AltCtrl.Charybdis
     public class UI_Radio : MonoBehaviour
     {
         #region Fields
+        [SerializeField] private GameObject _mainAnchor;
         [SerializeField] private TextMeshProUGUI _frequencyLabel;
 
         #endregion
@@ -15,6 +16,14 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
+
+        private void Awake()
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnGamePhaseChanged += ReactOnGamePhaseChanged;
+            }
+        }
 
         private void Start()
         {
@@ -28,6 +37,7 @@ namespace AltCtrl.Charybdis
 
                 UpdateFrequencyLabel(RadioManager.Instance.GetCurrentFrequency());
             }
+
         }
 
 
@@ -37,6 +47,32 @@ namespace AltCtrl.Charybdis
             {
                 RadioManager.Instance.OnChangeFrequency -= UpdateFrequencyLabel;
             }
+
+            if (GameManager.Exist)
+            {
+                GameManager.Instance.OnGamePhaseChanged -= ReactOnGamePhaseChanged;
+            }
+        }
+
+        private void ReactOnGamePhaseChanged(GameManager.GAME_PHASES gamePhase)
+        {
+            switch (gamePhase)
+            {
+                case GameManager.GAME_PHASES.PRE_GAME:
+                    SetEnablePostGame(true);
+                    break;
+                case GameManager.GAME_PHASES.IN_GAME:
+                    SetEnablePostGame(true);
+                    break;
+                case GameManager.GAME_PHASES.POST_GAME:
+                    SetEnablePostGame(false);
+                    break;
+            }
+        }
+
+        private void SetEnablePostGame(bool enabled)
+        {
+            _mainAnchor.SetActive(enabled);
         }
 
         private void UpdateFrequencyLabel((int, int) frequency)

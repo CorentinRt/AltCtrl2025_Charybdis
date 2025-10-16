@@ -25,7 +25,7 @@ namespace AltCtrl.Charybdis
 
         private float _canRadioInputCooldown;
 
-        private bool _inputEnable;
+        private bool _inputEnable = true;
 
         #endregion
 

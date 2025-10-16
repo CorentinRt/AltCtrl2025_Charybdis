@@ -20,7 +20,7 @@ MonoBehaviour:
     - rid: 7762080612882055414
   m_TableData:
   - m_Id: 365614772224
-    m_Localized: PLAY
+    m_Localized: Press an island to play
     m_Metadata:
       m_Items: []
   - m_Id: 1228366327808

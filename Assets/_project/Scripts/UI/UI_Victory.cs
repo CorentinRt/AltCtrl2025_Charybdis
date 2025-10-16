@@ -6,6 +6,9 @@ namespace AltCtrl.Charybdis
     public class UI_Victory : MonoBehaviour
     {
         #region Fields
+        [Header("Anchor")]
+        [SerializeField] private GameObject _mainAnchor;
+
         [Header("Cont")]
         [SerializeField] private GameObject _mainContainerVictory;
         [SerializeField] private GameObject _humanContainerVictory;
@@ -22,6 +25,14 @@ namespace AltCtrl.Charybdis
 
 
         #endregion
+
+        private void Awake()
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnGamePhaseChanged += ReactOnGamePhaseChanged;
+            }
+        }
 
         private void Start()
         {
@@ -51,7 +62,33 @@ namespace AltCtrl.Charybdis
                 VictoryManager.Instance.OnHumanVictory -= ReactOnHumanVictory;
             }
 
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnGamePhaseChanged -= ReactOnGamePhaseChanged;
+            }
+
             _slider.onValueChanged.RemoveListener(UpdateSliderFillPosition);
+        }
+
+        private void ReactOnGamePhaseChanged(GameManager.GAME_PHASES gamePhase)
+        {
+            switch (gamePhase)
+            {
+                case GameManager.GAME_PHASES.PRE_GAME:
+                    SetEnablePostGame(true);
+                    break;
+                case GameManager.GAME_PHASES.IN_GAME:
+                    SetEnablePostGame(true);
+                    break;
+                case GameManager.GAME_PHASES.POST_GAME:
+                    SetEnablePostGame(false);
+                    break;
+            }
+        }
+
+        private void SetEnablePostGame(bool enabled)
+        {
+            _mainAnchor.SetActive(enabled);
         }
 
         private void ReactOnHumanVictory()

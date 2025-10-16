@@ -31,6 +31,14 @@ MonoBehaviour:
     m_Key: BAR_VICTORY
     m_Metadata:
       m_Items: []
+  - m_Id: 2197854927400960
+    m_Key: BACK_MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2197893296893952
+    m_Key: PLAY_AGAIN
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

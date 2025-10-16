@@ -61,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Typhon",
+                    "name": "Wind",
                     "type": "Button",
                     "id": "2776c80d-3c14-4091-8c56-d04ced07a2b0",
                     "expectedControlType": "",
@@ -237,7 +237,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Typhon",
+                    "action": "Wind",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -289,6 +289,17 @@
                     "name": "",
                     "id": "0eea749a-015c-4ff4-ac0f-aa383be7f5d1",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b220022-84dc-4206-8df4-9c41058bf343",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

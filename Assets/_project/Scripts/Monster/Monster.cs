@@ -18,7 +18,6 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float objectWidth, objectHeight;
 
         [Header("References")]
-        [SerializeField] private MonsterTyphoon _monsterTyphoon;
         [SerializeField] private Animator _animator;
         [SerializeField] private GameObject _monsterVisuals;
 
@@ -35,7 +34,7 @@ namespace AltCtrl.Charybdis
 
         private Vector2 screenBounds;
 
-        private bool _inputEnabled;
+        private bool _inputEnabled = true;
 
         // ----- FIELDS ----- //
 
@@ -44,8 +43,6 @@ namespace AltCtrl.Charybdis
             _rb = GetComponent<Rigidbody2D>();
 
             screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-
-            _monsterTyphoon.DeactivateTyphon();
 
             if (InputManager.Instance != null)
             {
@@ -57,8 +54,19 @@ namespace AltCtrl.Charybdis
                 {
                     InputManager.Instance.OnMoveMonsterTempPressed += OnMonsterMouseMove;
                 }
+            }
 
-                InputManager.Instance.OnTyphonPressed += OnMonsterTyphoon;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnGamePhaseChanged += Instance_OnGamePhaseChanged;
+            }
+        }
+
+        private void Instance_OnGamePhaseChanged(GameManager.GAME_PHASES obj)
+        {
+            if (obj == GameManager.GAME_PHASES.IN_GAME)
+            {
+                StartCoroutine(StartTyphoonCooldown());
             }
         }
 
@@ -74,8 +82,11 @@ namespace AltCtrl.Charybdis
                 {
                     InputManager.Instance.OnMoveMonsterTempPressed -= OnMonsterMouseMove;
                 }
+            }
 
-                InputManager.Instance.OnTyphonPressed -= OnMonsterTyphoon;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnGamePhaseChanged -= Instance_OnGamePhaseChanged;
             }
         }
 
@@ -96,6 +107,8 @@ namespace AltCtrl.Charybdis
 
         private void OnMonsterTyphoon(bool pressed)
         {
+            Debug.Log("typhoon");
+
             if (!_inputEnabled)
                 return;
 
@@ -106,8 +119,17 @@ namespace AltCtrl.Charybdis
 
                 _animator.SetTrigger("ThyphonSpawn");
 
-                _monsterTyphoon.transform.position = transform.position;
-                _monsterTyphoon.ActivateTyphon();
+                if (PoolManager.Instance != null)
+                {
+                    GameObject newTyphoonGO = PoolManager.Instance.ActivateTyphoon(transform.position, transform.rotation);
+                    MonsterTyphoon newTyphoon = newTyphoonGO.GetComponent<MonsterTyphoon>();
+                    newTyphoon.ActivateTyphon();
+                }
+                else
+                {
+                    Debug.LogError("No pool manager found in scene");
+                }
+                
 
                 StartCoroutine(StartTyphoonCooldown());
                 StartCoroutine(StartTyphoonCantMoveTime());
@@ -118,6 +140,7 @@ namespace AltCtrl.Charybdis
         {
             yield return new WaitForSeconds(_monsterData.TyphoonCooldown);
             _canTyphoon = true;
+            OnMonsterTyphoon(true);
         }
 
         private IEnumerator StartTyphoonCantMoveTime()
@@ -176,6 +199,7 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator TeleportCooldown()
         {
+            Debug.Log("Teleport cooldown");
             yield return new WaitForSeconds(_monsterData.TeleportCooldown);
             _canTeleport = true;
         }
@@ -190,20 +214,13 @@ namespace AltCtrl.Charybdis
             _inputEnabled = enabled;
         }
 
-        public void SetVisibilityMonster(bool visible)
-        {
-            if (visible)
-            {
-                _monsterVisuals.SetActive(true);
-            }
-            else
-            {
-                _monsterVisuals.SetActive(false);
-            }
-        }
-
         public bool IsTeleporting() { return _isTeleporting; }
 
         public bool CanTeleport() { return _canTeleport; }
+
+        public void SetUnderground(bool underground)
+        {
+            _animator.SetBool("Underground", underground);
+        }
     }
 }
