@@ -210,7 +210,7 @@ namespace AltCtrl.Charybdis
 
             _currentAngularVelocity = targetAngularVelocity;
 
-            _rb.MoveRotation(_rb.rotation + _currentAngularVelocity * Time.fixedDeltaTime);
+            _rb.angularVelocity = _currentAngularVelocity;
         }
 
 
