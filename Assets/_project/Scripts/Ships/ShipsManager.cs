@@ -133,7 +133,7 @@ namespace AltCtrl.Charybdis
 
             _currentTimeSpawn += Time.deltaTime;
 
-            if (_currentTimeSpawn >= _randomTimeSpawn)
+            if (_currentTimeSpawn >= _randomTimeSpawn && _ships.Count < _data.MaxShips)
             {
                 DefineNewRandomTimeSpawn();
 

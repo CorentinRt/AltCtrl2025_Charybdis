@@ -38,15 +38,15 @@ namespace AltCtrl.Charybdis
         {
             Debug.Log(_currentlyActiveTotem);
 
-            if (!pressed)
-            {
-                _currentlyActiveTotem = -1;
-            }
-            else
-            {
-                if (_currentlyActiveTotem != 1 && _currentlyActiveTotem != -1) return;
-                _currentlyActiveTotem = 1;
-            }
+            //if (!pressed)
+            //{
+            //    _currentlyActiveTotem = -1;
+            //}
+            //else
+            //{
+            //    if (_currentlyActiveTotem != 1 && _currentlyActiveTotem != -1) return;
+            //    _currentlyActiveTotem = 1;
+            //}
 
             _totem1.SetActive(pressed);
         }
@@ -55,6 +55,7 @@ namespace AltCtrl.Charybdis
         {
             Debug.Log(_currentlyActiveTotem);
 
+            /*
             if (!pressed) 
             {
                 _currentlyActiveTotem = -1;
@@ -64,7 +65,7 @@ namespace AltCtrl.Charybdis
                 if (_currentlyActiveTotem != 2 && _currentlyActiveTotem != -1) return;
                 _currentlyActiveTotem = 2;
             }
-
+            */
             _totem2.SetActive(pressed);
         }
 
@@ -72,15 +73,15 @@ namespace AltCtrl.Charybdis
         {
             Debug.Log(_currentlyActiveTotem);
 
-            if (!pressed)
-            {
-                _currentlyActiveTotem = -1;
-            }
-            else
-            {
-                if (_currentlyActiveTotem != 3 && _currentlyActiveTotem != -1) return;
-                _currentlyActiveTotem = 3;
-            }
+            //if (!pressed)
+            //{
+            //    _currentlyActiveTotem = -1;
+            //}
+            //else
+            //{
+            //    if (_currentlyActiveTotem != 3 && _currentlyActiveTotem != -1) return;
+            //    _currentlyActiveTotem = 3;
+            //}
 
             _totem3.SetActive(pressed);
         }
