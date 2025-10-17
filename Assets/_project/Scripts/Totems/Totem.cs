@@ -85,8 +85,6 @@ namespace AltCtrl.Charybdis
         {
             StopCurrentStormCoroutine();
 
-            StopAllCoroutines();
-
             if (active)
             {
                 ActivateTotem();
