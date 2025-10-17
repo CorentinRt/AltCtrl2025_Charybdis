@@ -85,12 +85,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _monsterData: {fileID: 11400000, guid: ad55d538491279949ac1db9483052496, type: 2}
+  _isInMenu: 0
   objectWidth: 0.5
   objectHeight: 0.5
   _animator: {fileID: 6268510938833048107}
   _monsterVisuals: {fileID: 8017290241604456731}
   _trajectoryLine: {fileID: 4186184522416738182}
-  _predictionSteps: 40
+  _predictionSteps: 70
   _timeStep: 0.1
 --- !u!50 &2984706738746621515
 Rigidbody2D:
