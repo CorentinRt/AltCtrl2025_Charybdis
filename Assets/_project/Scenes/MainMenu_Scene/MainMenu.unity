@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PoolManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1322208259703748329, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3407499393384103723, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -170,6 +174,86 @@ PrefabInstance:
     - target: {fileID: 3407499393384103723, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120214237459532264, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120214237459532264, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4420666371821028756, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4420666371821028756, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4964542039490915273, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4964542039490915273, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391388332714387808, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391388332714387808, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071362491081481326, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071362491081481326, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255230915435377961, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255230915435377961, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649655533291538578, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649655533291538578, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625943807276719122, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625943807276719122, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733864432313374500, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733864432313374500, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871914202780577318, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _invincibleDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871914202780577318, guid: ca5809bc790698b42bd7fcb075f152ba, type: 3}
+      propertyPath: _hasInvicibleCoodldown
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

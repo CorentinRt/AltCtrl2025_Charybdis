@@ -12,6 +12,10 @@ namespace AltCtrl.Charybdis
         #region Fields
         [Header("Init")]
         [SerializeField] private bool _autoInit;
+        [SerializeField] private bool _hasInvicibleCoodldown;
+        [SerializeField] private float _invincibleDuration = 1f;
+
+        private bool _isInvincible;
 
         [Header("Components")]
         [SerializeField] private Rigidbody2D _rb;
@@ -187,6 +191,11 @@ namespace AltCtrl.Charybdis
         {
             ResetValues();
             
+            if (_hasInvicibleCoodldown)
+            {
+                StartInvincibleCooldown();
+            }
+
             _trajectoryPointsBuffer = new Vector3[_predictionSteps];
 
             if (RadioManager.Exist)
@@ -468,7 +477,7 @@ namespace AltCtrl.Charybdis
         [Button]
         public void DestroyShip()
         {
-            if (_isDestroyed || _isValidated)
+            if (_isInvincible || _isDestroyed || _isValidated)
             {
                 return;
             }
@@ -708,6 +717,23 @@ namespace AltCtrl.Charybdis
         public ShipBehaviour GetShip()
         {
             return this;
+        }
+
+        #endregion
+
+        #region Invincible coodlown
+        private void StartInvincibleCooldown()
+        {
+            _isInvincible = true;
+
+            StartCoroutine(InvincibleCooldownCoroutine());
+        }
+        
+        private IEnumerator InvincibleCooldownCoroutine()
+        {
+            yield return new WaitForSeconds(_invincibleDuration);
+
+            _isInvincible = false;
         }
 
         #endregion
