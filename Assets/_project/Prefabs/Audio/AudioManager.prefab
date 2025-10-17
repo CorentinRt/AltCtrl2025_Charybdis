@@ -70,8 +70,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 83d853b1df9ecf34b86c19ced978372d, type: 3}
     Volume: 0.5
   - Name: Typhoon_Warning
-    Clip: {fileID: 8300000, guid: ce17225312107aa49a26c8b68c740d39, type: 3}
-    Volume: 0.5
+    Clip: {fileID: 8300000, guid: 43f6b563557687f4d851adea61fb1c3b, type: 3}
+    Volume: 1
   - Name: Tempest
     Clip: {fileID: 8300000, guid: d4fb60391af07fa40a5346d59adb156b, type: 3}
     Volume: 0.5

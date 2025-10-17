@@ -60,7 +60,7 @@ namespace AltCtrl.Charybdis
 
             // ----- AUDIO ----- //
             if (AudioManager.Instance != null)
-                AudioManager.Instance.PlaySound("Wind", true);
+                AudioManager.Instance.PlaySound("Wind");
             // ----- AUDIO ----- //
 
             _windVFX.SetActive(true);
@@ -73,8 +73,10 @@ namespace AltCtrl.Charybdis
             OnStopWindOnBoats?.Invoke();
 
             // ----- AUDIO ----- //
+            /*
             if (AudioManager.Instance != null)
                 AudioManager.Instance.StopLoopingSound("Wind");
+                */
             // ----- AUDIO ----- //
 
             _windVFX.SetActive(false);

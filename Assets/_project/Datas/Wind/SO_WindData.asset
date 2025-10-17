@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4ad03acba801c459f1c0aaf8a1e3a4, type: 3}
   m_Name: SO_WindData
   m_EditorClassIdentifier: 
-  _windDuration: 0.5
+  _windDuration: 1.5
   _windCooldown: 1

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spline: {fileID: 0}
-  _timeToTravel: 5
+  _timeToTravel: 2
   _reverse: 1
   _otherTunnel: {fileID: 0}
   _collider: {fileID: 8912148025580712363}

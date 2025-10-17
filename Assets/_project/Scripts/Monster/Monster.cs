@@ -10,6 +10,7 @@ namespace AltCtrl.Charybdis
         // ----- FIELDS ----- //
         [Header("Values")]
         [SerializeField] private SO_MonsterData _monsterData;
+        [SerializeField] private bool _isInMenu = false;
 
         [Header("Screen Limits")]
         [SerializeField] private float objectWidth, objectHeight;
@@ -58,6 +59,11 @@ namespace AltCtrl.Charybdis
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnGamePhaseChanged += Instance_OnGamePhaseChanged;
+            } 
+
+            if (_isInMenu)
+            {
+                StartCoroutine(StartTyphoonCooldown());
             }
 
             _currentAngularVelocity = _rb.angularVelocity;

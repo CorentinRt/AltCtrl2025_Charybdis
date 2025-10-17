@@ -63,7 +63,6 @@ namespace AltCtrl.Charybdis
             _storm.Collider.enabled = false;
             yield return new WaitForSeconds(_deactivationAnimTime);
             _visuals.SetActive(false);
-            DeactivateTotem();
         }
 
         private void StopCurrentStormCoroutine()
