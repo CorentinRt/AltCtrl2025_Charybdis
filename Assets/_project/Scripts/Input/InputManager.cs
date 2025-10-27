@@ -110,7 +110,7 @@ public class InputManager : MonoBehaviour
     }
     #endregion
 
-    #region Joysticks
+    #region Vector2
     public void MoveMonsterPressed(InputAction.CallbackContext context)
     {
         if (context.performed || context.canceled)
@@ -135,6 +135,26 @@ public class InputManager : MonoBehaviour
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
             OnMoveTurboPressed?.Invoke(moveDirection);
+        }
+    }
+
+    public void MoveRadioKeyboardPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Vector2 moveDirection = context.ReadValue<Vector2>();
+            //Debug.Log($"Radio : {moveDirection}");
+            OnMoveRadioRotatorPressed?.Invoke((int)moveDirection.x);
+        }
+    }
+
+    public void MoveGouvernailKeyboardPressed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Vector2 moveDirection = context.ReadValue<Vector2>();
+            //Debug.Log($"Gouvernail : {moveDirection}");
+            OnMoveShipRotatorPressed?.Invoke((int)moveDirection.x);
         }
     }
     #endregion

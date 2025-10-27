@@ -220,6 +220,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 23be85b5-6465-44d2-9a5f-5b04d64e5ab8
     m_ActionName: 'Player/Pause[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1133582490482657222}
+        m_TargetAssemblyTypeName: InputManager, AltCtrl.Charybdis
+        m_MethodName: MoveRadioKeyboardPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 55d17f33-fc97-44a0-b2b8-14ac741e7e64
+    m_ActionName: 'Player/Radio[/Keyboard/downArrow,/Keyboard/upArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1133582490482657222}
+        m_TargetAssemblyTypeName: InputManager, AltCtrl.Charybdis
+        m_MethodName: MoveGouvernailKeyboardPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c73d08c8-3136-41b4-9831-cd0ec4bf8e4e
+    m_ActionName: 'Player/Gouvernail[/Keyboard/leftArrow,/Keyboard/rightArrow]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
