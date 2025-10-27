@@ -165,10 +165,14 @@ namespace AltCtrl.Charybdis
                 return (-1, -1);
 
             int randomIndex = UnityEngine.Random.Range(0, _allFrequencies.Count);
+            int startIndex = randomIndex;
 
             while (_usedFrequencies.Contains(_allFrequencies[randomIndex]))
             {
-                randomIndex++;
+                randomIndex = (randomIndex + 1) % _allFrequencies.Count;
+
+                if (randomIndex == startIndex)
+                    return (-1, -1);
             }
 
             return _allFrequencies[randomIndex];

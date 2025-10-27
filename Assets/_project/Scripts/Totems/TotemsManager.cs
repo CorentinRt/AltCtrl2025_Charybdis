@@ -34,21 +34,21 @@ namespace AltCtrl.Charybdis
 
         private void OnTotem1(bool pressed)
         {
-            Debug.Log($"Totem 1 pressed : {pressed}");
+            //Debug.Log($"Totem 1 pressed : {pressed}");
 
             _totem1.SetActive(pressed);
         }
 
         private void OnTotem2(bool pressed)
         {
-            Debug.Log($"Totem 2 pressed : {pressed}");
+            //Debug.Log($"Totem 2 pressed : {pressed}");
 
             _totem2.SetActive(pressed);
         }
 
         private void OnTotem3(bool pressed)
         {
-            Debug.Log($"Totem 3 pressed : {pressed}");
+            //Debug.Log($"Totem 3 pressed : {pressed}");
 
             _totem3.SetActive(pressed);
         }

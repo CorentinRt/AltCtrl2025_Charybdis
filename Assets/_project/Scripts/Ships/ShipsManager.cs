@@ -195,7 +195,7 @@ namespace AltCtrl.Charybdis
 
             if (iteration < 10)
             {
-                Debug.Log($"Iteration {iteration}", this);
+                //Debug.Log($"Iteration {iteration}", this);
                 RaycastHit2D hit = Physics2D.CircleCast(randomPos, _checkRadius, dir, _spawnDistanceCheck, _islandsLayerMask);
                 //RaycastHit2D hit = Physics2D.Raycast(randomPos, dir, _spawnDistanceCheck, _islandsLayerMask);
 
@@ -203,7 +203,7 @@ namespace AltCtrl.Charybdis
 
                 if (hit.collider != null)
                 {
-                    Debug.Log($"Hit : {hit.collider.gameObject.name}", hit.collider.gameObject);
+                    //Debug.Log($"Hit : {hit.collider.gameObject.name}", hit.collider.gameObject);
 
                     SpawnShip(++iteration);
                     return;
@@ -213,6 +213,9 @@ namespace AltCtrl.Charybdis
             if (PoolManager.Instance != null)
             {
                 GameObject ship = PoolManager.Instance.ActivateShip(randomPos, rot, true);
+
+                Debug.Log($"Spawn ship : {ship.name}", ship);
+
                 ship.GetComponent<IShipBehaviour>().Init();
             }
         }

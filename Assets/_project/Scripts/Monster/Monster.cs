@@ -109,7 +109,7 @@ namespace AltCtrl.Charybdis
 
         private void OnMonsterTyphoon(bool pressed)
         {
-            Debug.Log("typhoon");
+            //Debug.Log("typhoon");
 
             if (!_inputEnabled)
                 return;

@@ -48,7 +48,7 @@ namespace AltCtrl.Charybdis
             // Animations & visuals
             if (active)
             {
-                Debug.Log($"Totem Activation demandée : {gameObject.name}");
+                //Debug.Log($"Totem Activation demandée : {gameObject.name}");
                 _visuals.SetActive(true);
                 _animator.SetBool("Vortex_Actif", true);
 
@@ -62,7 +62,7 @@ namespace AltCtrl.Charybdis
             }
             else
             {
-                Debug.Log($"Totem Désactivation demandée : {gameObject.name}");
+                //Debug.Log($"Totem Désactivation demandée : {gameObject.name}");
                 _animator.SetBool("Vortex_Actif", false);
 
                 // ----- AUDIO ----- //
