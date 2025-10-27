@@ -10,8 +10,6 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Totem _totem1;
         [SerializeField] private Totem _totem2;
         [SerializeField] private Totem _totem3;
-
-        private int _currentlyActiveTotem = -1;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -36,52 +34,21 @@ namespace AltCtrl.Charybdis
 
         private void OnTotem1(bool pressed)
         {
-            Debug.Log(_currentlyActiveTotem);
-
-            //if (!pressed)
-            //{
-            //    _currentlyActiveTotem = -1;
-            //}
-            //else
-            //{
-            //    if (_currentlyActiveTotem != 1 && _currentlyActiveTotem != -1) return;
-            //    _currentlyActiveTotem = 1;
-            //}
+            Debug.Log($"Totem 1 pressed : {pressed}");
 
             _totem1.SetActive(pressed);
         }
 
         private void OnTotem2(bool pressed)
         {
-            Debug.Log(_currentlyActiveTotem);
+            Debug.Log($"Totem 2 pressed : {pressed}");
 
-            /*
-            if (!pressed) 
-            {
-                _currentlyActiveTotem = -1;
-            }
-            else 
-            {
-                if (_currentlyActiveTotem != 2 && _currentlyActiveTotem != -1) return;
-                _currentlyActiveTotem = 2;
-            }
-            */
             _totem2.SetActive(pressed);
         }
 
         private void OnTotem3(bool pressed)
         {
-            Debug.Log(_currentlyActiveTotem);
-
-            //if (!pressed)
-            //{
-            //    _currentlyActiveTotem = -1;
-            //}
-            //else
-            //{
-            //    if (_currentlyActiveTotem != 3 && _currentlyActiveTotem != -1) return;
-            //    _currentlyActiveTotem = 3;
-            //}
+            Debug.Log($"Totem 3 pressed : {pressed}");
 
             _totem3.SetActive(pressed);
         }

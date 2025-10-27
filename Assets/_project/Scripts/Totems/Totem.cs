@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
@@ -15,8 +13,15 @@ namespace AltCtrl.Charybdis
         [Header("Values")]
         [SerializeField] private float _activationAnimTime = 2f;
         [SerializeField] private float _deactivationAnimTime = 3f;
+        [SerializeField] private float _minDelayBetweenToggles = 1f; // anti-spam (g mis haut pour les tests)
 
-        private Coroutine _coroutineBuffer;
+        private bool _isActive = false;     
+        private bool _inputState = false;  
+
+        // Timers
+        private float _transitionTimer = 0f;
+        private bool _isTransitioning = false;
+        private float _lastToggleTime;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -25,73 +30,76 @@ namespace AltCtrl.Charybdis
             _storm.Collider.enabled = false;
         }
 
-        public void ActivateTotem()
-        {
-            StopCurrentStormCoroutine();
-
-            _coroutineBuffer = StartCoroutine(WaitAndActivateCollider());
-
-            _visuals.gameObject.SetActive(true);
-            _animator.SetBool("Vortex_Actif", true);
-
-            // ----- AUDIO ----- //
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.PlaySound("Totem_Click");
-                AudioManager.Instance.PlaySound("Tempest", true);
-            }
-            // ----- AUDIO ----- //
-        }
-
-        private IEnumerator WaitAndActivateCollider()
-        {
-            yield return new WaitForSeconds(_activationAnimTime);
-            _storm.Collider.enabled = true;
-        }
-
-        private IEnumerator WaitAndDeactivateTotem()
-        {
-            _animator.SetBool("Vortex_Actif", false);
-
-            // ----- AUDIO ----- //
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.StopLoopingSound("Tempest");
-            }
-            // ----- AUDIO ----- //
-
-            _storm.Collider.enabled = false;
-            yield return new WaitForSeconds(_deactivationAnimTime);
-            _visuals.SetActive(false);
-        }
-
-        private void StopCurrentStormCoroutine()
-        {
-            if (_coroutineBuffer != null)
-            {
-                StopCoroutine(_coroutineBuffer);
-                _coroutineBuffer = null;
-            }
-        }
-
-        public void DeactivateTotem()
-        {
-            StopCurrentStormCoroutine();
-
-            _coroutineBuffer = StartCoroutine(WaitAndDeactivateTotem());
-        }
-
         public void SetActive(bool active)
         {
-            StopCurrentStormCoroutine();
+            // Anti-spam
+            if (Time.time - _lastToggleTime < _minDelayBetweenToggles)
+                return;
 
+            _lastToggleTime = Time.time;
+
+            if (_inputState == active) // déjà bon état
+                return;
+
+            _inputState = active;
+            _transitionTimer = 0f;
+            _isTransitioning = true; // transi début ou fin
+
+            // Animations & visuals
             if (active)
             {
-                ActivateTotem();
+                Debug.Log($"Totem Activation demandée : {gameObject.name}");
+                _visuals.SetActive(true);
+                _animator.SetBool("Vortex_Actif", true);
+
+                // ----- AUDIO ----- //
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySound("Totem_Click");
+                    AudioManager.Instance.PlaySound("Tempest", true);
+                }
+                // ----- AUDIO ----- //
             }
             else
             {
-                DeactivateTotem();
+                Debug.Log($"Totem Désactivation demandée : {gameObject.name}");
+                _animator.SetBool("Vortex_Actif", false);
+
+                // ----- AUDIO ----- //
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.StopLoopingSound("Tempest");
+                }
+                // ----- AUDIO ----- //
+            }
+        }
+
+        private void Update()
+        {
+            if (!_isTransitioning)
+                return;
+
+            _transitionTimer += Time.deltaTime;
+
+            // Colliders & visuals
+            if (_inputState) // Activation en cours
+            {
+                if (_transitionTimer >= _activationAnimTime)
+                {
+                    _storm.Collider.enabled = true;
+                    _isActive = true;
+                    _isTransitioning = false;
+                }
+            }
+            else // Désactivation en cours
+            {
+                if (_transitionTimer >= _deactivationAnimTime)
+                {
+                    _storm.Collider.enabled = false;
+                    _visuals.SetActive(false);
+                    _isActive = false;
+                    _isTransitioning = false;
+                }
             }
         }
     }

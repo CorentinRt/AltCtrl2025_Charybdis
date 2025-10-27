@@ -51,7 +51,7 @@ namespace AltCtrl.Charybdis
 
         public void PlaySound(string soundName, bool isLooping = false, float pitch = 1.0f)
         {
-            Debug.Log($"Play 2D sound: {soundName}");
+            //Debug.Log($"Play 2D sound: {soundName}");
 
             if (!TryGetSound(soundName, out AudioInfo audioInfo))
                 return;
