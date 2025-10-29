@@ -10,7 +10,6 @@ namespace AltCtrl.Charybdis
         // ----- FIELDS ----- //
         [Header("Values")]
         [SerializeField] private SO_MonsterData _monsterData;
-        [SerializeField] private bool _isInMenu = false;
 
         [Header("References")]
         [SerializeField] private MonsterTarget _target;

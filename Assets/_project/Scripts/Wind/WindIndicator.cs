@@ -17,8 +17,6 @@ namespace AltCtrl.Charybdis
 
         [SerializeField] private Transform _directionVisual;
 
-        private bool _isBlowingLoud = false;
-
         private Coroutine _windEffectCoroutine;
 
         public event Action<Vector3> OnStartWindOnBoats; // Vector 3 = rotation indicator

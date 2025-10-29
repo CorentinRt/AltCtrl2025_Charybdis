@@ -14,8 +14,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _activationAnimTime = 2f;
         [SerializeField] private float _deactivationAnimTime = 3f;
         [SerializeField] private float _minDelayBetweenToggles = 1f; // anti-spam (g mis haut pour les tests)
-
-        private bool _isActive = false;     
+    
         private bool _inputState = false;  
 
         // Timers
@@ -87,7 +86,6 @@ namespace AltCtrl.Charybdis
                 if (_transitionTimer >= _activationAnimTime)
                 {
                     _storm.Collider.enabled = true;
-                    _isActive = true;
                     _isTransitioning = false;
                 }
             }
@@ -97,7 +95,6 @@ namespace AltCtrl.Charybdis
                 {
                     _storm.Collider.enabled = false;
                     _visuals.SetActive(false);
-                    _isActive = false;
                     _isTransitioning = false;
                 }
             }

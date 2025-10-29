@@ -10,12 +10,6 @@ namespace AltCtrl.Charybdis
         [Header("References")]
         [SerializeField] private Transform _spawnFishPos;
 
-        private bool _isShipReady = false;
-        private bool _isMonsterReady = false;
-
-        private bool _isWaitingForLaunch = false;
-        private Coroutine _launchGameCoroutine;
-
         private ShipBehaviour _spawnedShip;
         // ----- FIELDS ----- //
 
