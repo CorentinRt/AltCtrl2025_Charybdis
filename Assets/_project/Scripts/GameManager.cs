@@ -79,7 +79,12 @@ namespace AltCtrl.Charybdis
 
                     if (Monster.Exist)
                     {
-                        Monster.Instance.SetEnableMonsterInput(false);
+                        Monster.Instance.SetEnableMonsterMovement(false);
+                    }
+
+                    if (MonsterTarget.Exist)
+                    {
+                        MonsterTarget.Instance.SetEnableMonsterTargetInput(false);
                     }
 
                     if (RadioManager.Exist)
@@ -100,7 +105,12 @@ namespace AltCtrl.Charybdis
 
                     if (Monster.Exist)
                     {
-                        Monster.Instance.SetEnableMonsterInput(true);
+                        Monster.Instance.SetEnableMonsterMovement(true);
+                    }
+
+                    if (MonsterTarget.Exist)
+                    {
+                        MonsterTarget.Instance.SetEnableMonsterTargetInput(true);
                     }
 
                     if (RadioManager.Exist)
@@ -130,7 +140,12 @@ namespace AltCtrl.Charybdis
 
                     if (Monster.Exist)
                     {
-                        Monster.Instance.SetEnableMonsterInput(false);
+                        Monster.Instance.SetEnableMonsterMovement(false);
+                    }
+
+                    if (MonsterTarget.Exist)
+                    {
+                        MonsterTarget.Instance.SetEnableMonsterTargetInput(false);
                     }
 
                     if (RadioManager.Exist)

@@ -8,26 +8,17 @@ namespace AltCtrl.Charybdis
         // ----- FIELDS ----- //
         [Header("Movement")]
         [SerializeField] private float _moveSpeed = 5f;
-        [SerializeField] private float _maxRotation = 45f;
-        [SerializeField] private float _rotateAcceleration = 1f;
 
         [Header("Typhon")]
         [SerializeField] private float _typhoonCantMoveTime = 3f;
-        [SerializeField] private float _typhoonCooldown = 5f;
+        [SerializeField] private float _typhoonCoodown = 5f;
         [SerializeField] private float _indicationBeforeTyphoon = 2f;
         [SerializeField] private float _indicationAnimTime = 1f;
-
-        [Header("Teleport")]
-        [SerializeField] private float _teleportCooldown = 2f;
         // ----- FIELDS ----- //
 
         // ----- PROPERTIES ----- //
         public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
-        public float MaxRotation { get => _maxRotation; set => _maxRotation = value; }
-        public float RotateAcceleration { get => _rotateAcceleration; set => _rotateAcceleration = value; }
         public float TyphoonCantMoveTime { get => _typhoonCantMoveTime; set => _typhoonCantMoveTime = value; }
-        public float TyphoonCooldown { get => _typhoonCooldown; set => _typhoonCooldown = value; }
-        public float TeleportCooldown { get => _teleportCooldown; set => _teleportCooldown = value; }
         public float IndicationBeforeTyphoon { get => _indicationBeforeTyphoon; set => _indicationBeforeTyphoon = value; }
         public float IndicationAnimTime { get => _indicationAnimTime; set => _indicationAnimTime = value; }
         // ----- PROPERTIES ----- //

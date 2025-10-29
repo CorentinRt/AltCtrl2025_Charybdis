@@ -1,9 +1,10 @@
+using CREMOT.GameplayUtilities;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class MonsterTarget : MonoBehaviour
+    public class MonsterTarget : GenericSingleton<MonsterTarget>
     {
         // ----- FIELDS ----- //
         [Header("Data")]
@@ -17,7 +18,7 @@ namespace AltCtrl.Charybdis
         private Vector2 _moveDirection;
         private Rigidbody2D _rb;
 
-        private bool _inputEnabled = true;
+        private bool _inputEnabled = false;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -61,6 +62,11 @@ namespace AltCtrl.Charybdis
         private void OnMonsterJoystickMove(Vector2 moveDirection)
         {
             _moveDirection = moveDirection;
+        }
+
+        public void SetEnableMonsterTargetInput(bool enabled)
+        {
+            _inputEnabled = enabled;
         }
     }
 }
