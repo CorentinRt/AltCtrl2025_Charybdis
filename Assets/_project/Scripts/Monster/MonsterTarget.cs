@@ -11,7 +11,8 @@ namespace AltCtrl.Charybdis
         [SerializeField] private SO_MonsterTargetData _monsterTargetData;
 
         [Header("Screen Limits")]
-        [SerializeField] private float _objectWidth, _objectHeight;
+        [SerializeField] private float _objectWidth = 0.5f; 
+        [SerializeField] private float _objectHeight;
 
         private Vector2 _screenBounds;
 
