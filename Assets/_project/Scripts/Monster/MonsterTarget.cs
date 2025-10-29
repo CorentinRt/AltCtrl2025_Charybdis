@@ -18,7 +18,7 @@ namespace AltCtrl.Charybdis
         private Vector2 _moveDirection;
         private Rigidbody2D _rb;
 
-        private bool _inputEnabled = false;
+        private bool _inputEnabled = true;
         // ----- FIELDS ----- //
 
         private void Start()

@@ -30,6 +30,13 @@ namespace AltCtrl.Charybdis
             _rb = GetComponent<Rigidbody2D>();
         }
 
+        void FixedUpdate()
+        {
+            if (!_canMove || !_isMoving) return;
+
+            MoveMonsterTowardsTarget(Time.fixedDeltaTime);
+        }
+
         private void MoveMonsterTowardsTarget(float deltaTime)
         {
             if (_target == null)
@@ -41,10 +48,11 @@ namespace AltCtrl.Charybdis
             Vector2 direction = targetPosition - currentPosition;
             float distance = direction.magnitude;
 
+            // On target
             if (distance < 0.05f)
             {
-
                 _rb.MovePosition(targetPosition);
+                OnMonsterTyphoon(true);
                 return;
             }
 
@@ -58,8 +66,7 @@ namespace AltCtrl.Charybdis
         {
             //Debug.Log("typhoon");
 
-            if (!_canMove)
-                return;
+            if (!_canMove) return;
 
             if (pressed && _canTyphoon)
             {
@@ -85,6 +92,7 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        #region Typhoon Indication
         private void OnMonsterTyphoonIndication()
         {
             // ----- AUDIO ----- //
@@ -102,14 +110,18 @@ namespace AltCtrl.Charybdis
             yield return new WaitForSeconds(_monsterData.IndicationAnimTime);
             _animator.SetBool("Indicator", false);
         }
+        #endregion
 
         private IEnumerator StartTyphoonCooldown()
         {
-            yield return new WaitForSeconds(_monsterData.TyphoonCooldown - _monsterData.IndicationBeforeTyphoon);
-            OnMonsterTyphoonIndication();
-            yield return new WaitForSeconds(_monsterData.IndicationBeforeTyphoon);
+            //yield return new WaitForSeconds(_monsterData.TyphoonCooldown - _monsterData.IndicationBeforeTyphoon);
+            //OnMonsterTyphoonIndication();
+            //yield return new WaitForSeconds(_monsterData.IndicationBeforeTyphoon);
+
+            yield return new WaitForSeconds(_monsterData.TyphoonCooldown);
             _canTyphoon = true;
-            OnMonsterTyphoon(true);
+
+            //OnMonsterTyphoon(true);
         }
         private IEnumerator StartTyphoonCantMoveTime()
         {
@@ -117,26 +129,9 @@ namespace AltCtrl.Charybdis
             _isMoving = true;
         }
 
-        void FixedUpdate()
-        {
-            if (!_canMove || !_isMoving) return;
-
-            MoveMonsterTowardsTarget(Time.fixedDeltaTime);
-        }
-
-        public void SetCanMove(bool canMove)
-        {
-            _isMoving = canMove;
-        }
-
         public void SetEnableMonsterMovement(bool enabled)
         {
             _canMove = enabled;
-        }
-
-        public void SetUnderground(bool underground)
-        {
-            _animator.SetBool("Underground", underground);
         }
     }
 }

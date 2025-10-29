@@ -1117,10 +1117,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: fa0c882f824937c40a13e96ebb63e9b3, type: 3}
-    - target: {fileID: 1146380472048602988, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
-      propertyPath: _spline
-      value: 
-      objectReference: {fileID: 4090094950547411098}
     - target: {fileID: 1997817467700093424, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
       value: 31
@@ -1429,12 +1425,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_1
       objectReference: {fileID: 0}
-    - target: {fileID: 6920848975267125865, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
-      propertyPath: _spline
-      value: 
-      objectReference: {fileID: 4090094950547411098}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6638401071304664496, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
@@ -1458,17 +1451,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd3c1815316b5934e954f23019f6acf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4090094950547411098 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8113498228165518602, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
-  m_PrefabInstance: {fileID: 5213479558622115216}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &6114694341879122830 stripped
