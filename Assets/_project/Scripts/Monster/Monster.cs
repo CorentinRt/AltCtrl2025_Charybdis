@@ -10,6 +10,7 @@ namespace AltCtrl.Charybdis
         // ----- FIELDS ----- //
         [Header("Values")]
         [SerializeField] private SO_MonsterData _monsterData;
+        [SerializeField] private bool _isInMenu = false;
 
         [Header("References")]
         [SerializeField] private MonsterTarget _target;
@@ -17,7 +18,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private GameObject _monsterVisuals;
 
         private bool _isMoving = true;
-        private bool _canTyphoon = true;
+        private bool _canTyphoon = false;
 
         private Rigidbody2D _rb;
 
@@ -27,6 +28,24 @@ namespace AltCtrl.Charybdis
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
+
+            if (GameManager.Instance != null)
+                GameManager.Instance.OnGamePhaseChanged += Instance_OnGamePhaseChanged;
+
+            if (_isInMenu)
+                StartCoroutine(StartTyphoonCooldown());
+        }
+
+        private void OnDestroy()
+        {
+            if (GameManager.Instance != null)
+                GameManager.Instance.OnGamePhaseChanged -= Instance_OnGamePhaseChanged;
+        }
+
+        private void Instance_OnGamePhaseChanged(GameManager.GAME_PHASES obj)
+        {
+            if (obj == GameManager.GAME_PHASES.IN_GAME)
+                StartCoroutine(StartTyphoonCooldown());
         }
 
         void FixedUpdate()
@@ -51,7 +70,7 @@ namespace AltCtrl.Charybdis
             if (distance < 0.05f)
             {
                 _rb.MovePosition(targetPosition);
-                OnMonsterTyphoon(true);
+                OnMonsterTyphoon();
                 return;
             }
 
@@ -61,13 +80,13 @@ namespace AltCtrl.Charybdis
             _rb.MovePosition(newPosition);
         }
 
-        private void OnMonsterTyphoon(bool pressed)
+        private void OnMonsterTyphoon()
         {
             //Debug.Log("typhoon");
 
             if (!_canMove) return;
 
-            if (pressed && _canTyphoon)
+            if (_canTyphoon)
             {
                 _isMoving = false;
                 _canTyphoon = false;
@@ -85,9 +104,10 @@ namespace AltCtrl.Charybdis
                     Debug.LogError("No pool manager found in scene");
                 }
                 
-
                 StartCoroutine(StartTyphoonCooldown());
                 StartCoroutine(StartTyphoonCantMoveTime());
+
+                OnMonsterTyphoonStopIndication();
             }
         }
 
@@ -100,27 +120,23 @@ namespace AltCtrl.Charybdis
             // ----- AUDIO ----- //
 
             _animator.SetBool("Indicator", true);
-            StartCoroutine(WaitAndDesacTyphoonIndicator());
-
         }
 
-        private IEnumerator WaitAndDesacTyphoonIndicator()
+        private void OnMonsterTyphoonStopIndication()
         {
-            yield return new WaitForSeconds(_monsterData.IndicationAnimTime);
             _animator.SetBool("Indicator", false);
         }
         #endregion
 
         private IEnumerator StartTyphoonCooldown()
         {
-            //yield return new WaitForSeconds(_monsterData.TyphoonCooldown - _monsterData.IndicationBeforeTyphoon);
-            //OnMonsterTyphoonIndication();
-            //yield return new WaitForSeconds(_monsterData.IndicationBeforeTyphoon);
+            yield return new WaitForSeconds(_monsterData.TyphoonCooldown - _monsterData.IndicationBeforeTyphoon);
 
-            yield return new WaitForSeconds(_monsterData.TyphoonCooldown);
+            OnMonsterTyphoonIndication();
+
+            yield return new WaitForSeconds(_monsterData.IndicationBeforeTyphoon);
+
             _canTyphoon = true;
-
-            //OnMonsterTyphoon(true);
         }
         private IEnumerator StartTyphoonCantMoveTime()
         {

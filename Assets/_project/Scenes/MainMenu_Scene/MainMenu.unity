@@ -435,6 +435,26 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 354be6765a90a8446ab55d5bd49167e4, type: 3}
+--- !u!1 &709420498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8084914830408926884, guid: 262a004070fe3174994d6e6f44b55c55, type: 3}
+  m_PrefabInstance: {fileID: 2085235122}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &709420501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709420498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b598663488455f49b0768e9b429dc7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundName: Game_Music
+  _playOnEnable: 1
+  _isLooping: 1
 --- !u!1 &765473734
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +928,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8084914830408926884, guid: 262a004070fe3174994d6e6f44b55c55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 709420501}
   m_SourcePrefab: {fileID: 100100000, guid: 262a004070fe3174994d6e6f44b55c55, type: 3}
 --- !u!1001 &2110478555
 PrefabInstance:
@@ -1040,14 +1063,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4214661222937904463, guid: 455ebf6e3b5b4ec4b80e97378eebba1b, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4214661222937904463, guid: 455ebf6e3b5b4ec4b80e97378eebba1b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7426388919886187258, guid: 455ebf6e3b5b4ec4b80e97378eebba1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1131,10 +1146,6 @@ PrefabInstance:
     - target: {fileID: 8790082872849991894, guid: 455ebf6e3b5b4ec4b80e97378eebba1b, type: 3}
       propertyPath: m_Name
       value: Canvas_MainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 8790082872849991894, guid: 455ebf6e3b5b4ec4b80e97378eebba1b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

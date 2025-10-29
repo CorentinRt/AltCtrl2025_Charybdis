@@ -13,14 +13,12 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _typhoonCantMoveTime = 3f;
         [SerializeField] private float _typhoonCooldown = 5f;
         [SerializeField] private float _indicationBeforeTyphoon = 2f;
-        [SerializeField] private float _indicationAnimTime = 1f;
         // ----- FIELDS ----- //
 
         // ----- PROPERTIES ----- //
         public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
         public float TyphoonCantMoveTime { get => _typhoonCantMoveTime; set => _typhoonCantMoveTime = value; }
         public float IndicationBeforeTyphoon { get => _indicationBeforeTyphoon; set => _indicationBeforeTyphoon = value; }
-        public float IndicationAnimTime { get => _indicationAnimTime; set => _indicationAnimTime = value; }
         public float TyphoonCooldown { get => _typhoonCooldown; set => _typhoonCooldown = value; }
         // ----- PROPERTIES ----- //
     }

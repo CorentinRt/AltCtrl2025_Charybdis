@@ -86,13 +86,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monsterData: {fileID: 11400000, guid: ad55d538491279949ac1db9483052496, type: 2}
   _isInMenu: 0
-  objectWidth: 0.5
-  objectHeight: 0.5
+  _target: {fileID: 0}
   _animator: {fileID: 6268510938833048107}
   _monsterVisuals: {fileID: 8017290241604456731}
-  _trajectoryLine: {fileID: 4186184522416738182}
-  _predictionSteps: 70
-  _timeStep: 0.1
 --- !u!50 &2984706738746621515
 Rigidbody2D:
   serializedVersion: 5
@@ -424,6 +420,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Line_ShowPath
       objectReference: {fileID: 0}
+    - target: {fileID: 7335102813017374369, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.a
       value: 1
@@ -476,10 +476,5 @@ PrefabInstance:
 --- !u!4 &913680093389806306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6492472715838290751, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
-  m_PrefabInstance: {fileID: 6248725505289003485}
-  m_PrefabAsset: {fileID: 0}
---- !u!120 &4186184522416738182 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 7831687294411075163, guid: 183bdfec2b4b69f44b86ef304b7aaace, type: 3}
   m_PrefabInstance: {fileID: 6248725505289003485}
   m_PrefabAsset: {fileID: 0}
