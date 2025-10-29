@@ -51,3 +51,6 @@ MonoBehaviour:
     m_Bits: 128
   _spawnDistanceCheck: 10
   _checkRadius: 0.3
+  _radiusCheckSpawnObjective: 1
+  _offsetFromBordersSpawnObjective: 1
+  _isMainMenu: 0

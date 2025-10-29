@@ -4,6 +4,7 @@ using UnityEngine;
 using CREMOT.GameplayUtilities;
 using static UnityEngine.GraphicsBuffer;
 using System;
+using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 namespace AltCtrl.Charybdis
 {
@@ -24,10 +25,20 @@ namespace AltCtrl.Charybdis
         [Header("Prefab")]
         [SerializeField] private GameObject _shipPrefab;
 
-        [Header("Spawn Parameters")]
+        [Space]
+
+        [Header("General Spawn Parameters")]
         [SerializeField] private LayerMask _islandsLayerMask;
+
+        [Header("Spawn Ships Parameters")]
         [SerializeField] private float _spawnDistanceCheck = 10f;
         [SerializeField] private float _checkRadius = 5f;
+
+        [Header("Spawn Objective Parameters")]
+        [SerializeField] private float _radiusCheckSpawnObjective;
+        [SerializeField] private float _offsetFromBordersSpawnObjective;
+
+        [Space]
 
         [Header("Other")]
         [SerializeField] private bool _isMainMenu;
@@ -76,6 +87,7 @@ namespace AltCtrl.Charybdis
             {
                 ship.OnShipDestroyed -= ReactOnDestroyShip;
                 ship.OnShipValidated -= ReactOnValidateShip;
+                ship.OnShipValidatedWithoutObjective -= ReactOnValidateShipWithoutObjective;
             }
 
             if (RadioManager.Exist)
@@ -93,6 +105,7 @@ namespace AltCtrl.Charybdis
 
             ship.OnShipDestroyed += ReactOnDestroyShip;
             ship.OnShipValidated += ReactOnValidateShip;
+            ship.OnShipValidatedWithoutObjective += ReactOnValidateShipWithoutObjective;
 
             _frequencyToShip[ship.AssociatedFrequency] = ship;
         }
@@ -106,6 +119,7 @@ namespace AltCtrl.Charybdis
 
             ship.OnShipDestroyed -= ReactOnDestroyShip;
             ship.OnShipValidated -= ReactOnValidateShip;
+            ship.OnShipValidatedWithoutObjective -= ReactOnValidateShipWithoutObjective;
 
             _frequencyToShip[ship.AssociatedFrequency] = null;
         }
@@ -126,6 +140,7 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        #region Ships Spawn
         private void HandleShipsSpawn()
         {
             if (!_enabledShipsSpawn)
@@ -212,13 +227,78 @@ namespace AltCtrl.Charybdis
 
             if (PoolManager.Instance != null)
             {
-                GameObject ship = PoolManager.Instance.ActivateShip(randomPos, rot, true);
+                GameObject shipObject = PoolManager.Instance.ActivateShip(randomPos, rot, true);
 
-                Debug.Log($"Spawn ship : {ship.name}", ship);
+                ShipBehaviour ship = shipObject.GetComponent<IShipBehaviour>().GetShip();
 
-                ship.GetComponent<IShipBehaviour>().Init();
+                ObjectiveShipBehaviour objective = SpawnObjective(randomPos);
+
+                //Debug.Log($"Spawn ship : {ship.name}", ship);
+                //Debug.Log($"Spawn Objective : {objective.name}", objective);
+
+                objective.Init();
+                ship.SetAssociatedObjective(objective);
+                ship.Init();
             }
         }
+        #endregion
+
+        #region Objective ship spawn
+        private ObjectiveShipBehaviour SpawnObjective(Vector3 shipSpawnPos, int iteration = 0)
+        {
+            if (PoolManager.Instance == null)
+                return null;
+
+            Vector3 centerPos = Camera.main.transform.position;
+
+            Vector2 randomPos = Vector2.zero;
+
+            Vector2 centerSpawnZone = Vector2.zero;
+
+            if (shipSpawnPos.x >= centerPos.x)
+            {
+                randomPos.x = UnityEngine.Random.Range(-_screenBounds.x + _offsetFromBordersSpawnObjective, centerPos.x);
+                centerSpawnZone.x = (centerPos.x - _screenBounds.x + (_offsetFromBordersSpawnObjective / 2f)) / 2f;
+            }
+            else
+            {
+                randomPos.x = UnityEngine.Random.Range(centerPos.x, _screenBounds.x - _offsetFromBordersSpawnObjective);
+                centerSpawnZone.x = (centerPos.x + _screenBounds.x - (_offsetFromBordersSpawnObjective / 2f)) / 2f;
+            }
+
+            if (shipSpawnPos.y >= centerPos.y)
+            {
+                randomPos.y = UnityEngine.Random.Range(-_screenBounds.y + _offsetFromBordersSpawnObjective, centerPos.y);
+                centerSpawnZone.y = (centerPos.y - _screenBounds.y + (_offsetFromBordersSpawnObjective / 2f)) / 2f;
+            }
+            else
+            {
+                randomPos.y = UnityEngine.Random.Range(centerPos.y, _screenBounds.y - _offsetFromBordersSpawnObjective);
+                centerSpawnZone.y = (centerPos.y + _screenBounds.y - (_offsetFromBordersSpawnObjective / 2f)) / 2f;
+            }
+
+            DrawRect(centerSpawnZone, _screenBounds.x - (_offsetFromBordersSpawnObjective / 2f), _screenBounds.y - (_offsetFromBordersSpawnObjective / 2f), Color.yellow, 2f);
+
+            if (iteration < 10)
+            {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(randomPos, _radiusCheckSpawnObjective, _islandsLayerMask);
+
+                DrawCircle(randomPos, _radiusCheckSpawnObjective, Color.magenta, 2f);
+
+                if (colliders.Length > 0)
+                {
+                    return SpawnObjective(shipSpawnPos, ++iteration);
+                }
+            }
+
+            GameObject objectiveObject = PoolManager.Instance.ActivateObjectiveShip(randomPos, Quaternion.identity, true);
+
+            ObjectiveShipBehaviour objective = objectiveObject.GetComponent<ObjectiveShipBehaviour>();
+
+            return objective;
+        }
+
+        #endregion
 
         #region Debug Circle Cast
         public void DrawCircleCast(Vector2 origin, float radius, Vector2 direction, float distance, Color color, float duration = 0f, int segments = 24)
@@ -256,8 +336,22 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        public void DrawRect(Vector2 center, float width, float height, Color color, float duration = 0f)
+        {
+            Vector2 topLeft = center - Vector2.right * (width / 2f) + Vector2.up * (height / 2f);
+            Vector2 topRight = center + Vector2.right * (width / 2f) + Vector2.up * (height / 2f);
+            Vector2 bottomRight = center + Vector2.right * (width / 2f) - Vector2.up * (height / 2f);
+            Vector2 bottomLeft = center - Vector2.right * (width / 2f) - Vector2.up * (height / 2f);
+
+            Debug.DrawLine(topLeft, topRight, color, duration);
+            Debug.DrawLine(topRight, bottomRight, color, duration);
+            Debug.DrawLine(bottomRight, bottomLeft, color, duration);
+            Debug.DrawLine(bottomLeft, topLeft, color, duration);
+        }
+
         #endregion
 
+        #region Handle Validate / Destroy
         public void ValidateAllShip()
         {
             ShipBehaviour[] allShips = GameObject.FindObjectsByType<ShipBehaviour>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -288,10 +382,20 @@ namespace AltCtrl.Charybdis
         private void ReactOnValidateShip(ShipBehaviour ship)
         {
             ship.OnShipValidated -= ReactOnValidateShip;
+            ship.OnShipValidatedWithoutObjective -= ReactOnValidateShipWithoutObjective;
 
             OnValidateShip?.Invoke();
         }
 
+        private void ReactOnValidateShipWithoutObjective(ShipBehaviour ship)
+        {
+            ship.OnShipValidated -= ReactOnValidateShip;
+            ship.OnShipValidatedWithoutObjective -= ReactOnValidateShipWithoutObjective;
+
+        }
+        #endregion
+
+        #region Handle Frequency
         public void ReactOnChangeFrequency((int, int) frequency)
         {
             if (_currentControlledShip != null)
@@ -319,5 +423,6 @@ namespace AltCtrl.Charybdis
 
             return true;
         }
+        #endregion
     }
 }

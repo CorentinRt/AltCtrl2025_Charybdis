@@ -111,6 +111,7 @@ namespace AltCtrl.Charybdis
 
         public event Action<ShipBehaviour> OnShipDestroyed;
         public event Action<ShipBehaviour> OnShipValidated;
+        public event Action<ShipBehaviour> OnShipValidatedWithoutObjective;
 
         private void Awake()
         {
@@ -583,7 +584,15 @@ namespace AltCtrl.Charybdis
 
             if (_validateShipWithDelayCoroutine == null)
             {
-                OnShipValidated?.Invoke(this);
+                if (_hasGotObjective)
+                {
+                    OnShipValidated?.Invoke(this);
+                }
+                else
+                {
+                    OnShipValidatedWithoutObjective?.Invoke(this);
+                }
+
 
                 if (ShipsManager.Exist)
                 {

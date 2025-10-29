@@ -19,6 +19,9 @@ namespace AltCtrl.Charybdis
         [Header("----- Ship Pool -----")]
         [SerializeField] private PoolItem _ship;
 
+        [Header("----- Objective Ship Pool -----")]
+        [SerializeField] private PoolItem _objective;
+
         [Header("----- Typhoon Pool -----")]
         [SerializeField] private PoolItem _typhoon;
 
@@ -105,6 +108,15 @@ namespace AltCtrl.Charybdis
         public GameObject ActivateShip(Vector3 position, Quaternion rotation, bool activate = true) 
         {
             PoolItem poolItem = _ship;
+
+            return GetChild(poolItem, position, rotation, activate);
+        }
+        #endregion
+
+        #region Objective Ship
+        public GameObject ActivateObjectiveShip(Vector3 position, Quaternion rotation, bool activate = true)
+        {
+            PoolItem poolItem = _objective;
 
             return GetChild(poolItem, position, rotation, activate);
         }
