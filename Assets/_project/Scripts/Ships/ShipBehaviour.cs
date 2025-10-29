@@ -94,8 +94,11 @@ namespace AltCtrl.Charybdis
 
         // Animations
         private Animator _animator;
-
         private Vector2 _visualAnchorLocalScale;
+
+        // Objectives
+        private ObjectiveShipBehaviour _associatedObjective;
+        private bool _hasGotObjective;
         #endregion
 
 
@@ -185,6 +188,8 @@ namespace AltCtrl.Charybdis
 
             _currentAngularVelocity = 0f;
             _currentSpeed = 0f;
+
+            _hasGotObjective = false;
         }
 
         public void Init()
@@ -497,6 +502,9 @@ namespace AltCtrl.Charybdis
             _frequencyLabel.gameObject.SetActive(false);
             _trajectoryLine.gameObject.SetActive(false);
 
+            if (_associatedObjective != null)
+                _associatedObjective.ReactTargetDestroyed();
+
             if (_destroyShipWithDelayCoroutine == null)
             {
                 OnShipDestroyed?.Invoke(this);
@@ -569,6 +577,9 @@ namespace AltCtrl.Charybdis
             _isValidated = true;
 
             _validateIndicator.SetActive(true);
+
+            if (_associatedObjective != null)
+                _associatedObjective.ReactTargetDestroyed();
 
             if (_validateShipWithDelayCoroutine == null)
             {
@@ -699,6 +710,25 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
+        #region Objectives
+        public void SetAssociatedObjective(ObjectiveShipBehaviour objective)
+        {
+            _associatedObjective = objective;
+        }
+
+        private void ReactOnGetObjective(ObjectiveShipBehaviour objective)
+        {
+            if (objective != _associatedObjective)
+                return;
+            
+            _hasGotObjective = true;
+            objective.ReactGetByShip();
+
+            _associatedObjective = null;
+        }
+
+        #endregion
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision == null || collision.gameObject == null)
@@ -710,6 +740,26 @@ namespace AltCtrl.Charybdis
                     return;
 
                 DestroyShip();
+                return;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision == null || collision.gameObject == null)
+                return;
+
+            if (collision.gameObject.CompareTag("ObjectiveShip"))
+            {
+                if (_associatedObjective == null)
+                    return;
+
+                if (collision.gameObject.TryGetComponent<ObjectiveShipBehaviour>(out ObjectiveShipBehaviour objective))
+                {
+                    ReactOnGetObjective(objective);
+                }
+
+                return;
             }
         }
 
