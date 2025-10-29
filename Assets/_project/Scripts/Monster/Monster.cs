@@ -1,4 +1,4 @@
-using CREMOT.GameplayUtilities;
+﻿using CREMOT.GameplayUtilities;
 using System.Collections;
 using UnityEngine;
 
@@ -16,6 +16,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float objectWidth, objectHeight;
 
         [Header("References")]
+        [SerializeField] private MonsterTarget _target;
         [SerializeField] private Animator _animator;
         [SerializeField] private GameObject _monsterVisuals;
 
@@ -49,13 +50,7 @@ namespace AltCtrl.Charybdis
         {
             _rb = GetComponent<Rigidbody2D>();
 
-            screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-
-            if (InputManager.Instance != null)
-            {
-                InputManager.Instance.OnMoveMonsterPressed += OnMonsterJoystickMove;
-            }
-
+            /*
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnGamePhaseChanged += Instance_OnGamePhaseChanged;
@@ -65,12 +60,10 @@ namespace AltCtrl.Charybdis
             {
                 StartCoroutine(StartTyphoonCooldown());
             }
-
-            _currentAngularVelocity = _rb.angularVelocity;
-
-            _trajectoryPointsBuffer = new Vector3[_predictionSteps];
+            */
         }
 
+        /*
         private void Instance_OnGamePhaseChanged(GameManager.GAME_PHASES obj)
         {
             if (obj == GameManager.GAME_PHASES.IN_GAME)
@@ -78,33 +71,39 @@ namespace AltCtrl.Charybdis
                 StartCoroutine(StartTyphoonCooldown());
             }
         }
+        */
 
         private void OnDestroy()
         {
-            if (InputManager.Instance != null)
-            {
-                InputManager.Instance.OnMoveMonsterPressed -= OnMonsterJoystickMove;
-            }
-
+            /*
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnGamePhaseChanged -= Instance_OnGamePhaseChanged;
             }
+            */
         }
 
-        private void OnMonsterMouseMove(Vector2 mousePos)
+        private void MoveMonsterTowardsTarget(float deltaTime)
         {
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
-            _targetPosition = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
+            if (_target == null)
+                return;
 
-            // Clamp to screen limits
-            _targetPosition.x = Mathf.Clamp(_targetPosition.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
-            _targetPosition.y = Mathf.Clamp(_targetPosition.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
-        }
+            Vector2 currentPosition = _rb.position;
+            Vector2 targetPosition = _target.GetComponent<Rigidbody2D>().position; 
 
-        private void OnMonsterJoystickMove(Vector2 moveDirection)
-        {
-            _moveDirection = moveDirection;
+            Vector2 direction = targetPosition - currentPosition;
+            float distance = direction.magnitude;
+
+            if (distance < 0.05f)
+            {
+                _rb.MovePosition(targetPosition);
+                return;
+            }
+
+            Vector2 move = direction.normalized * _monsterData.MoveSpeed * deltaTime;
+            Vector2 newPosition = currentPosition + move;
+
+            _rb.MovePosition(newPosition);
         }
 
         private void OnMonsterTyphoon(bool pressed)
@@ -177,49 +176,12 @@ namespace AltCtrl.Charybdis
         }
         void FixedUpdate()
         {
-            if (!_isMoving || !_inputEnabled)
-                return;
+            //if (!_isMoving || !_inputEnabled) return;
 
-            /*
-            if (_useJoystick)
-            {
-                Vector2 move = _moveDirection.normalized * _monsterData.MoveSpeed * Time.fixedDeltaTime;
-                Vector2 newPosition = _rb.position + move;
-
-                newPosition.x = Mathf.Clamp(newPosition.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
-                newPosition.y = Mathf.Clamp(newPosition.y, -screenBounds.y + objectHeight, screenBounds.y - objectHeight);
-
-                _rb.MovePosition(newPosition);
-            }
-            else
-            {
-                Vector2 currentPosition = _rb.position;
-                Vector2 direction = _targetPosition - currentPosition;
-                float distance = direction.magnitude;
-
-                if (distance < 0.2f)
-                {
-                    _rb.MovePosition(_targetPosition);
-                    return;
-                }
-
-                Vector2 move = direction.normalized * _monsterData.MoveSpeed * Time.fixedDeltaTime;
-                _rb.MovePosition(currentPosition + move);
-            }
-            */
-
-            _rb.linearVelocity = _monsterData.MoveSpeed * transform.up;
-
-            float targetAngularVelocity = _monsterData.MaxRotation * -_moveDirection.x;
-
-            targetAngularVelocity = Mathf.Lerp(_currentAngularVelocity, targetAngularVelocity, Time.fixedDeltaTime * _monsterData.RotateAcceleration);
-
-            _currentAngularVelocity = targetAngularVelocity;
-
-            _rb.angularVelocity = _currentAngularVelocity;
+            MoveMonsterTowardsTarget(Time.fixedDeltaTime);
         }
 
-
+        #region Teleport
         public void SetTeleporting(bool isTeleporting)
         {
             _isTeleporting = isTeleporting;
@@ -241,6 +203,7 @@ namespace AltCtrl.Charybdis
             yield return new WaitForSeconds(_monsterData.TeleportCooldown);
             _canTeleport = true;
         }
+        #endregion
 
         public void SetCanMove(bool canMove)
         {
@@ -264,6 +227,7 @@ namespace AltCtrl.Charybdis
         #region Trajectory
         private void PredictTrajectory()
         {
+            /*
             Vector2 startPos = _rb.position;
             Vector2 velocity = _rb.linearVelocity;
             float angularVel = _rb.angularVelocity;
@@ -295,6 +259,7 @@ namespace AltCtrl.Charybdis
 
             _trajectoryLine.positionCount = _predictionSteps;
             _trajectoryLine.SetPositions(_trajectoryPointsBuffer);
+            */
         }
 
         #endregion
