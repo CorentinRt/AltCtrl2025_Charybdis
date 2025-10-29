@@ -7,6 +7,7 @@ TagManager:
   - Island
   - Monster
   - Ship
+  - ObjectiveShip
   layers:
   - Default
   - TransparentFX
