@@ -1164,9 +1164,21 @@ PrefabInstance:
       propertyPath: _startDisableIndicators
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1840994359994628264, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840994359994628264, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2642743940863320217, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
       propertyPath: m_Name
       value: Blue_Islands_Indicators
+      objectReference: {fileID: 0}
+    - target: {fileID: 2870613717084017195, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 314.15927
       objectReference: {fileID: 0}
     - target: {fileID: 3473740666621906458, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1207,6 +1219,18 @@ PrefabInstance:
     - target: {fileID: 3473740666621906458, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004801301621035402, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836585296050790761, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 314.15927
+      objectReference: {fileID: 0}
+    - target: {fileID: 7918806634915884879, guid: 369a1992a96e88c40b0e177e0b832bad, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 314.15927
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
