@@ -97,7 +97,7 @@ namespace AltCtrl.Charybdis
         #region Objectives customization
         public void SetObjectivesColor(Color color)
         {
-            _spriteRenderer.color = color;
+            _spriteRenderer.material.color = color;
         }
 
         public void SetObjectivesMotif(Texture2D texture)
