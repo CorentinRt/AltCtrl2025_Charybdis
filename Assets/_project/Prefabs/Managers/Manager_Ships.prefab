@@ -51,6 +51,5 @@ MonoBehaviour:
     m_Bits: 128
   _spawnDistanceCheck: 10
   _checkRadius: 0.3
-  _radiusCheckSpawnObjective: 1
-  _offsetFromBordersSpawnObjective: 1
+  _objectiveData: {fileID: 11400000, guid: ccac1ca662eb30a43a74e38069a35431, type: 2}
   _isMainMenu: 0
