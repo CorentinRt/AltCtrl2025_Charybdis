@@ -14,3 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnRandomMinRate: 4
   _spawnRandomMaxRate: 10
+  _maxShips: 3
+  _objectivesColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.99260664, g: 1, b: 0, a: 1}
+  - {r: 0.2660625, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.61524796, a: 1}
+  - {r: 0, g: 0.49818873, b: 1, a: 1}
+  - {r: 0.15304613, g: 0, b: 1, a: 1}
+  - {r: 0.575568, g: 0, b: 0.7169812, a: 1}
+  - {r: 1, g: 0, b: 0.5917187, a: 1}
+  - {r: 1, g: 0.48117033, b: 0, a: 1}
+  - {r: 0.38443395, g: 0.44813457, b: 0.5, a: 1}
+  _objectivesMotifs:
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}

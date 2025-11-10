@@ -1,5 +1,6 @@
 using DG.Tweening;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -16,13 +17,21 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Ease _disappearEase;
         [SerializeField] private float _disappearDuration;
 
+        [Header("Customization")]
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+
+        // Associated Color
+        private Color _associatedColor;
+
         private Vector3 _startVisualsScale;
 
         private Tween _disappearTween;
 
+
         #endregion
 
         #region Properties
+        public Color AssociatedColor => _associatedColor;
 
 
         #endregion
@@ -49,7 +58,7 @@ namespace AltCtrl.Charybdis
         }
 
 
-
+        #region Ship reactions Appear / Disappear
         [Button]
         public void ReactGetByShip()
         {
@@ -82,5 +91,23 @@ namespace AltCtrl.Charybdis
         {
             gameObject.SetActive(false);
         }
+
+        #endregion
+
+        #region Objectives customization
+        public void SetObjectivesColor(Color color)
+        {
+            _spriteRenderer.color = color;
+        }
+
+        public void SetObjectivesMotif(Texture2D texture)
+        {
+            if (_spriteRenderer.material.HasTexture("_Objective_texture"))
+            {
+                _spriteRenderer.material.SetTexture("_Objective_texture", texture);
+            }
+        }
+
+        #endregion
     }
 }

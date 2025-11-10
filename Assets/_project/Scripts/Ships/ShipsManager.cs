@@ -57,6 +57,8 @@ namespace AltCtrl.Charybdis
 
         private bool _enabledShipsSpawn;
 
+        private HashSet<Color> _usedShipsColors = new HashSet<Color>();
+
         #endregion
 
         #region Properties
@@ -236,6 +238,15 @@ namespace AltCtrl.Charybdis
 
                 //Debug.Log($"Spawn ship : {ship.name}", ship);
                 //Debug.Log($"Spawn Objective : {objective.name}", objective);
+
+                Color color = FindUnusedColor();
+                Texture2D texture = FindUnusedMotif();
+
+                objective.SetObjectivesColor(color);
+                objective.SetObjectivesMotif(texture);
+                ship.SetShipColor(color);
+                ship.SetShipMotif(texture);
+
 
                 objective.Init();
                 ship.SetAssociatedObjective(objective);
@@ -424,6 +435,61 @@ namespace AltCtrl.Charybdis
 
             return true;
         }
+        #endregion
+
+        #region Handle Customization association
+        private Color FindUnusedColor(int iteration = 0)
+        {
+            int indexRandom = UnityEngine.Random.Range(0, _data.ObjectivesColors.Count);
+
+            Color color = _data.ObjectivesColors[indexRandom];
+
+            if (iteration >= 15)
+            {
+                return color;
+            }
+
+            foreach (ShipBehaviour ship in _ships)
+            {
+                if (ship == null)
+                    continue;
+
+
+                if (ship.AssociatedColor == color)
+                {
+                    return FindUnusedColor(++iteration);
+                }
+            }
+
+            return color;
+        }
+
+        private Texture2D FindUnusedMotif(int iteration = 0)
+        {
+            int indexRandom = UnityEngine.Random.Range(0, _data.ObjectivesColors.Count);
+
+            Texture2D texture = _data.ObjectivesMotifs[indexRandom];
+
+            if (iteration >= 15)
+            {
+                return texture;
+            }
+
+            foreach (ShipBehaviour ship in _ships)
+            {
+                if (ship == null)
+                    continue;
+
+
+                if (ship.AssociatedMotif == texture)
+                {
+                    return FindUnusedMotif(++iteration);
+                }
+            }
+
+            return texture;
+        }
+
         #endregion
     }
 }

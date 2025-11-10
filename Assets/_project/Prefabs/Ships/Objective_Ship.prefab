@@ -50,6 +50,7 @@ MonoBehaviour:
   _visualAnchor: {fileID: 7909190288337471730}
   _disappearEase: 31
   _disappearDuration: 0.5
+  _spriteRenderer: {fileID: 1194407459238820813}
 --- !u!58 &6556286606235629402
 CircleCollider2D:
   m_ObjectHideFlags: 0

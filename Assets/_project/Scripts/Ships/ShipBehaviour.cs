@@ -47,6 +47,10 @@ namespace AltCtrl.Charybdis
         [SerializeField] private GameObject _animatorsHandler;
         [SerializeField] private Ease _destroyEase;
 
+        [Header("Ship Customization")]
+        [SerializeField] private SpriteRendererGroup _spriteRendererGroup;
+
+
         // Move
         private float _currentSpeed;
 
@@ -99,6 +103,10 @@ namespace AltCtrl.Charybdis
         // Objectives
         private ObjectiveShipBehaviour _associatedObjective;
         private bool _hasGotObjective;
+
+        // Associated Customization
+        private Color _associatedColor;
+        private Texture2D _associatedMotif;
         #endregion
 
 
@@ -106,6 +114,9 @@ namespace AltCtrl.Charybdis
         public bool IsAuto => _isAuto;
 
         public (int, int) AssociatedFrequency => _associatedFrequency;
+
+        public Color AssociatedColor => _associatedColor;
+        public Texture2D AssociatedMotif => _associatedMotif;
 
         #endregion
 
@@ -736,6 +747,20 @@ namespace AltCtrl.Charybdis
             _associatedObjective = null;
         }
 
+        #endregion
+
+        #region Customization
+        public void SetShipColor(Color color)
+        {
+            _associatedColor = color;
+            _spriteRendererGroup.SetColorOnMaterial(color);
+        }
+
+        public void SetShipMotif(Texture2D texture)
+        {
+            _associatedMotif = texture;
+            _spriteRendererGroup.SetMotifOnMaterial(texture);
+        }
         #endregion
 
         private void OnCollisionEnter2D(Collision2D collision)
