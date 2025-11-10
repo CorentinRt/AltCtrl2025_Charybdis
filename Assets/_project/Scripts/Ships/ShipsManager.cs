@@ -34,9 +34,10 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _spawnDistanceCheck = 10f;
         [SerializeField] private float _checkRadius = 5f;
 
+
+
         [Header("Spawn Objective Parameters")]
-        [SerializeField] private float _radiusCheckSpawnObjective;
-        [SerializeField] private float _offsetFromBordersSpawnObjective;
+        [SerializeField] private SO_ShipObjectivesData _objectiveData;
 
         [Space]
 
@@ -257,33 +258,33 @@ namespace AltCtrl.Charybdis
 
             if (shipSpawnPos.x >= centerPos.x)
             {
-                randomPos.x = UnityEngine.Random.Range(-_screenBounds.x + _offsetFromBordersSpawnObjective, centerPos.x);
-                centerSpawnZone.x = (centerPos.x - _screenBounds.x + (_offsetFromBordersSpawnObjective / 2f)) / 2f;
+                randomPos.x = UnityEngine.Random.Range(-_screenBounds.x + _objectiveData.OffsetFromBordersSpawnObjective, centerPos.x);
+                centerSpawnZone.x = (centerPos.x - _screenBounds.x + (_objectiveData.OffsetFromBordersSpawnObjective / 2f)) / 2f;
             }
             else
             {
-                randomPos.x = UnityEngine.Random.Range(centerPos.x, _screenBounds.x - _offsetFromBordersSpawnObjective);
-                centerSpawnZone.x = (centerPos.x + _screenBounds.x - (_offsetFromBordersSpawnObjective / 2f)) / 2f;
+                randomPos.x = UnityEngine.Random.Range(centerPos.x, _screenBounds.x - _objectiveData.OffsetFromBordersSpawnObjective);
+                centerSpawnZone.x = (centerPos.x + _screenBounds.x - (_objectiveData.OffsetFromBordersSpawnObjective / 2f)) / 2f;
             }
 
             if (shipSpawnPos.y >= centerPos.y)
             {
-                randomPos.y = UnityEngine.Random.Range(-_screenBounds.y + _offsetFromBordersSpawnObjective, centerPos.y);
-                centerSpawnZone.y = (centerPos.y - _screenBounds.y + (_offsetFromBordersSpawnObjective / 2f)) / 2f;
+                randomPos.y = UnityEngine.Random.Range(-_screenBounds.y + _objectiveData.OffsetFromBordersSpawnObjective, centerPos.y);
+                centerSpawnZone.y = (centerPos.y - _screenBounds.y + (_objectiveData.OffsetFromBordersSpawnObjective / 2f)) / 2f;
             }
             else
             {
-                randomPos.y = UnityEngine.Random.Range(centerPos.y, _screenBounds.y - _offsetFromBordersSpawnObjective);
-                centerSpawnZone.y = (centerPos.y + _screenBounds.y - (_offsetFromBordersSpawnObjective / 2f)) / 2f;
+                randomPos.y = UnityEngine.Random.Range(centerPos.y, _screenBounds.y - _objectiveData.OffsetFromBordersSpawnObjective);
+                centerSpawnZone.y = (centerPos.y + _screenBounds.y - (_objectiveData.OffsetFromBordersSpawnObjective / 2f)) / 2f;
             }
 
-            DrawRect(centerSpawnZone, _screenBounds.x - (_offsetFromBordersSpawnObjective / 2f), _screenBounds.y - (_offsetFromBordersSpawnObjective / 2f), Color.yellow, 2f);
+            DrawRect(centerSpawnZone, _screenBounds.x - (_objectiveData.OffsetFromBordersSpawnObjective / 2f), _screenBounds.y - (_objectiveData.OffsetFromBordersSpawnObjective / 2f), Color.yellow, 2f);
 
             if (iteration < 10)
             {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(randomPos, _radiusCheckSpawnObjective, _islandsLayerMask);
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(randomPos, _objectiveData.RadiusCheckSpawnObjective, _islandsLayerMask);
 
-                DrawCircle(randomPos, _radiusCheckSpawnObjective, Color.magenta, 2f);
+                DrawCircle(randomPos, _objectiveData.RadiusCheckSpawnObjective, Color.magenta, 2f);
 
                 if (colliders.Length > 0)
                 {
