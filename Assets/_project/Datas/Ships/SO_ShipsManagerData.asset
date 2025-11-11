@@ -27,13 +27,10 @@ MonoBehaviour:
   - {r: 1, g: 0.48117033, b: 0, a: 1}
   - {r: 0.38443395, g: 0.44813457, b: 0.5, a: 1}
   _objectivesMotifs:
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
-  - {fileID: 2800000, guid: 355184f02064e0048a51d26f0a15f45d, type: 3}
+  - {fileID: 2800000, guid: 82fa5d09e08cdb64791c4c428f6391e5, type: 3}
+  - {fileID: 2800000, guid: e139a1b50606d7941b108b38fdc9464d, type: 3}
+  - {fileID: 2800000, guid: 863696ca07e4b1e4685777507f11271e, type: 3}
+  - {fileID: 2800000, guid: 42a3b3325574140489cc42586928b6a0, type: 3}
+  - {fileID: 2800000, guid: b246aeba2c802d641aa94fe7dcaa7a30, type: 3}
+  - {fileID: 2800000, guid: 5889e6bd74face84d8b85544f2f395ab, type: 3}
+  - {fileID: 2800000, guid: e62366d0bc8355a458e46705fa8bf8a7, type: 3}

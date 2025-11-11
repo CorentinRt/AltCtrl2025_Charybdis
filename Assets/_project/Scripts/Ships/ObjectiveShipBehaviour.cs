@@ -20,6 +20,11 @@ namespace AltCtrl.Charybdis
         [Header("Customization")]
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
+        [Header("Dev anims")]
+        [SerializeField] private Transform _objectiveLimit;
+        [SerializeField] private float _idleRotateDuration;
+        [SerializeField] private Ease _idleRotateEase;
+
         // Associated Color
         private Color _associatedColor;
 
@@ -27,6 +32,7 @@ namespace AltCtrl.Charybdis
 
         private Tween _disappearTween;
 
+        private Tween _idleRotateTween;
 
         #endregion
 
@@ -55,6 +61,8 @@ namespace AltCtrl.Charybdis
 
             _collider.enabled = true;
             _visualAnchor.localScale = _startVisualsScale;
+
+            PlayIdleRotateAnim();
         }
 
 
@@ -74,6 +82,8 @@ namespace AltCtrl.Charybdis
         [Button]
         private void Disappear()
         {
+            StopIdleRotateAnim();
+
             _collider.enabled = false;
 
             if (_disappearTween != null)
@@ -105,6 +115,30 @@ namespace AltCtrl.Charybdis
             if (_spriteRenderer.material.HasTexture("_Objective_texture"))
             {
                 _spriteRenderer.material.SetTexture("_Objective_texture", texture);
+            }
+        }
+
+        #endregion
+
+        #region Dev anim
+        private void PlayIdleRotateAnim()
+        {
+            StopIdleRotateAnim();
+
+            _objectiveLimit.rotation = Quaternion.identity;
+
+            _idleRotateTween = _objectiveLimit.DOLocalRotate(new Vector3(0f, 0f, 360f), _idleRotateDuration, RotateMode.FastBeyond360).SetEase(_idleRotateEase).OnComplete(() =>
+            {
+                PlayIdleRotateAnim();
+            });
+        }
+
+        private void StopIdleRotateAnim()
+        {
+            if (_idleRotateTween != null)
+            {
+                _idleRotateTween.Kill();
+                _idleRotateTween = null;
             }
         }
 

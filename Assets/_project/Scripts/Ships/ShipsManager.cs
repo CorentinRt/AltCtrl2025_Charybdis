@@ -466,7 +466,7 @@ namespace AltCtrl.Charybdis
 
         private Texture2D FindUnusedMotif(int iteration = 0)
         {
-            int indexRandom = UnityEngine.Random.Range(0, _data.ObjectivesColors.Count);
+            int indexRandom = UnityEngine.Random.Range(0, _data.ObjectivesMotifs.Count);
 
             Texture2D texture = _data.ObjectivesMotifs[indexRandom];
 
