@@ -13,8 +13,12 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Collider2D _collider;
         [SerializeField] private Transform _visualAnchor;
 
+        [Header("Appear")]
+        [SerializeField] private AnimationCurve _appearCurve;
+        [SerializeField] private float _appearDuration;
+
         [Header("Disapear")]
-        [SerializeField] private Ease _disappearEase;
+        [SerializeField] private AnimationCurve _disappearCurve;
         [SerializeField] private float _disappearDuration;
 
         [Header("Customization")]
@@ -30,7 +34,7 @@ namespace AltCtrl.Charybdis
 
         private Vector3 _startVisualsScale;
 
-        private Tween _disappearTween;
+        private Tween _scaleAnimTween;
 
         private Tween _idleRotateTween;
 
@@ -54,14 +58,15 @@ namespace AltCtrl.Charybdis
 
         public void Init()
         {
-            if (_disappearTween != null)
+            if (_scaleAnimTween != null)
             {
-                _disappearTween.Kill();
+                _scaleAnimTween.Kill();
             }
 
             _collider.enabled = true;
-            _visualAnchor.localScale = _startVisualsScale;
+            _visualAnchor.localScale = Vector3.zero;
 
+            PlayAppearAnim();
             PlayIdleRotateAnim();
         }
 
@@ -86,12 +91,9 @@ namespace AltCtrl.Charybdis
 
             _collider.enabled = false;
 
-            if (_disappearTween != null)
-            {
-                _disappearTween.Kill();
-            }
+            StopScaleAnimTween();
 
-            _disappearTween = _visualAnchor.DOScale(0f, _disappearDuration).SetEase(_disappearEase).OnComplete(() =>
+            _scaleAnimTween = _visualAnchor.DOScale(0f, _disappearDuration).SetEase(_disappearCurve).OnComplete(() =>
             {
                 ReactEndDisappear();
             });
@@ -100,6 +102,22 @@ namespace AltCtrl.Charybdis
         private void ReactEndDisappear()
         {
             gameObject.SetActive(false);
+        }
+
+        private void StopScaleAnimTween()
+        {
+            if (_scaleAnimTween != null)
+            {
+                _scaleAnimTween.Kill();
+                _scaleAnimTween = null;
+            }
+        }
+
+        private void PlayAppearAnim()
+        {
+            StopScaleAnimTween();
+
+            _scaleAnimTween = _visualAnchor.DOScale(_startVisualsScale, _appearDuration).SetEase(_appearCurve);
         }
 
         #endregion
