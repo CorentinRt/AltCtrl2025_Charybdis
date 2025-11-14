@@ -869,8 +869,8 @@
     "m_ObjectId": "2f55c2e3a0fa4df88cfca0c6610e46c9",
     "m_Title": "Color replace",
     "m_Position": {
-        "x": -1843.0,
-        "y": 567.9998779296875
+        "x": -1843.333251953125,
+        "y": 568.6666870117188
     }
 }
 
@@ -1000,7 +1000,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"355184f02064e0048a51d26f0a15f45d\",\"type\":3}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "isMainTexture": false,
