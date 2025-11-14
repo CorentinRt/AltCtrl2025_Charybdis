@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace AltCtrl.Charybdis
@@ -13,6 +14,10 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _typhoonCantMoveTime = 3f;
         [SerializeField] private float _typhoonCooldown = 5f;
         [SerializeField] private float _indicationBeforeTyphoon = 2f;
+
+        [Header("Spawn dev anim")]
+        [SerializeField] private float _durationSpawn;
+        [SerializeField] private Ease _easingSpawn;
         // ----- FIELDS ----- //
 
         // ----- PROPERTIES ----- //
@@ -20,6 +25,8 @@ namespace AltCtrl.Charybdis
         public float TyphoonCantMoveTime { get => _typhoonCantMoveTime; set => _typhoonCantMoveTime = value; }
         public float IndicationBeforeTyphoon { get => _indicationBeforeTyphoon; set => _indicationBeforeTyphoon = value; }
         public float TyphoonCooldown { get => _typhoonCooldown; set => _typhoonCooldown = value; }
+        public float DurationSpawn { get => _durationSpawn; set => _durationSpawn = value; }
+        public Ease EasingSpawn { get => _easingSpawn; set => _easingSpawn = value; }
         // ----- PROPERTIES ----- //
     }
 }

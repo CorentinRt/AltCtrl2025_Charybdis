@@ -1,4 +1,5 @@
 ﻿using CREMOT.GameplayUtilities;
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private MonsterTarget _target;
         [SerializeField] private Animator _animator;
         [SerializeField] private GameObject _monsterVisuals;
+        [SerializeField] private Transform _visualAnchor;
 
         private bool _isMoving = true;
         private bool _canTyphoon = false;
@@ -23,6 +25,8 @@ namespace AltCtrl.Charybdis
         private Rigidbody2D _rb;
 
         private bool _canMove = true;
+
+        private Tween _spawnTween;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -34,6 +38,8 @@ namespace AltCtrl.Charybdis
 
             if (_isInMenu)
                 StartCoroutine(StartTyphoonCooldown());
+
+            PlaySpawnAnimation();
         }
 
         private void OnDestroy()
@@ -148,5 +154,26 @@ namespace AltCtrl.Charybdis
         {
             _canMove = enabled;
         }
+
+        #region Spawn Dev Anim
+        private void PlaySpawnAnimation()
+        {
+            StopSpawnAnimation();
+
+            _visualAnchor.localScale = Vector3.zero;
+
+            _spawnTween = _visualAnchor.DOScale(1f, _monsterData.DurationSpawn).SetEase(_monsterData.EasingSpawn);
+        }
+
+        private void StopSpawnAnimation()
+        {
+            if (_spawnTween != null)
+            {
+                _spawnTween.Kill();
+                _spawnTween = null;
+            }
+        }
+
+        #endregion
     }
 }
