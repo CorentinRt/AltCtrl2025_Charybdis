@@ -16,5 +16,5 @@ MonoBehaviour:
   _typhoonCantMoveTime: 0
   _typhoonCooldown: 5.5
   _indicationBeforeTyphoon: 1.5
-  _durationSpawn: 5
+  _durationSpawn: 3
   _easingSpawn: 27

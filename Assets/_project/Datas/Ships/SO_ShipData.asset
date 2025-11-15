@@ -19,7 +19,7 @@ MonoBehaviour:
   _rotateAcceleration: 1.75
   _maxRotateSpeed: 35
   _gouvernailDecelerationForce: 1
-  _minAutoSpeed: 0.5
+  _minAutoSpeed: 0.6
   _maxAutoSpeed: 1
   _minAutoRotateSpeed: 0
   _maxAutoRotateSpeed: 0
@@ -30,5 +30,5 @@ MonoBehaviour:
   _maxCooldownBeforeChangeStormModifier: 2
   _minStormModifier: 30
   _maxStormModifier: 60
-  _typhonAttractionForce: 50
+  _typhonAttractionForce: 30
   _distanceToTyphonToDestroy: 1

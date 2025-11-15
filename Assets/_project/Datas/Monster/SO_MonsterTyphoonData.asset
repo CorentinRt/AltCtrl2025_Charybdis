@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SO_MonsterTyphoonData
   m_EditorClassIdentifier: 
   _activationAnimTime: 1
-  _deactivationAnimTime: 2.5
-  _timeBeforeDeactivate: 6
+  _deactivationAnimTime: 2
+  _timeBeforeDeactivate: 3.5
