@@ -496,6 +496,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3444488569818041915}
     m_Modifications:
+    - target: {fileID: 1707666130739001289, guid: 1883ca0c1d308c043ad265e671924ff9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: adecebf14c27f1d47b9b6e34e5e08087, type: 3}
     - target: {fileID: 2322446977486428626, guid: 1883ca0c1d308c043ad265e671924ff9, type: 3}
       propertyPath: m_Name
       value: Island (2)
@@ -574,6 +578,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3444488569818041915}
     m_Modifications:
+    - target: {fileID: 1707666130739001289, guid: 1883ca0c1d308c043ad265e671924ff9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fa0c882f824937c40a13e96ebb63e9b3, type: 3}
     - target: {fileID: 2322446977486428626, guid: 1883ca0c1d308c043ad265e671924ff9, type: 3}
       propertyPath: m_Name
       value: Island (1)

@@ -25,9 +25,9 @@ namespace AltCtrl.Charybdis
 
             if (InputManager.Instance != null)
             {
-                InputManager.Instance.OnTotem1Pressed += Play;
+                InputManager.Instance.OnTotem1Pressed += StartTutoHuman;
                 InputManager.Instance.OnTotem2Pressed += Play;
-                InputManager.Instance.OnTotem3Pressed += Play;
+                InputManager.Instance.OnTotem3Pressed += StartTutoGod;
             }
         }
 
@@ -35,9 +35,9 @@ namespace AltCtrl.Charybdis
         {
             if (InputManager.Instance != null)
             {
-                InputManager.Instance.OnTotem1Pressed -= Play;
+                InputManager.Instance.OnTotem1Pressed -= StartTutoHuman;
                 InputManager.Instance.OnTotem2Pressed -= Play;
-                InputManager.Instance.OnTotem3Pressed -= Play;
+                InputManager.Instance.OnTotem3Pressed -= StartTutoGod;
             }
         }
 
@@ -68,6 +68,22 @@ namespace AltCtrl.Charybdis
             if (!pressed) return;
 
             SceneManager.LoadScene("MainGame");
+        }
+
+        private void StartTutoHuman(bool pressed)
+        {
+            if (!pressed)
+                return;
+
+            SceneManager.LoadScene("Human_Tuto");
+        }
+
+        private void StartTutoGod(bool pressed)
+        {
+            if (!pressed)
+                return;
+
+            SceneManager.LoadScene("God_Tuto");
         }
     }
 }
