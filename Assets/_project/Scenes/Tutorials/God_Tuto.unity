@@ -222,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 45614198908794665, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: _nameSceneRedirect
-      value: God_Tuto
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 45614198908794665, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: _cooldownBeforeRedirecting
@@ -234,7 +234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2304399866316483234, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3435289947024658862, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_Name
@@ -250,7 +250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5508542473086755869, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5527571011718250371, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_LocalPosition.x
@@ -302,7 +302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7267604844565049450, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7288657254741537829, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_Name

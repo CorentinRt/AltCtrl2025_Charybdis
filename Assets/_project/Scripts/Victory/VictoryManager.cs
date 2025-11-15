@@ -28,6 +28,7 @@ namespace AltCtrl.Charybdis
         [Header("Victory param (for tuto)")]
         [SerializeField] private bool _preventGodVictory;
         [SerializeField] private bool _preventHumanVictory;
+        [SerializeField] private bool _preventManualChangeScene;
         // ----- FIELDS ----- //
 
         public bool HasWon => _humanHasWon || _godHasWon;
@@ -139,7 +140,7 @@ namespace AltCtrl.Charybdis
 
         private void CheckReturnToMainMenu(bool pressed)
         {
-            if (!pressed || !HasWon)
+            if (!pressed || !HasWon || _preventManualChangeScene)
                 return;
 
             SceneManager.LoadScene("MainMenu");
@@ -147,7 +148,7 @@ namespace AltCtrl.Charybdis
 
         private void CheckPlayAgain(bool pressed)
         {
-            if (!pressed || !HasWon)
+            if (!pressed || !HasWon || _preventManualChangeScene)
                 return;
 
             SceneManager.LoadScene("MainGame");

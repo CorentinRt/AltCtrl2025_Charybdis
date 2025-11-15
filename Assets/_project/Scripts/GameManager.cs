@@ -1,7 +1,9 @@
 using CREMOT.GameplayUtilities;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AltCtrl.Charybdis
 {
@@ -24,10 +26,18 @@ namespace AltCtrl.Charybdis
         [Header("Start Phase")]
         [SerializeField] private GAME_PHASES _startingPhase = GAME_PHASES.PRE_GAME;
 
+        [Header("Post game")]
+        [SerializeField] private bool _redirectToSceneWhenPostGame;
+        [ShowIf("_redirectToSceneWhenPostGame")]
+        [SerializeField] private float _cooldownBeforeRedirecting = 1f;
+        [ShowIf("_redirectToSceneWhenPostGame")]
+        [SerializeField] private string _nameSceneRedirect;
+
         private GAME_PHASES _currentGamePhase;
 
         private Coroutine _preGameCoroutine;
         private Coroutine _tutoShowCoroutine;
+        private Coroutine _redirectCoroutine;
 
         #endregion
 
@@ -159,6 +169,11 @@ namespace AltCtrl.Charybdis
                         RadioManager.Instance.SetEnableRadioInput(false);
                     }
 
+                    if (_redirectToSceneWhenPostGame)
+                    {
+                        StartRedirectCoroutine();
+                    }
+
                     break;
                 case GAME_PHASES.TUTO_SHOW:
                     if (ShipsManager.Exist)
@@ -248,6 +263,34 @@ namespace AltCtrl.Charybdis
             SetGamePhase(GAME_PHASES.PRE_GAME);
 
             StopTutoShowCoroutine();
+        }
+        #endregion
+
+        #region Post game redirect
+        private void StartRedirectCoroutine()
+        {
+            if (_redirectCoroutine != null)
+                return;
+
+            _redirectCoroutine = StartCoroutine(RedirectCoroutine());
+        }
+
+        private void StopRedirectCoroutine()
+        {
+            if (_redirectCoroutine == null)
+                return;
+
+            StopCoroutine(_redirectCoroutine);
+            _redirectCoroutine = null;
+        }
+
+        private IEnumerator RedirectCoroutine()
+        {
+            yield return new WaitForSeconds(_cooldownBeforeRedirecting + 1);
+
+            SceneManager.LoadScene(_nameSceneRedirect);
+
+            StopRedirectCoroutine();
         }
         #endregion
     }
