@@ -11,17 +11,23 @@ namespace AltCtrl.Charybdis
         {
             PRE_GAME = 0,
             IN_GAME = 1,
-            POST_GAME = 2
+            POST_GAME = 2,
+            TUTO_SHOW = 3
         }
 
         #region Fields
 
         [Header("Data")]
         [SerializeField] private SO_GamePhasesData _data;
+        [SerializeField] private SO_TutoData _tutoData;
+
+        [Header("Start Phase")]
+        [SerializeField] private GAME_PHASES _startingPhase = GAME_PHASES.PRE_GAME;
 
         private GAME_PHASES _currentGamePhase;
 
         private Coroutine _preGameCoroutine;
+        private Coroutine _tutoShowCoroutine;
 
         #endregion
 
@@ -45,7 +51,7 @@ namespace AltCtrl.Charybdis
                 VictoryManager.Instance.OnVictory += ReactOnVictory;
             }
 
-            SetGamePhase(GAME_PHASES.PRE_GAME);
+            SetGamePhase(_startingPhase);
         }
 
         private void OnDestroy()
@@ -71,7 +77,7 @@ namespace AltCtrl.Charybdis
             switch (_currentGamePhase)
             {
                 case GAME_PHASES.PRE_GAME:
-                    
+
                     if (ShipsManager.Exist)
                     {
                         ShipsManager.Instance.SetEnableShipsSpawn(false);
@@ -154,11 +160,35 @@ namespace AltCtrl.Charybdis
                     }
 
                     break;
+                case GAME_PHASES.TUTO_SHOW:
+                    if (ShipsManager.Exist)
+                    {
+                        ShipsManager.Instance.SetEnableShipsSpawn(false);
+                    }
+
+                    if (Monster.Exist)
+                    {
+                        Monster.Instance.SetEnableMonsterMovement(false);
+                    }
+
+                    if (MonsterTarget.Exist)
+                    {
+                        MonsterTarget.Instance.SetEnableMonsterTargetInput(false);
+                    }
+
+                    if (RadioManager.Exist)
+                    {
+                        RadioManager.Instance.SetEnableRadioInput(false);
+                    }
+
+                    StartTutoShowCoroutine();
+                    break;
             }
 
             OnGamePhaseChanged?.Invoke(_currentGamePhase);
         }
 
+        #region Pre game
         private void StartPreGameCoroutine()
         {
             if (_preGameCoroutine != null)
@@ -184,5 +214,41 @@ namespace AltCtrl.Charybdis
 
             StopPreGameCoroutine();
         }
+        #endregion
+
+        #region Tuto show
+        private void StartTutoShowCoroutine()
+        {
+            if (_tutoShowCoroutine != null)
+                return;
+
+            _tutoShowCoroutine = StartCoroutine(TutoShowCoroutine());
+        }
+
+        private void StopTutoShowCoroutine()
+        {
+            if (_preGameCoroutine == null)
+                return;
+
+            StopCoroutine(_tutoShowCoroutine);
+            _tutoShowCoroutine = null;
+        }
+
+        private IEnumerator TutoShowCoroutine()
+        {
+            if (_tutoData != null)
+            {
+                yield return new WaitForSeconds(_tutoData.ShowTutoDuration + 1);
+            }
+            else
+            {
+                Debug.LogError("Error : no tuto data in game manager but tried to start tuto show phase !!!", this);
+            }
+
+            SetGamePhase(GAME_PHASES.PRE_GAME);
+
+            StopTutoShowCoroutine();
+        }
+        #endregion
     }
 }

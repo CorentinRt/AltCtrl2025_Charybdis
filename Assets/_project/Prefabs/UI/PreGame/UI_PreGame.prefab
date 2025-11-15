@@ -46,7 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 35114690f12091346bca0b22c2b006c3, type: 2}
+  _holder: {fileID: 6066996248431360064}
   _countdownLabel: {fileID: 8223263539162307465}
+  _appearDuration: 0.7
+  _appearEase: 6
 --- !u!1 &4624473815351846315
 GameObject:
   m_ObjectHideFlags: 0

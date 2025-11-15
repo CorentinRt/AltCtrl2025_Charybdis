@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.WSA;
 
 namespace AltCtrl.Charybdis
 {
@@ -12,7 +13,14 @@ namespace AltCtrl.Charybdis
         [Header("Data")]
         [SerializeField] private SO_GamePhasesData _data;
 
+        [Header("References")]
+        [SerializeField] private GameObject _holder;
         [SerializeField] private TextMeshProUGUI _countdownLabel;
+
+        [Header("Appear anim")]
+        [SerializeField] private float _appearDuration;
+        [SerializeField] private Ease _appearEase;
+
 
         private Coroutine _countdownPreGameCoroutine;
 
@@ -30,6 +38,8 @@ namespace AltCtrl.Charybdis
 
         private void Init()
         {
+            _holder.SetActive(false);
+
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnGamePhaseChanged += ReactOnGamePhaseChanged;
@@ -66,6 +76,12 @@ namespace AltCtrl.Charybdis
         {
             if (_countdownPreGameCoroutine != null)
                 return;
+
+            _countdownLabel.text = $"{_data.CooldownSecondsDuration}";
+
+            _holder.transform.localScale = Vector3.zero;
+            _holder.SetActive(true);
+            _holder.transform.DOScale(1f, _appearDuration).SetEase(_appearEase);
 
             _countdownPreGameCoroutine = StartCoroutine(CountdownPreGameCoroutine());
         }
