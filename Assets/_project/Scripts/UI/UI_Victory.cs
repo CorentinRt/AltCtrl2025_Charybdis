@@ -83,6 +83,9 @@ namespace AltCtrl.Charybdis
                 case GameManager.GAME_PHASES.POST_GAME:
                     SetEnablePostGame(true);
                     break;
+                case GameManager.GAME_PHASES.TUTO_SHOW:
+                    SetEnablePostGame(false);
+                    break;
             }
         }
 

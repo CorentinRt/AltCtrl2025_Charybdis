@@ -24,6 +24,10 @@ namespace AltCtrl.Charybdis
 
         [Header("References")]
         [SerializeField] private Slider _victorySlider; // HUMAN 0 - GOD MAX
+
+        [Header("Victory param (for tuto)")]
+        [SerializeField] private bool _preventGodVictory;
+        [SerializeField] private bool _preventHumanVictory;
         // ----- FIELDS ----- //
 
         public bool HasWon => _humanHasWon || _godHasWon;
@@ -92,7 +96,7 @@ namespace AltCtrl.Charybdis
 
         private void AddGodScoreOnDestroyShip()
         {
-            if (HasWon)
+            if (HasWon || _preventGodVictory)
                 return;
 
             _victorySlider.value += _addGodScoreOnDestroyShip * _currentMultiplier;
@@ -104,7 +108,7 @@ namespace AltCtrl.Charybdis
 
         private void AddHumanScoreOnDestroyShip()
         {
-            if (HasWon)
+            if (HasWon || _preventHumanVictory)
                 return;
 
             _victorySlider.value -= _addHumanScoreOnLeaveShip * _currentMultiplier;

@@ -536,6 +536,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _autoInit: 0
+  _hasInvicibleCoodldown: 0
+  _invincibleDuration: 1
   _rb: {fileID: 2309350998748407080}
   _visualAnchor: {fileID: 8893701618023334432}
   _validateIndicator: {fileID: 8208267123661400910}
@@ -551,6 +553,7 @@ MonoBehaviour:
   _frequencyHolder: {fileID: 846902837564214699}
   _animatorsHandler: {fileID: 3381088668046884981}
   _destroyEase: 29
+  _spriteRendererGroup: {fileID: 5826537625726321866}
 --- !u!1 &5898775988494801471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,6 +1021,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c74d17c6a598f94ea4ead876df96323, type: 3}
+--- !u!114 &5826537625726321866 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6785765927388647163, guid: 2c74d17c6a598f94ea4ead876df96323, type: 3}
+  m_PrefabInstance: {fileID: 1078584834041743921}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36aa13ee8d9ff4449b41430ef5c3f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8655105437072694621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8568938012668041068, guid: 2c74d17c6a598f94ea4ead876df96323, type: 3}

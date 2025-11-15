@@ -32,7 +32,7 @@ namespace AltCtrl.Charybdis
         public void SetActive(bool active)
         {
             // Anti-spam
-            if (Time.time - _lastToggleTime < _minDelayBetweenToggles)
+            if (Time.time - _lastToggleTime < _minDelayBetweenToggles && active)
                 return;
 
             _lastToggleTime = Time.time;

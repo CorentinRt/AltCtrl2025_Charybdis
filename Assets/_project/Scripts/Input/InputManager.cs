@@ -68,6 +68,50 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        float xMonster = 0f;
+        float yMonster = 0f;
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            xMonster = 1f;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            xMonster = -1f;
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            yMonster = 1f;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            yMonster = -1f;
+        }
+
+
+        Vector2 dirMonster = new Vector2 (xMonster, yMonster);
+
+        OnMoveMonsterPressed?.Invoke(dirMonster);
+
+        float yHuman = 0f;
+
+        if (Input.GetKey(KeyCode.I))
+        {
+            yHuman = 1f;
+        }
+        else if (Input.GetKey(KeyCode.K))
+        {
+            yHuman = -1f;
+        }
+
+        Vector2 dirHuman = new Vector2 (0f, yHuman);
+
+        OnMoveTurboPressed?.Invoke(dirHuman);
+    }
+
     #region Microphone
     public string GetCurrentOrFirstMicrophone()
     {
@@ -113,27 +157,50 @@ public class InputManager : MonoBehaviour
     #region Vector2
     public void MoveMonsterPressed(InputAction.CallbackContext context)
     {
+        return;
+
         if (context.performed || context.canceled)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
+
+            // seuil pour filtrer les micro-mouvements
+            if (moveDirection.magnitude < 0.1f)
+                moveDirection = Vector2.zero;
+
+            Debug.Log($"Move : {moveDirection.ToString()}");
+
             OnMoveMonsterPressed?.Invoke(moveDirection);
         }
     }
     
     public void MoveMonsterTempPressed(InputAction.CallbackContext context)
     {
+        return;
+
         if (context.performed || context.canceled)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
+
+            // seuil pour filtrer les micro-mouvements
+            if (moveDirection.magnitude < 0.1f)
+                moveDirection = Vector2.zero;
+
             OnMoveMonsterTempPressed?.Invoke(moveDirection);
         }
     }
 
     public void MoveTurboPressed(InputAction.CallbackContext context)
     {
+        return;
+
         if (context.performed || context.canceled)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
+
+            // seuil pour filtrer les micro-mouvements
+            if (moveDirection.magnitude < 0.1f)
+                moveDirection = Vector2.zero;
+
             OnMoveTurboPressed?.Invoke(moveDirection);
         }
     }

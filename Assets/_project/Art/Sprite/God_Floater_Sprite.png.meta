@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 355184f02064e0048a51d26f0a15f45d
+guid: c988c33ff69b76d40a5299cf6f3489a3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7445601693892343718
-    second: motifs_square 1_0
+      213: 3462113066867112753
+    second: God_Floater_Sprite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: motifs_square 1_0
+      name: God_Floater_Sprite_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 250
-        height: 250
+        x: 368
+        y: 100
+        width: 1312
+        height: 1854
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a7ff77ca47145760800000000000000
-      internalID: 7445601693892343718
+      spriteID: 13b3ad2cd75eb0030800000000000000
+      internalID: 3462113066867112753
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      motifs_square 1_0: 7445601693892343718
+      God_Floater_Sprite_0: 3462113066867112753
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,12 +10,18 @@ namespace AltCtrl.Charybdis
         [Header("References")]
         [SerializeField] private Transform _spawnFishPos;
 
+        [Header("Param")]
+        [SerializeField] private bool _autoSpawnShip;
+
         private ShipBehaviour _spawnedShip;
         // ----- FIELDS ----- //
 
         private void Start()
         {
-            SpawnShip();
+            if (_autoSpawnShip)
+            {
+                SpawnShip();
+            }
 
             if (InputManager.Instance != null)
             {
@@ -37,6 +43,9 @@ namespace AltCtrl.Charybdis
 
         private void SpawnShip()
         {
+            if (!_autoSpawnShip)
+                return;
+
             GameObject newSpawnedShipGO = PoolManager.Instance.ActivateShip(_spawnFishPos.position, _spawnFishPos.rotation);
             _spawnedShip = newSpawnedShipGO.GetComponent<ShipBehaviour>();
             _spawnedShip.Init();
@@ -46,6 +55,9 @@ namespace AltCtrl.Charybdis
 
         private void OnSpawnedFishDestroyed(ShipBehaviour ship) 
         {
+            if (!_autoSpawnShip)
+                return;
+
             _spawnedShip.OnShipDestroyed -= OnSpawnedFishDestroyed;
             _spawnedShip.OnShipValidated -= OnSpawnedFishDestroyed;
             SpawnShip();

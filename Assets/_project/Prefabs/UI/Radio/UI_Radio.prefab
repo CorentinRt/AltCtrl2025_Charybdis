@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4384326770916784074}
   - component: {fileID: 7583868833686194343}
+  - component: {fileID: 5684491452044572030}
   m_Layer: 0
   m_Name: UI_Radio
   m_TagString: Untagged
@@ -47,6 +48,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainAnchor: {fileID: 7580544903393399217}
   _frequencyLabel: {fileID: 7059508581345573381}
+--- !u!95 &5684491452044572030
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341730355804712239}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a4a37c1a5d20e24b9b8bb58d15f4939, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2856420068820734472
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +234,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1618845882859891667}
   m_Father: {fileID: 6759386239636955983}
@@ -290,9 +313,9 @@ RectTransform:
   - {fileID: 4338567568278652345}
   m_Father: {fileID: 2166682449353714330}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 190, y: 130}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -548, y: 130}
   m_SizeDelta: {x: 326, y: 216}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8181610800314851844
