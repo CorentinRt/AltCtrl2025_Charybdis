@@ -69,6 +69,9 @@ namespace AltCtrl.Charybdis
                 case GameManager.GAME_PHASES.POST_GAME:
                     StopCountDownVisual();
                     break;
+                case GameManager.GAME_PHASES.TUTO_SHOW:
+                    StopCountDownVisual();
+                    break;
             }
         }
 
@@ -94,7 +97,7 @@ namespace AltCtrl.Charybdis
                 _countdownPreGameCoroutine = null;
             }
 
-            _countdownLabel.gameObject.SetActive(false);
+            _holder.SetActive(false);
         }
 
         private IEnumerator CountdownPreGameCoroutine()
