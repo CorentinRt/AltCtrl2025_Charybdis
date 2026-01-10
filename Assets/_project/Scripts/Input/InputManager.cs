@@ -11,8 +11,11 @@ public class InputManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private ArduinoReader _arduinoReader;
 
+    [Header("Tutorials")]
+    [SerializeField] private bool _detectGodInputs = true;
+    [SerializeField] private bool _detectHumanInputs = true;
+
     public event Action<Vector2> OnMoveMonsterPressed;
-    public event Action<Vector2> OnMoveMonsterTempPressed;
     public event Action<Vector2> OnMoveTurboPressed;
 
     public event Action<bool> OnTotem1Pressed;
@@ -70,46 +73,51 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        float xMonster = 0f;
-        float yMonster = 0f;
-
-        if (Input.GetKey(KeyCode.D))
+        if (_detectGodInputs)
         {
-            xMonster = 1f;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            xMonster = -1f;
-        }
+            float xMonster = 0f;
+            float yMonster = 0f;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            yMonster = 1f;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            yMonster = -1f;
-        }
+            if (Input.GetKey(KeyCode.D))
+            {
+                xMonster = 1f;
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                xMonster = -1f;
+            }
 
+            if (Input.GetKey(KeyCode.W))
+            {
+                yMonster = 1f;
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                yMonster = -1f;
+            }
 
-        Vector2 dirMonster = new Vector2 (xMonster, yMonster);
+            Vector2 dirMonster = new Vector2(xMonster, yMonster);
 
-        OnMoveMonsterPressed?.Invoke(dirMonster);
-
-        float yHuman = 0f;
-
-        if (Input.GetKey(KeyCode.I))
-        {
-            yHuman = 1f;
-        }
-        else if (Input.GetKey(KeyCode.K))
-        {
-            yHuman = -1f;
+            OnMoveMonsterPressed?.Invoke(dirMonster);
         }
 
-        Vector2 dirHuman = new Vector2 (0f, yHuman);
+        if (_detectHumanInputs)
+        {
+            float yHuman = 0f;
 
-        OnMoveTurboPressed?.Invoke(dirHuman);
+            if (Input.GetKey(KeyCode.I))
+            {
+                yHuman = 1f;
+            }
+            else if (Input.GetKey(KeyCode.K))
+            {
+                yHuman = -1f;
+            }
+
+            Vector2 dirHuman = new Vector2(0f, yHuman);
+
+            OnMoveTurboPressed?.Invoke(dirHuman);
+        }
     }
 
     #region Microphone
@@ -143,12 +151,16 @@ public class InputManager : MonoBehaviour
     #region Arduino
     public void MoveShipRotatorPressed(int direction)
     {
+        if (!_detectHumanInputs) return;
+
         Debug.Log($"Move ship in direction {direction}");
         OnMoveShipRotatorPressed?.Invoke(direction);
     }
 
     public void MoveRadioRotatorPressed(int direction)
     {
+        if (!_detectHumanInputs) return;
+
         Debug.Log($"Move radio in direction {direction}");
         OnMoveRadioRotatorPressed?.Invoke(direction);
     }
@@ -159,6 +171,7 @@ public class InputManager : MonoBehaviour
     {
         return;
 
+        /*
         if (context.performed || context.canceled)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
@@ -171,12 +184,14 @@ public class InputManager : MonoBehaviour
 
             OnMoveMonsterPressed?.Invoke(moveDirection);
         }
+        */
     }
     
     public void MoveMonsterTempPressed(InputAction.CallbackContext context)
     {
         return;
 
+        /*
         if (context.performed || context.canceled)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
@@ -187,12 +202,14 @@ public class InputManager : MonoBehaviour
 
             OnMoveMonsterTempPressed?.Invoke(moveDirection);
         }
+        */
     }
 
     public void MoveTurboPressed(InputAction.CallbackContext context)
     {
         return;
 
+        /*
         if (context.performed || context.canceled)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
@@ -203,10 +220,13 @@ public class InputManager : MonoBehaviour
 
             OnMoveTurboPressed?.Invoke(moveDirection);
         }
+        */
     }
 
     public void MoveRadioKeyboardPressed(InputAction.CallbackContext context)
     {
+        if (!_detectHumanInputs) return;
+
         if (context.performed)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
@@ -217,6 +237,8 @@ public class InputManager : MonoBehaviour
 
     public void MoveGouvernailKeyboardPressed(InputAction.CallbackContext context)
     {
+        if (!_detectHumanInputs) return;
+
         if (context.performed)
         {
             Vector2 moveDirection = context.ReadValue<Vector2>();
@@ -229,6 +251,8 @@ public class InputManager : MonoBehaviour
     #region Buttons
     public void Totem1Pressed(InputAction.CallbackContext context)
     {
+        if (!_detectGodInputs) return;
+
         if (context.performed)
         {
             OnTotem1Pressed?.Invoke(true);
@@ -241,6 +265,8 @@ public class InputManager : MonoBehaviour
 
     public void Totem2Pressed(InputAction.CallbackContext context)
     {
+        if (!_detectGodInputs) return;
+
         if (context.performed)
         {
             OnTotem2Pressed?.Invoke(true);
@@ -253,6 +279,8 @@ public class InputManager : MonoBehaviour
 
     public void Totem3Pressed(InputAction.CallbackContext context)
     {
+        if (!_detectGodInputs) return;
+
         if (context.performed)
         {
             OnTotem3Pressed?.Invoke(true);
@@ -265,6 +293,8 @@ public class InputManager : MonoBehaviour
 
     public void WindPressed(InputAction.CallbackContext context)
     {
+        if (!_detectGodInputs) return;
+
         if (context.performed)
         {
             OnWindPressed?.Invoke(true);

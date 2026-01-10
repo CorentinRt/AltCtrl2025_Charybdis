@@ -232,6 +232,10 @@ PrefabInstance:
       propertyPath: _redirectToSceneWhenPostGame
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1613656530017620208, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: _detectGodInputs
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2304399866316483234, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_IsActive
       value: 0

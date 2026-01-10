@@ -124,6 +124,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4344293545902890620, guid: 55ac55b595f27704eb45787474702829, type: 3}
   m_PrefabInstance: {fileID: 3629840578528790992}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &810861967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8340395832077440241, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
+  m_PrefabInstance: {fileID: 1469133199}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1363557381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2175970131350628463, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
+  m_PrefabInstance: {fileID: 1469133199}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1469133199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,11 +145,19 @@ PrefabInstance:
     - target: {fileID: 1695215789802209098, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
       propertyPath: _concernedTutoUI
       value: 
-      objectReference: {fileID: 1469133202}
+      objectReference: {fileID: 1363557381}
     - target: {fileID: 1695215789802209098, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
       propertyPath: _containerPopupTuto
       value: 
-      objectReference: {fileID: 1469133201}
+      objectReference: {fileID: 810861967}
+    - target: {fileID: 2175970131350628463, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3492404946912087810, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4550026364844531056, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -180,6 +198,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6308722962389546419, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7804302792754393074, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
       propertyPath: m_Name
       value: UI_Tutorials
@@ -192,16 +214,6 @@ PrefabInstance:
 --- !u!4 &1469133200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4550026364844531056, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
-  m_PrefabInstance: {fileID: 1469133199}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1469133201 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6771746241616245660, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
-  m_PrefabInstance: {fileID: 1469133199}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1469133202 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3492404946912087810, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
   m_PrefabInstance: {fileID: 1469133199}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3629840578528790992
@@ -232,6 +244,10 @@ PrefabInstance:
       propertyPath: _redirectToSceneWhenPostGame
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1613656530017620208, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: _detectHumanInputs
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2304399866316483234, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -242,6 +258,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3715505616486606155, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: _preventGodVictory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3715505616486606155, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: _preventHumanVictory
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3715505616486606155, guid: 55ac55b595f27704eb45787474702829, type: 3}
