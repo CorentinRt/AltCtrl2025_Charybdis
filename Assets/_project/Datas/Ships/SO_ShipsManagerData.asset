@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_ShipsManagerData
   m_EditorClassIdentifier: 
   _spawnRandomMinRate: 5
-  _spawnRandomMaxRate: 10
+  _spawnRandomMaxRate: 11
   _maxShips: 3
   _objectivesColors:
   - {r: 1, g: 0, b: 0, a: 1}
