@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sliderMaxValue: 20
   _addGodScoreOnDestroyShip: 0.7
-  _addHumanScoreOnLeaveShip: 0.7
+  _addHumanScoreOnLeaveShip: 1.4
   _add1MultiplierEachTime: 10
   _victorySlider: {fileID: 0}
   _preventGodVictory: 0

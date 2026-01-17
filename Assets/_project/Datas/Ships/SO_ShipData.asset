@@ -19,8 +19,8 @@ MonoBehaviour:
   _rotateAcceleration: 1.75
   _maxRotateSpeed: 35
   _gouvernailDecelerationForce: 1
-  _minAutoSpeed: 1
-  _maxAutoSpeed: 1.7
+  _minAutoSpeed: 0.7
+  _maxAutoSpeed: 1.3
   _minAutoRotateSpeed: 0
   _maxAutoRotateSpeed: 0
   _gouvernailMaxAmplitude: 10

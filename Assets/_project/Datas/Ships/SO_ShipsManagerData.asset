@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnRandomMinRate: 5
   _spawnRandomMaxRate: 11
-  _maxShips: 3
+  _maxShips: 2
   _objectivesColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0.99260664, g: 1, b: 0, a: 1}
