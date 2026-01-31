@@ -15,6 +15,15 @@ MonoBehaviour:
   _spawnRandomMinRate: 4
   _spawnRandomMaxRate: 10
   _maxShips: 3
+  _useSpawnAroundIslandsMethod: 1
+  _islandsRadiusSpawn:
+  - 4
+  - 4
+  - 4
+  _islandsOffsetSpawn:
+  - {x: -0.4, y: -1}
+  - {x: 0.6, y: 0}
+  - {x: 0, y: 0}
   _objectivesColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0.99260664, g: 1, b: 0, a: 1}

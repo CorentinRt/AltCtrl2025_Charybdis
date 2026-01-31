@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3b4e14060b99445a714130fb8e5ac5, type: 3}
   m_Name: SO_ShipObjectivesData
   m_EditorClassIdentifier: 
-  _radiusCheckSpawnObjective: 1
+  _radiusCheckSpawnObjective: 0.7
   _offsetFromBordersSpawnObjective: 1
