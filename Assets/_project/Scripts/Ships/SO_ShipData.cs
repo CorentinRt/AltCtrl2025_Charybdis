@@ -41,6 +41,9 @@ namespace AltCtrl.Charybdis
         [Header("Destroy")]
         [SerializeField] private float _destroyDelay;
 
+        [Header("Validate")]
+        [SerializeField] private float _validatedDetroyDelay;
+
         [Header("Wind")]
         [SerializeField] private float _windForceMultiplier;
 
@@ -73,6 +76,7 @@ namespace AltCtrl.Charybdis
         public float MaxAutoRotateSpeed => _maxAutoRotateSpeed;
 
         public float DestroyDelay => _destroyDelay;
+        public float ValidatedDetroyDelay => _validatedDetroyDelay;
 
         public float MinCooldownBeforeChangeStormModifier => _minCooldownBeforeChangeStormModifier;
         public float MaxCooldownBeforeChangeStormModifier => _maxCooldownBeforeChangeStormModifier;
