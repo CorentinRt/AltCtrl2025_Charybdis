@@ -5,6 +5,7 @@ using UnityEngine.Localization.Components;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static AltCtrl.Charybdis.GameManager;
 
 namespace AltCtrl.Charybdis
 {
@@ -212,6 +213,12 @@ namespace AltCtrl.Charybdis
         public void ReturnToGame()
         {
             TogglePauseMenu(true);
+        }
+
+        public void BackToMainMenu()
+        {
+            ReturnToGame();
+            SceneManager.LoadScene("MainMenu");
         }
         #endregion
     }
