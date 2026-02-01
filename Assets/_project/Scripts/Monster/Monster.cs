@@ -25,6 +25,7 @@ namespace AltCtrl.Charybdis
         private Rigidbody2D _rb;
 
         private bool _canMove = true;
+        Vector3 _currentDirection;
 
         private Tween _spawnTween;
         // ----- FIELDS ----- //
@@ -80,10 +81,10 @@ namespace AltCtrl.Charybdis
                 return;
             }
 
-            Vector2 move = direction.normalized * _monsterData.MoveSpeed * deltaTime;
-            Vector2 newPosition = currentPosition + move;
+            _currentDirection = Vector2.Lerp(_currentDirection, direction, _monsterData.SmoothTime * deltaTime).normalized;
 
-            _rb.MovePosition(newPosition);
+            Vector2 move = _currentDirection * _monsterData.MoveSpeed * deltaTime;
+            _rb.MovePosition(currentPosition + move);
         }
 
         private void OnMonsterTyphoon()
