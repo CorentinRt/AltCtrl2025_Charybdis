@@ -156,15 +156,15 @@ TextureImporter:
       guid: be559d9c9a562ae4c90dd28d3594deeb
       position: {x: 399.72476, y: -214.52942, z: 0}
       rotation: {x: 0, y: 0, z: 0.040556382, w: 0.9991773}
-      length: 97.59738
+      length: 97.59755
       parentId: 1
       color:
         serializedVersion: 2
         rgba: 4294967040
     - name: Tentacle_D2_L
       guid: d581ba4dbc449c647bcafbffd7f0fb5c
-      position: {x: 97.59741, y: 0.00006593857, z: 0}
-      rotation: {x: 0, y: 0, z: 0.20279232, w: 0.97922176}
+      position: {x: 97.59758, y: 0.000040639614, z: 0}
+      rotation: {x: 0, y: 0, z: 0.20279229, w: 0.9792218}
       length: 122.04568
       parentId: 3
       color:
@@ -200,7 +200,7 @@ TextureImporter:
     - name: Tentacle_B2_L
       guid: f5450549f216aef46b4dad8180f36f3c
       position: {x: 151.89304, y: 0.000028530681, z: 0}
-      rotation: {x: 0, y: 0, z: -0.29092094, w: 0.9567471}
+      rotation: {x: 0, y: 0, z: -0.29092094, w: 0.9567472}
       length: 147.42957
       parentId: 7
       color:
@@ -209,16 +209,16 @@ TextureImporter:
     - name: Tentacle_A1_L
       guid: b71cb1ca6033d9c43a82d45b32e72fed
       position: {x: 647.99817, y: -128.2842, z: 0}
-      rotation: {x: 0, y: 0, z: -0.08350842, w: 0.9965071}
-      length: 133.02342
+      rotation: {x: 0, y: 0, z: -0.08350824, w: 0.9965071}
+      length: 133.02364
       parentId: 0
       color:
         serializedVersion: 2
         rgba: 4294934528
     - name: Tentacle_A2_L
       guid: 6fc981b554a2e7942917fac78a57588b
-      position: {x: 133.02347, y: -0.000008122101, z: 0}
-      rotation: {x: 0, y: 0, z: 0.07625068, w: 0.9970887}
+      position: {x: 133.02364, y: 0.000004511752, z: 0}
+      rotation: {x: 0, y: 0, z: 0.07625051, w: 0.99708873}
       length: 169.40234
       parentId: 9
       color:
@@ -236,7 +236,7 @@ TextureImporter:
     - name: Tentacle_A2_R
       guid: c005407ef112b8247bd451542c8acaf9
       position: {x: 163.07652, y: 0.0000019782383, z: 0}
-      rotation: {x: 0, y: 0, z: -0.1836195, w: 0.9829974}
+      rotation: {x: 0, y: 0, z: -0.18361953, w: 0.9829974}
       length: 177.2222
       parentId: 11
       color:
@@ -263,16 +263,16 @@ TextureImporter:
     - name: Tentacle_C1_R
       guid: 317cd1bd11bcd67448202b058b6a7290
       position: {x: 504.58466, y: 41.770252, z: 0}
-      rotation: {x: 0, y: 0, z: 0.040862393, w: 0.9991648}
-      length: 149.36804
+      rotation: {x: 0, y: 0, z: 0.040863115, w: 0.99916476}
+      length: 149.36812
       parentId: 2
       color:
         serializedVersion: 2
         rgba: 4294901760
     - name: Tentacle_C2_R
       guid: 0ed74e3b5b15bc241ad90d71a7f2d407
-      position: {x: 149.36809, y: 0.000068655994, z: 0}
-      rotation: {x: 0, y: 0, z: -0.094750464, w: 0.99550104}
+      position: {x: 149.36816, y: -0.000029478793, z: 0}
+      rotation: {x: 0, y: 0, z: -0.09475118, w: 0.995501}
       length: 167.6575
       parentId: 15
       color:
@@ -282,14 +282,14 @@ TextureImporter:
       guid: 9e74914b1cef83a43a205c5258a426a7
       position: {x: 321.22992, y: 257.60556, z: 0}
       rotation: {x: 0, y: 0, z: -0.027920235, w: 0.9996102}
-      length: 132.30066
+      length: 132.30089
       parentId: 2
       color:
         serializedVersion: 2
         rgba: 4278190335
     - name: Tentacle_D2_R
       guid: 8dce8630f44d48b4c9709fdc9192a39e
-      position: {x: 132.30072, y: 0.000029822138, z: 0}
+      position: {x: 132.30093, y: 0.00007268865, z: 0}
       rotation: {x: 0, y: 0, z: -0.00017262131, w: 1}
       length: 126.647
       parentId: 17
@@ -820,16 +820,16 @@ TextureImporter:
       'boneIndex[1]': 0
       'boneIndex[2]': 0
       'boneIndex[3]': 0
-    - 'weight[0]': 0.6102628
-      'weight[1]': 0.38973716
-      'weight[2]': 0
+    - 'weight[0]': 0.120000005
+      'weight[1]': 0.120000005
+      'weight[2]': 0.76
       'weight[3]': 0
       'boneIndex[0]': 7
       'boneIndex[1]': 8
-      'boneIndex[2]': 0
+      'boneIndex[2]': 9
       'boneIndex[3]': 0
-    - 'weight[0]': 0.6729872
-      'weight[1]': 0.32701275
+    - 'weight[0]': 0.88
+      'weight[1]': 0.120000005
       'weight[2]': 0
       'weight[3]': 0
       'boneIndex[0]': 9
@@ -1444,14 +1444,14 @@ TextureImporter:
       'boneIndex[1]': 17
       'boneIndex[2]': 15
       'boneIndex[3]': 0
-    - 'weight[0]': 0.62344176
-      'weight[1]': 0
-      'weight[2]': 0.19416809
-      'weight[3]': 0.1823901
+    - 'weight[0]': 0.036831405
+      'weight[1]': 0.5316977
+      'weight[2]': 0.011470974
+      'weight[3]': 0.42
       'boneIndex[0]': 13
-      'boneIndex[1]': 17
+      'boneIndex[1]': 2
       'boneIndex[2]': 15
-      'boneIndex[3]': 16
+      'boneIndex[3]': 0
     - 'weight[0]': 0.5099651
       'weight[1]': 0.49
       'weight[2]': 0.000018688508
@@ -1460,14 +1460,14 @@ TextureImporter:
       'boneIndex[1]': 0
       'boneIndex[2]': 17
       'boneIndex[3]': 15
-    - 'weight[0]': 0.92
-      'weight[1]': 0.0373705
-      'weight[2]': 0.034094967
-      'weight[3]': 0.008534523
+    - 'weight[0]': 0.6031475
+      'weight[1]': 0.024499929
+      'weight[2]': 0.022352504
+      'weight[3]': 0.35
       'boneIndex[0]': 0
       'boneIndex[1]': 11
       'boneIndex[2]': 13
-      'boneIndex[3]': 17
+      'boneIndex[3]': 1
     - 'weight[0]': 0.73939955
       'weight[1]': 0.23011369
       'weight[2]': 0.018604947
@@ -1500,9 +1500,9 @@ TextureImporter:
       'boneIndex[1]': 5
       'boneIndex[2]': 3
       'boneIndex[3]': 0
-    - 'weight[0]': 0.4589389
-      'weight[1]': 0.4427942
-      'weight[2]': 0.0982669
+    - 'weight[0]': 0.25532946
+      'weight[1]': 0.69
+      'weight[2]': 0.054670524
       'weight[3]': 0
       'boneIndex[0]': 11
       'boneIndex[1]': 9
