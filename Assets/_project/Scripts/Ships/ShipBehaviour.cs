@@ -629,7 +629,7 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator ValidateShipWithDelayCoroutine()
         {
-            yield return new WaitForSeconds(_data.DestroyDelay);
+            yield return new WaitForSeconds(_data.ValidatedDetroyDelay);
 
             EndValidateShipWithDelay();
 

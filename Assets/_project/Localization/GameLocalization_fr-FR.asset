@@ -41,6 +41,10 @@ MonoBehaviour:
     m_Localized: CONTINUER
     m_Metadata:
       m_Items: []
+  - m_Id: 41761432594960384
+    m_Localized: RETOUR AU MENU PRINCIPAL
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

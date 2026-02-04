@@ -193,13 +193,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game
       objectReference: {fileID: 0}
-    - target: {fileID: 3715505616486606155, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: _addGodScoreOnDestroyShip
-      value: 0.5
+    - target: {fileID: 4038742431447961522, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3715505616486606155, guid: 55ac55b595f27704eb45787474702829, type: 3}
-      propertyPath: _addHumanScoreOnLeaveShip
-      value: 0.5
+    - target: {fileID: 4038742431447961522, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5527571011718250371, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: m_LocalPosition.x

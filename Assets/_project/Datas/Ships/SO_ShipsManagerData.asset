@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fc68023e7423b40a2c2562bc8d4566, type: 3}
   m_Name: SO_ShipsManagerData
   m_EditorClassIdentifier: 
-  _spawnRandomMinRate: 5
-  _spawnRandomMaxRate: 11
-  _maxShips: 2
+  _spawnRandomMinRate: 4
+  _spawnRandomMaxRate: 10
+  _maxShips: 3
+  _useSpawnAroundIslandsMethod: 1
+  _islandsRadiusSpawn:
+  - 4
+  - 4
+  - 4
+  _islandsOffsetSpawn:
+  - {x: -0.4, y: -1}
+  - {x: 0.6, y: 0}
+  - {x: 0, y: 0}
   _objectivesColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0.99260664, g: 1, b: 0, a: 1}

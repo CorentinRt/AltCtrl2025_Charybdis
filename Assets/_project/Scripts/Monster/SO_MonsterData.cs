@@ -9,6 +9,7 @@ namespace AltCtrl.Charybdis
         // ----- FIELDS ----- //
         [Header("Movement")]
         [SerializeField] private float _moveSpeed = 5f;
+        [SerializeField] private float _smoothTime = 0.3f;
 
         [Header("Typhon")]
         [SerializeField] private float _typhoonCantMoveTime = 3f;
@@ -27,6 +28,7 @@ namespace AltCtrl.Charybdis
         public float TyphoonCooldown { get => _typhoonCooldown; set => _typhoonCooldown = value; }
         public float DurationSpawn { get => _durationSpawn; set => _durationSpawn = value; }
         public Ease EasingSpawn { get => _easingSpawn; set => _easingSpawn = value; }
+        public float SmoothTime { get => _smoothTime; set => _smoothTime = value; }
         // ----- PROPERTIES ----- //
     }
 }

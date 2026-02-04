@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: ReturnToGameBtn
     m_Metadata:
       m_Items: []
+  - m_Id: 41761432594960384
+    m_Key: BackToMainMenuBtn
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -1453,9 +1453,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3c1815316b5934e954f23019f6acf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2554129262864611157 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7721446856069726917, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
+  m_PrefabInstance: {fileID: 5213479558622115216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3518613225750297350 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8687056787619712662, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
+  m_PrefabInstance: {fileID: 5213479558622115216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6114694341879122830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2054136287935708702, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
+  m_PrefabInstance: {fileID: 5213479558622115216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6574692563144912340 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1397241801618348100, guid: 040d7bec7b04bcc4ea2bd0c1f62685c6, type: 3}
   m_PrefabInstance: {fileID: 5213479558622115216}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &7476284735672048019 stripped
@@ -1583,6 +1598,38 @@ PrefabInstance:
       propertyPath: _slider
       value: 
       objectReference: {fileID: 3942024227133561643}
+    - target: {fileID: 6291036708971439032, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: _islands.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291036708971439032, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: '_islands.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6574692563144912340}
+    - target: {fileID: 6291036708971439032, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: '_islands.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2554129262864611157}
+    - target: {fileID: 6291036708971439032, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: '_islands.Array.data[2]'
+      value: 
+      objectReference: {fileID: 3518613225750297350}
+    - target: {fileID: 6291036708971439032, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: _radiusSpawnIslands.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291036708971439032, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: '_radiusSpawnIslands.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291036708971439032, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: '_radiusSpawnIslands.Array.data[1]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291036708971439032, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
+      propertyPath: '_radiusSpawnIslands.Array.data[2]'
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6427156384872047294, guid: 3c508717dcae7c648a3ec20104a58464, type: 3}
       propertyPath: _victorySlider
       value: 
