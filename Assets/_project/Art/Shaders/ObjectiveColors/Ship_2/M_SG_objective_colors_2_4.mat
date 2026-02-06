@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_SG_objective_colors_3
+  m_Name: M_SG_objective_colors_2_4
   m_Shader: {fileID: -6465566751694194690, guid: f5337c7496bb44e4abf6fc5099ddf2ea, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,11 +24,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Base_texture:
-        m_Texture: {fileID: 2800000, guid: 6a9ea260c234ef44cbf9d82d0a7da550, type: 3}
+        m_Texture: {fileID: 2800000, guid: df8f8266df7a4ca468488494c87a4efe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_texture:
-        m_Texture: {fileID: 2800000, guid: 81336da92efe24346aa123004ebe6130, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6480fb359c2a3f740adb02737a1f7db8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Objective_texture:
