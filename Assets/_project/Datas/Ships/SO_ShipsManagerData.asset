@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnRandomMinRate: 4
   _spawnRandomMaxRate: 10
-  _maxShips: 3
+  _maxShips: 2
   _useSpawnAroundIslandsMethod: 1
   _islandsRadiusSpawn:
   - 4
