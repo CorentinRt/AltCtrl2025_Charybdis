@@ -363,11 +363,14 @@ namespace AltCtrl.Charybdis
         {
             float targetSpeed = _currentSpeed + _turboValue * Time.fixedDeltaTime * _data.Acceleration;
 
-            targetSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
+            float minSpeed = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetShipsMinSpeed() : _data.MinSpeed;
+            float maxSpeed = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetShipsMaxSpeed() : _data.MaxSpeed;
+
+            targetSpeed = Mathf.Clamp(targetSpeed, minSpeed, maxSpeed);
 
             _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.AccelerationSmooth);
 
-            _currentSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
+            _currentSpeed = Mathf.Clamp(targetSpeed, minSpeed, maxSpeed);
 
             Vector2 targetVelocity = _currentSpeed * transform.up;
 
@@ -412,7 +415,10 @@ namespace AltCtrl.Charybdis
 
             _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, Time.fixedDeltaTime * _data.Acceleration);
 
-            _currentSpeed = Mathf.Clamp(targetSpeed, _data.MinSpeed, _data.MaxSpeed);
+            float minSpeed = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetShipsMinSpeed() : _data.MinSpeed;
+            float maxSpeed = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetShipsMaxSpeed() : _data.MaxSpeed;
+
+            _currentSpeed = Mathf.Clamp(targetSpeed, minSpeed, maxSpeed);
 
             Vector2 targetVelocity = _currentSpeed * transform.up;
 

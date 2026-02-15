@@ -61,7 +61,7 @@ namespace AltCtrl.Charybdis
 
         public void Init()
         {
-            InitGlobalScale(_data.CheckpointScaleMultiplier);
+            InitGlobalScale(TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetScaleCheckpoints() : _data.CheckpointScaleMultiplier);
 
             if (_scaleAnimTween != null)
             {

@@ -83,7 +83,8 @@ namespace AltCtrl.Charybdis
 
             _currentDirection = Vector2.Lerp(_currentDirection, direction, _monsterData.SmoothTime * deltaTime).normalized;
 
-            Vector2 move = _currentDirection * _monsterData.MoveSpeed * deltaTime;
+            float moveSpeed = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetMonsterMaxSpeed() : _monsterData.MoveSpeed;
+            Vector2 move = _currentDirection * moveSpeed * deltaTime;
             _rb.MovePosition(currentPosition + move);
         }
 

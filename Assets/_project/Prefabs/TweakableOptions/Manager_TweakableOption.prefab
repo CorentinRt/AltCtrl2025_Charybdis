@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7838824905919621832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2315811195100245286}
+  - component: {fileID: 464561380619733681}
+  m_Layer: 0
+  m_Name: Manager_TweakableOption
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2315811195100245286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838824905919621832}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &464561380619733681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838824905919621832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3106c98b0360494e9fdb2e27172e294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shipsManagerData: {fileID: 11400000, guid: f1062b5b4c784b34fac076f2ce2b214d, type: 2}
+  _shipData: {fileID: 11400000, guid: 31798161bbeb7fd43ba14776035e1057, type: 2}
+  _shipObjectivesData: {fileID: 11400000, guid: ccac1ca662eb30a43a74e38069a35431, type: 2}
+  _monsterData: {fileID: 11400000, guid: ad55d538491279949ac1db9483052496, type: 2}
+  _victoryData: {fileID: 11400000, guid: 250e78d8b27785941a93c8209135ea78, type: 2}

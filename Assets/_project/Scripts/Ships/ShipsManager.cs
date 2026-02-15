@@ -148,7 +148,7 @@ namespace AltCtrl.Charybdis
 
             _currentTimeSpawn += Time.deltaTime;
 
-            if (_currentTimeSpawn >= _randomTimeSpawn && _ships.Count < _data.MaxShips)
+            if (_currentTimeSpawn >= _randomTimeSpawn && _ships.Count < (TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetMaxShips() : _data.MaxShips))
             {
                 DefineNewRandomTimeSpawn();
 
@@ -164,7 +164,10 @@ namespace AltCtrl.Charybdis
         private void DefineNewRandomTimeSpawn()
         {
             _currentTimeSpawn = 0f;
-            _randomTimeSpawn = UnityEngine.Random.Range(_data.SpawnRandomMinRate, _data.SpawnRandomMaxRate);
+
+            float spawnRandomMinRate = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetMinTimeSpawnShips() : _data.SpawnRandomMinRate;
+            float spawnRandomMaxRate = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetMaxTimeSpawnShips() : _data.SpawnRandomMaxRate;
+            _randomTimeSpawn = UnityEngine.Random.Range(spawnRandomMinRate, spawnRandomMaxRate);
         }
 
         private void SpawnShip(int iteration = 0)
