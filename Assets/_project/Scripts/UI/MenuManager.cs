@@ -286,111 +286,92 @@ namespace AltCtrl.Charybdis
 
         private void InitMaxShips(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_maxShipOptionKey))
-            {
-                _maxShipNumberSlider.value = PlayerPrefs.GetInt(_maxShipOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_maxShipOptionKey))
             {
                 PlayerPrefs.SetInt(_maxShipOptionKey, _shipsManagerData.MaxShips);
             }
 
+            _maxShipNumberSlider.value = PlayerPrefs.GetInt(_maxShipOptionKey);
         }
 
         private void InitScaleCheckpoints(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_scaleCheckpointsOptionKey))
-            {
-                _checkpointScaleSlider.value = PlayerPrefs.GetFloat(_scaleCheckpointsOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_scaleCheckpointsOptionKey))
             {
                 PlayerPrefs.SetFloat(_scaleCheckpointsOptionKey, _shipObjectivesData.CheckpointScaleMultiplier);
             }
+
+            _checkpointScaleSlider.value = PlayerPrefs.GetFloat(_scaleCheckpointsOptionKey);
         }
 
         private void InitShipsMaxSpeed(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_shipsMaxSpeedOptionKey))
-            {
-                _maxSpeedShipsSlider.value = PlayerPrefs.GetFloat(_shipsMaxSpeedOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_shipsMaxSpeedOptionKey))
             {
                 PlayerPrefs.SetFloat(_shipsMaxSpeedOptionKey, _shipData.MaxSpeed);
             }
+
+            _maxSpeedShipsSlider.value = PlayerPrefs.GetFloat(_shipsMaxSpeedOptionKey);
         }
 
         private void InitShipsMinSpeed(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_shipsMinSpeedOptionKey))
-            {
-                _minSpeedShipsSlider.value = PlayerPrefs.GetFloat(_shipsMinSpeedOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_shipsMinSpeedOptionKey))
             {
                 PlayerPrefs.SetFloat(_shipsMinSpeedOptionKey, _shipData.MinSpeed);
             }
+
+            _minSpeedShipsSlider.value = PlayerPrefs.GetFloat(_shipsMinSpeedOptionKey);
         }
 
         private void InitMonsterMaxSpeed(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_monsterMaxSpeedOptionKey))
-            {
-                _maxSpeedMonsterSlider.value = PlayerPrefs.GetFloat(_monsterMaxSpeedOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_monsterMaxSpeedOptionKey))
             {
                 PlayerPrefs.SetFloat(_monsterMaxSpeedOptionKey, _monsterData.MoveSpeed);
             }
+
+            _maxSpeedMonsterSlider.value = PlayerPrefs.GetFloat(_monsterMaxSpeedOptionKey);
         }
 
         private void InitMaxTimeSpawnShips(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_maxTimeSpawnShipsOptionKey))
-            {
-                _maxTimeBeforeShipSpawnSlider.value = PlayerPrefs.GetFloat(_maxTimeSpawnShipsOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_maxTimeSpawnShipsOptionKey))
             {
                 PlayerPrefs.SetFloat(_maxTimeSpawnShipsOptionKey, _shipsManagerData.SpawnRandomMaxRate);
             }
+
+            _maxTimeBeforeShipSpawnSlider.value = PlayerPrefs.GetFloat(_maxTimeSpawnShipsOptionKey);
         }
 
         private void InitMinTimeSpawnShips(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_minTimeSpawnShipsOptionKey))
-            {
-                _minTimeBeforeShipSpawnSlider.value = PlayerPrefs.GetFloat(_minTimeSpawnShipsOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_minTimeSpawnShipsOptionKey))
             {
                 PlayerPrefs.SetFloat(_minTimeSpawnShipsOptionKey, _shipsManagerData.SpawnRandomMinRate);
             }
+
+            _minTimeBeforeShipSpawnSlider.value = PlayerPrefs.GetFloat(_minTimeSpawnShipsOptionKey);
         }
 
         private void InitGodPointsFactor(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_godPointsFactorOptionKey))
-            {
-                _godPointsFactorSlider.value = PlayerPrefs.GetFloat(_godPointsFactorOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_godPointsFactorOptionKey))
             {
                 PlayerPrefs.SetFloat(_godPointsFactorOptionKey, _victoryData.GodPersonalMultiplier);
             }
+
+            _godPointsFactorSlider.value = PlayerPrefs.GetFloat(_godPointsFactorOptionKey);
         }
 
         private void InitHumansPointsFactor(bool reset = false)
         {
-            if (!reset && PlayerPrefs.HasKey(_humansPointsFactorOptionKey))
-            {
-                _humansPointsFactorSlider.value = PlayerPrefs.GetFloat(_humansPointsFactorOptionKey);
-            }
-            else
+            if (reset || !PlayerPrefs.HasKey(_humansPointsFactorOptionKey))
             {
                 PlayerPrefs.SetFloat(_humansPointsFactorOptionKey, _victoryData.HumanPersonalMultiplier);
             }
+
+            _humansPointsFactorSlider.value = PlayerPrefs.GetFloat(_humansPointsFactorOptionKey);
         }
 
         #endregion
