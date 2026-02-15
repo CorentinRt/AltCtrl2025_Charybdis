@@ -44,3 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0376025153a5a1c46a966c5b101fb597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sliderMaxValue: 20
+  _addGodScoreOnDestroyShip: 1
+  _addHumanScoreOnLeaveShip: 1
+  _data: {fileID: 11400000, guid: 250e78d8b27785941a93c8209135ea78, type: 2}
+  _victorySlider: {fileID: 0}
+  _preventGodVictory: 0
+  _preventHumanVictory: 0
+  _preventManualChangeScene: 0

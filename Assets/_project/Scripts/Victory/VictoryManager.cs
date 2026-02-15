@@ -14,7 +14,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _sliderMaxValue = 20f;
         [SerializeField] private float _addGodScoreOnDestroyShip = 1;
         [SerializeField] private float _addHumanScoreOnLeaveShip = 1;
-        [SerializeField] private float _add1MultiplierEachTime = 10f;
+        [SerializeField] private SO_VictoryData _data;
 
         private float _currentMultiplier = 1f;
         private float _currentWaitTime = 0f;
@@ -82,7 +82,7 @@ namespace AltCtrl.Charybdis
         {
             _currentWaitTime += Time.deltaTime;
 
-            if (_currentWaitTime > _add1MultiplierEachTime)
+            if (_currentWaitTime > _data.Add1MultiplierEachTime)
             {
                 _currentMultiplier++;
                 _currentWaitTime = 0f;
@@ -100,7 +100,7 @@ namespace AltCtrl.Charybdis
             if (HasWon || _preventGodVictory)
                 return;
 
-            _victorySlider.value += _addGodScoreOnDestroyShip * _currentMultiplier;
+            _victorySlider.value += _data.GodPersonalMultiplier * _addGodScoreOnDestroyShip * _currentMultiplier;
 
             _victorySlider.value = Mathf.Clamp(_victorySlider.value, 0, _sliderMaxValue);
 
@@ -112,7 +112,7 @@ namespace AltCtrl.Charybdis
             if (HasWon || _preventHumanVictory)
                 return;
 
-            _victorySlider.value -= _addHumanScoreOnLeaveShip * _currentMultiplier;
+            _victorySlider.value -= _data.HumanPersonalMultiplier * _addHumanScoreOnLeaveShip * _currentMultiplier;
 
             _victorySlider.value = Mathf.Clamp(_victorySlider.value, 0, _sliderMaxValue);
 

@@ -9,6 +9,9 @@ namespace AltCtrl.Charybdis
     public class ObjectiveShipBehaviour : MonoBehaviour
     {
         #region Fields
+        [Header("Data")]
+        [SerializeField] private SO_ShipObjectivesData _data;
+
         [Header("Components")]
         [SerializeField] private Collider2D _collider;
         [SerializeField] private Transform _visualAnchor;
@@ -58,6 +61,8 @@ namespace AltCtrl.Charybdis
 
         public void Init()
         {
+            InitGlobalScale(_data.CheckpointScaleMultiplier);
+
             if (_scaleAnimTween != null)
             {
                 _scaleAnimTween.Kill();
@@ -70,6 +75,10 @@ namespace AltCtrl.Charybdis
             PlayIdleRotateAnim();
         }
 
+        private void InitGlobalScale(float scale)
+        {
+            transform.localScale = new Vector3(scale, scale, scale);
+        }
 
         #region Ship reactions Appear / Disappear
         [Button]

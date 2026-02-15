@@ -1,11 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static AltCtrl.Charybdis.GameManager;
 
 namespace AltCtrl.Charybdis
 {
@@ -31,6 +31,37 @@ namespace AltCtrl.Charybdis
 
         [Header("Values")]
         [SerializeField] private float _showDebugTextsTime = 2f;
+
+        [Space(20)]
+
+        [Header("Tweaking Game Options")]
+        [SerializeField] private SO_ShipsManagerData _shipsManagerData;
+        [SerializeField] private SO_ShipData _shipData;
+        [SerializeField] private SO_ShipObjectivesData _shipObjectivesData;
+        [SerializeField] private SO_MonsterData _monsterData;
+        [SerializeField] private SO_VictoryData _victoryData;
+
+        [SerializeField] private Slider _maxShipNumberSlider;
+        [SerializeField] private Slider _checkpointScaleSlider;
+        [SerializeField] private Slider _maxSpeedShipsSlider;
+        [SerializeField] private Slider _minSpeedShipsSlider;
+        [SerializeField] private Slider _maxSpeedMonsterSlider;
+        [SerializeField] private Slider _minTimeBeforeShipSpawnSlider;
+        [SerializeField] private Slider _maxTimeBeforeShipSpawnSlider;
+        [SerializeField] private Slider _godPointsFactorSlider;
+        [SerializeField] private Slider _humansPointsFactorSlider;
+
+
+        private string _maxShipOptionKey = "TWEAKOPTION_MaxShips";
+        private string _scaleCheckpointsOptionKey = "TWEAKOPTION_ScaleCheckpoints";
+        private string _shipsMaxSpeedOptionKey = "TWEAKOPTION_ShipsMaxSpeed";
+        private string _shipsMinSpeedOptionKey = "TWEAKOPTION_ShipsMinSpeed";
+        private string _monsterMaxSpeedOptionKey = "TWEAKOPTION_MonsterMaxSpeed";
+        private string _maxTimeSpawnShipsOptionKey = "TWEAKOPTION_MaxTimeSpawnShips";
+        private string _minTimeSpawnShipsOptionKey = "TWEAKOPTION_MinTimeSpawnShips";
+        private string _godPointsFactorOptionKey = "TWEAKOPTION_GodPointsFactor";
+        private string _humansPointsFactorOptionKey = "TWEAKOPTION_HumansPointsFactor";
+
         // ----- FIELDS ----- //
 
         private void Start()
@@ -41,6 +72,8 @@ namespace AltCtrl.Charybdis
             UpdateMicrophoneTxt();
 
             SetupVolumeSlider();
+
+            InitTweakingOptions();
 
             if (InputManager.Instance != null)
             {
@@ -220,6 +253,195 @@ namespace AltCtrl.Charybdis
             ReturnToGame();
             SceneManager.LoadScene("MainMenu");
         }
+        #endregion
+
+        #region Tweaking Options
+        #region Init Tweaking Options
+
+        private void InitTweakingOptions()
+        {
+            InitMaxShips();
+            InitScaleCheckpoints();
+            InitShipsMaxSpeed();
+            InitShipsMinSpeed();
+            InitMonsterMaxSpeed();
+            InitMaxTimeSpawnShips();
+            InitMinTimeSpawnShips();
+            InitGodPointsFactor();
+            InitHumansPointsFactor();
+        }
+
+        public void ResetTweakingOptions()
+        {
+            InitMaxShips(true);
+            InitScaleCheckpoints(true);
+            InitShipsMaxSpeed(true);
+            InitShipsMinSpeed(true);
+            InitMonsterMaxSpeed(true);
+            InitMaxTimeSpawnShips(true);
+            InitMinTimeSpawnShips(true);
+            InitGodPointsFactor(true);
+            InitHumansPointsFactor(true);
+        }
+
+        private void InitMaxShips(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_maxShipOptionKey))
+            {
+                _maxShipNumberSlider.value = PlayerPrefs.GetInt(_maxShipOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(_maxShipOptionKey, _shipsManagerData.MaxShips);
+            }
+
+        }
+
+        private void InitScaleCheckpoints(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_scaleCheckpointsOptionKey))
+            {
+                _checkpointScaleSlider.value = PlayerPrefs.GetFloat(_scaleCheckpointsOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(_scaleCheckpointsOptionKey, _shipObjectivesData.CheckpointScaleMultiplier);
+            }
+        }
+
+        private void InitShipsMaxSpeed(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_shipsMaxSpeedOptionKey))
+            {
+                _maxSpeedShipsSlider.value = PlayerPrefs.GetFloat(_shipsMaxSpeedOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(_shipsMaxSpeedOptionKey, _shipData.MaxSpeed);
+            }
+        }
+
+        private void InitShipsMinSpeed(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_shipsMinSpeedOptionKey))
+            {
+                _minSpeedShipsSlider.value = PlayerPrefs.GetFloat(_shipsMinSpeedOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(_shipsMinSpeedOptionKey, _shipData.MinSpeed);
+            }
+        }
+
+        private void InitMonsterMaxSpeed(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_monsterMaxSpeedOptionKey))
+            {
+                _maxSpeedMonsterSlider.value = PlayerPrefs.GetFloat(_monsterMaxSpeedOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(_monsterMaxSpeedOptionKey, _monsterData.MoveSpeed);
+            }
+        }
+
+        private void InitMaxTimeSpawnShips(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_maxTimeSpawnShipsOptionKey))
+            {
+                _maxTimeBeforeShipSpawnSlider.value = PlayerPrefs.GetFloat(_maxTimeSpawnShipsOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(_maxTimeSpawnShipsOptionKey, _shipsManagerData.SpawnRandomMaxRate);
+            }
+        }
+
+        private void InitMinTimeSpawnShips(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_minTimeSpawnShipsOptionKey))
+            {
+                _minTimeBeforeShipSpawnSlider.value = PlayerPrefs.GetFloat(_minTimeSpawnShipsOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(_minTimeSpawnShipsOptionKey, _shipsManagerData.SpawnRandomMinRate);
+            }
+        }
+
+        private void InitGodPointsFactor(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_godPointsFactorOptionKey))
+            {
+                _godPointsFactorSlider.value = PlayerPrefs.GetFloat(_godPointsFactorOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(_godPointsFactorOptionKey, _victoryData.GodPersonalMultiplier);
+            }
+        }
+
+        private void InitHumansPointsFactor(bool reset = false)
+        {
+            if (!reset && PlayerPrefs.HasKey(_humansPointsFactorOptionKey))
+            {
+                _humansPointsFactorSlider.value = PlayerPrefs.GetFloat(_humansPointsFactorOptionKey);
+            }
+            else
+            {
+                PlayerPrefs.SetFloat(_humansPointsFactorOptionKey, _victoryData.HumanPersonalMultiplier);
+            }
+        }
+
+        #endregion
+
+        #region Set Tweaking Options
+        public void SetMaxShips(float value)
+        {
+            PlayerPrefs.SetInt(_maxShipOptionKey, (int)value);
+        }
+
+        public void SetScaleCheckpoints(float value)
+        {
+            PlayerPrefs.SetFloat(_scaleCheckpointsOptionKey, value);
+        }
+
+        public void SetShipsMaxSpeed(float value)
+        {
+            PlayerPrefs.SetFloat(_shipsMaxSpeedOptionKey, value);
+        }
+
+        public void SetShipsMinSpeed(float value)
+        {
+            PlayerPrefs.SetFloat(_shipsMinSpeedOptionKey, value);
+        }
+
+        public void SetMonsterMaxSpeed(float value)
+        {
+            PlayerPrefs.SetFloat(_monsterMaxSpeedOptionKey, value);
+        }
+
+        public void SetMaxTimeSpawnShips(float value)
+        {
+            PlayerPrefs.SetFloat(_maxTimeSpawnShipsOptionKey, value);
+        }
+
+        public void SetMinTimeSpawnShips(float value)
+        {
+            PlayerPrefs.SetFloat(_minTimeSpawnShipsOptionKey, value);
+        }
+
+        public void SetGodPointsFactor(float value)
+        {
+            PlayerPrefs.SetFloat(_godPointsFactorOptionKey, value);
+        }
+
+        public void SetHumansPointsFactor(float value)
+        {
+            PlayerPrefs.SetFloat(_humansPointsFactorOptionKey, value);
+        }
+
+        #endregion
         #endregion
     }
 }
