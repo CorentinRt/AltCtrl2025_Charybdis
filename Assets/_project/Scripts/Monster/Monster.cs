@@ -25,9 +25,10 @@ namespace AltCtrl.Charybdis
         private Rigidbody2D _rb;
 
         private bool _canMove = true;
-        Vector3 _currentDirection;
 
         private Tween _spawnTween;
+
+        private bool _isUnderwater = true;
         // ----- FIELDS ----- //
 
         private void Start()
@@ -67,6 +68,8 @@ namespace AltCtrl.Charybdis
             if (_target == null)
                 return;
 
+            // add _monsterVisuals look at target
+
             Vector2 currentPosition = _rb.position;
             Vector2 targetPosition = _target.GetComponent<Rigidbody2D>().position;
 
@@ -78,6 +81,32 @@ namespace AltCtrl.Charybdis
                 _rb.MovePosition(targetPosition);
                 OnMonsterTyphoon();
                 return;
+            }
+
+            // Look at target
+            if (toTarget.sqrMagnitude > 0.001f)
+            {
+                float angle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg + 90f;
+
+                Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
+
+                _monsterVisuals.transform.rotation = Quaternion.Slerp(
+                    _monsterVisuals.transform.rotation,
+                    targetRotation,
+                    _monsterData.RotationSpeed * deltaTime
+                );
+            }
+
+            // Check underwater anim
+            if (distance < _monsterData.TargetUnderwaterMinDistance && _isUnderwater)
+            {
+                _isUnderwater = false;
+                _animator.SetBool("Surface", true);
+            }
+            else if (distance > _monsterData.TargetUnderwaterMinDistance && !_isUnderwater)
+            {
+                _isUnderwater = true;
+                _animator.SetBool("Surface", false);
             }
 
             Vector2 dirToTarget = toTarget.normalized;
@@ -139,12 +168,12 @@ namespace AltCtrl.Charybdis
                 AudioManager.Instance.PlaySound("Typhoon_Warning");
             // ----- AUDIO ----- //
 
-            _animator.SetBool("Indicator", true);
+            //_animator.SetBool("Indicator", true);
         }
 
         private void OnMonsterTyphoonStopIndication()
         {
-            _animator.SetBool("Indicator", false);
+            //_animator.SetBool("Indicator", false);
         }
         #endregion
 

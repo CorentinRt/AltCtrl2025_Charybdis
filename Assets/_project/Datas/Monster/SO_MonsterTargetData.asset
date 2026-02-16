@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc19b21597e9254daf2b93b873cbb8a, type: 3}
   m_Name: SO_MonsterTargetData
   m_EditorClassIdentifier: 
-  _moveSpeed: 3.5
+  _moveSpeed: 4.5
