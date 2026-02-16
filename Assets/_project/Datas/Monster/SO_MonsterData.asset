@@ -15,7 +15,7 @@ MonoBehaviour:
   _moveSpeed: 3
   _smoothTime: 0.5
   _typhoonCantMoveTime: 0
-  _typhoonCooldown: 5.5
+  _typhoonCooldown: 6.5
   _indicationBeforeTyphoon: 1.5
-  _durationSpawn: 5
+  _durationSpawn: 3
   _easingSpawn: 27
