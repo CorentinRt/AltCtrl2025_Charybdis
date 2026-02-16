@@ -68,12 +68,11 @@ namespace AltCtrl.Charybdis
                 return;
 
             Vector2 currentPosition = _rb.position;
-            Vector2 targetPosition = _target.GetComponent<Rigidbody2D>().position; 
+            Vector2 targetPosition = _target.GetComponent<Rigidbody2D>().position;
 
-            Vector2 direction = targetPosition - currentPosition;
-            float distance = direction.magnitude;
+            Vector2 toTarget = targetPosition - currentPosition;
+            float distance = toTarget.magnitude;
 
-            // On target
             if (distance < 0.05f)
             {
                 _rb.MovePosition(targetPosition);
@@ -81,12 +80,25 @@ namespace AltCtrl.Charybdis
                 return;
             }
 
-            _currentDirection = Vector2.Lerp(_currentDirection, direction, _monsterData.SmoothTime * deltaTime).normalized;
+            Vector2 dirToTarget = toTarget.normalized;
 
-            float moveSpeed = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetMonsterMaxSpeed() : _monsterData.MoveSpeed;
-            Vector2 move = _currentDirection * moveSpeed * deltaTime;
+            float moveSpeed = TweakableOptionsManager.Exist
+                ? TweakableOptionsManager.Instance.GetMonsterMaxSpeed()
+                : _monsterData.MoveSpeed;
+
+            Vector2 finalDirection = dirToTarget;
+
+            if (distance < _monsterData.ArcStartDistance)
+            {
+                Vector2 perpendicular = new Vector2(-dirToTarget.y, dirToTarget.x);
+                float arcStrength = 1f - (distance / _monsterData.ArcStartDistance);
+                finalDirection = (dirToTarget + perpendicular * arcStrength).normalized;
+            }
+
+            Vector2 move = finalDirection * moveSpeed * deltaTime;
             _rb.MovePosition(currentPosition + move);
         }
+
 
         private void OnMonsterTyphoon()
         {

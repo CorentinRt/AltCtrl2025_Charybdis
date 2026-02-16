@@ -10,6 +10,7 @@ namespace AltCtrl.Charybdis
         [Header("Movement")]
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _smoothTime = 0.3f;
+        [SerializeField] private float _arcStartDistance = 2f;
 
         [Header("Typhon")]
         [SerializeField] private float _typhoonCantMoveTime = 3f;
@@ -29,6 +30,7 @@ namespace AltCtrl.Charybdis
         public float DurationSpawn { get => _durationSpawn; set => _durationSpawn = value; }
         public Ease EasingSpawn { get => _easingSpawn; set => _easingSpawn = value; }
         public float SmoothTime { get => _smoothTime; set => _smoothTime = value; }
+        public float ArcStartDistance { get => _arcStartDistance; set => _arcStartDistance = value; }
         // ----- PROPERTIES ----- //
     }
 }
