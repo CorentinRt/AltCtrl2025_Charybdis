@@ -46,7 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnFishPos: {fileID: 2279780819638667821}
+  _menuIslandsCircle: []
+  _startMenuNavigationIndex: 0
+  _delayBetweenEachSelection: 0.3
   _autoSpawnShip: 0
+  _useTotemButtonsToTriggerMennuButtons: 0
 --- !u!1 &6440886208485885634
 GameObject:
   m_ObjectHideFlags: 0
