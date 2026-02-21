@@ -1,6 +1,7 @@
 using CREMOT.GameplayUtilities;
 using System;
 using System.Runtime.CompilerServices;
+using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,6 +30,9 @@ namespace AltCtrl.Charybdis
         [SerializeField] private bool _preventGodVictory;
         [SerializeField] private bool _preventHumanVictory;
         [SerializeField] private bool _preventManualChangeScene;
+
+        [Header("Use Totem for buttons")]
+        [SerializeField] private bool _useTotemButtonsToTriggerMennuButtons = false;
         // ----- FIELDS ----- //
 
         public bool HasWon => _humanHasWon || _godHasWon;
@@ -54,9 +58,17 @@ namespace AltCtrl.Charybdis
 
             if (InputManager.Instance != null)
             {
-                InputManager.Instance.OnTotem1Pressed += CheckPlayAgain;
-                InputManager.Instance.OnTotem2Pressed += CheckReturnToMainMenu;
-                InputManager.Instance.OnTotem3Pressed += CheckPlayAgain;
+                if (_useTotemButtonsToTriggerMennuButtons)
+                {
+                    InputManager.Instance.OnTotem1Pressed += CheckPlayAgain;
+                    InputManager.Instance.OnTotem2Pressed += CheckReturnToMainMenu;
+                    InputManager.Instance.OnTotem3Pressed += CheckPlayAgain;
+                }
+            }
+
+            if (MenuNavigationManager.Instance != null)
+            {
+                MenuNavigationManager.Instance.OnTriggerEffectSelectableIslands += ReactOnMenuNavigationManagerTriggered;
             }
         }
 
@@ -72,9 +84,17 @@ namespace AltCtrl.Charybdis
 
             if (InputManager.Instance != null)
             {
-                InputManager.Instance.OnTotem1Pressed -= CheckPlayAgain;
-                InputManager.Instance.OnTotem2Pressed -= CheckReturnToMainMenu;
-                InputManager.Instance.OnTotem3Pressed -= CheckPlayAgain;
+                if (_useTotemButtonsToTriggerMennuButtons)
+                {
+                    InputManager.Instance.OnTotem1Pressed -= CheckPlayAgain;
+                    InputManager.Instance.OnTotem2Pressed -= CheckReturnToMainMenu;
+                    InputManager.Instance.OnTotem3Pressed -= CheckPlayAgain;
+                }
+            }
+
+            if (MenuNavigationManager.Instance != null)
+            {
+                MenuNavigationManager.Instance.OnTriggerEffectSelectableIslands -= ReactOnMenuNavigationManagerTriggered;
             }
         }
 
@@ -142,9 +162,49 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        private void ReactOnMenuNavigationManagerTriggered(MenuSelectableIsland.SELECTABLE_EFFECT effect)
+        {
+            switch (effect)
+            {
+                case MenuSelectableIsland.SELECTABLE_EFFECT.None:
+                    break;
+
+                case MenuSelectableIsland.SELECTABLE_EFFECT.PLAY:
+                    CheckPlayAgain(true);
+                    break;
+
+                case MenuSelectableIsland.SELECTABLE_EFFECT.START_TUTO:
+                    break;
+
+                case MenuSelectableIsland.SELECTABLE_EFFECT.RETURN_MENU:
+
+                    CheckReturnToMainMenu(true);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private bool CanPlayAgain()
+        {
+            if (!HasWon || _preventManualChangeScene)
+                return false;
+
+            return true;
+        }
+
+        private bool CanReturnToMainMenu()
+        {
+            if (!HasWon || _preventManualChangeScene)
+                return false;
+
+            return true;
+        }
+
         private void CheckReturnToMainMenu(bool pressed)
         {
-            if (!pressed || !HasWon || _preventManualChangeScene)
+            if (!pressed || !CanReturnToMainMenu())
                 return;
 
             SceneManager.LoadScene("MainMenu");
@@ -152,7 +212,7 @@ namespace AltCtrl.Charybdis
 
         private void CheckPlayAgain(bool pressed)
         {
-            if (!pressed || !HasWon || _preventManualChangeScene)
+            if (!pressed || !CanPlayAgain())
                 return;
 
             SceneManager.LoadScene("MainGame");

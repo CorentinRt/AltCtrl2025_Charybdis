@@ -56,13 +56,13 @@ namespace AltCtrl.Charybdis
                     InputManager.Instance.OnTotem2Pressed += StartTuto;
                     InputManager.Instance.OnTotem3Pressed += Play;
                 }
-
-                // To confirm effect on current selected menu island circle
-                InputManager.Instance.OnWindPressed += TriggerCurrentMenuIslandCircleEffect;
-                InputManager.Instance.OnMoveShipRotatorPressed += HandleHumanMoveRotatorInput;
             }
 
-            SelectNewIslandCircle(_currentMenuNavigationIndex, -1);
+            if (MenuNavigationManager.Instance != null)
+            {
+                MenuNavigationManager.Instance.OnTriggerEffectSelectableIslands += ReactOnMenuNavigationManagerTriggered;
+            }
+
         }
 
         private void OnDestroy()
@@ -75,15 +75,12 @@ namespace AltCtrl.Charybdis
                     InputManager.Instance.OnTotem2Pressed -= StartTuto;
                     InputManager.Instance.OnTotem3Pressed -= Play;
                 }
-
-                InputManager.Instance.OnWindPressed -= TriggerCurrentMenuIslandCircleEffect;
-                InputManager.Instance.OnMoveShipRotatorPressed -= HandleHumanMoveRotatorInput;
             }
-        }
 
-        private void Update()
-        {
-            UpdateDelayBetweenEachSelection();
+            if (MenuNavigationManager.Instance != null)
+            {
+                MenuNavigationManager.Instance.OnTriggerEffectSelectableIslands -= ReactOnMenuNavigationManagerTriggered;
+            }
         }
 
         #region Spawn Ship Menu
@@ -127,23 +124,9 @@ namespace AltCtrl.Charybdis
         }
         #endregion
 
-        #region Navigation Menu Islands Cirlce
-
-        #region Trigger Menu Islands Effects
-        private void TriggerMenuIslandCircleEffectByIndex(int index)
+        private void ReactOnMenuNavigationManagerTriggered(MenuSelectableIsland.SELECTABLE_EFFECT effect)
         {
-            if (_menuIslandsCircle.Count == 0 || index >= _menuIslandsCircle.Count)
-            {
-                Debug.LogError("Error : Try triggering a Menu islands effect but List of Menu Islands circle isn't set in MenuManager, or index is too high !", this);
-                return;
-            }
-
-            MenuSelectableIsland selectedIsland = _menuIslandsCircle[_currentMenuNavigationIndex];
-
-            if (selectedIsland == null)
-                return;
-
-            switch (selectedIsland.GetEffectType())
+            switch (effect)
             {
                 case MenuSelectableIsland.SELECTABLE_EFFECT.None:
                     break;
@@ -156,91 +139,12 @@ namespace AltCtrl.Charybdis
                     StartTuto(true);
                     break;
 
+                case MenuSelectableIsland.SELECTABLE_EFFECT.RETURN_MENU:
+                    break;
+
                 default:
                     break;
             }
         }
-
-        private void TriggerCurrentMenuIslandCircleEffect(bool pressed)
-        {
-            TriggerMenuIslandCircleEffectByIndex(_currentMenuNavigationIndex);
-        }
-        #endregion
-
-        #region Islands Selection
-        private void UpdateDelayBetweenEachSelection()
-        {
-            if (_currentTimeBeforeSelectionAvailable > 0f)
-            {
-                _currentTimeBeforeSelectionAvailable -= Time.deltaTime;
-            }
-        }
-
-        private bool CanSelectNewIsland()
-        {
-            return _currentTimeBeforeSelectionAvailable <= 0f;
-        }
-
-        private void HandleHumanMoveRotatorInput(int radioAmplitude)
-        {
-            if (radioAmplitude > 0)
-            {
-                SelectNextIslandCircle();
-            }
-            else if (radioAmplitude < 0)
-            {
-                SelectPreviousIslandCircle();
-            }
-        }
-
-        private void SelectNewIslandCircle(int newIndex, int oldIndex)
-        {
-            if (_menuIslandsCircle.Count == 0)
-            {
-                Debug.LogError("Error : Try selecting a new Menu islands but List of Menu Islands circle isn't set in MenuManager !", this);
-                return;
-            }
-
-            if (!CanSelectNewIsland())
-                return;
-
-            _currentTimeBeforeSelectionAvailable = _delayBetweenEachSelection;
-
-            if (newIndex < 0)
-                newIndex = _menuIslandsCircle.Count - 1;
-
-            _currentMenuNavigationIndex = newIndex % _menuIslandsCircle.Count;
-
-            // Enable visual effect selection new island
-            MenuSelectableIsland selectedIsland = _menuIslandsCircle[_currentMenuNavigationIndex];
-
-            if (selectedIsland != null)
-            {
-                selectedIsland.NotifyOnStartSelectionHover();            
-            }
-
-            // Disable visual effect selection old island
-            if (oldIndex >= 0 && oldIndex < _menuIslandsCircle.Count)
-            {
-                MenuSelectableIsland oldSelectedIsland = _menuIslandsCircle[oldIndex];
-
-                if (oldSelectedIsland != null)
-                {
-                    oldSelectedIsland.NotifyOnEndSelectionHover();
-                }
-            }
-        }
-
-        private void SelectNextIslandCircle()
-        {
-            SelectNewIslandCircle(_currentMenuNavigationIndex + 1, _currentMenuNavigationIndex);
-        }
-        private void SelectPreviousIslandCircle()
-        {
-            SelectNewIslandCircle(_currentMenuNavigationIndex - 1, _currentMenuNavigationIndex);
-        }
-        #endregion
-
-        #endregion
     }
 }

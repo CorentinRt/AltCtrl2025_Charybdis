@@ -9,7 +9,8 @@ namespace AltCtrl.Charybdis
         {
             None = 0,
             PLAY = 1,
-            START_TUTO = 2
+            START_TUTO = 2,
+            RETURN_MENU = 3
         }
 
         #region Fields
