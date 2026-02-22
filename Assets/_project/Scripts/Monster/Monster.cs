@@ -17,6 +17,7 @@ namespace AltCtrl.Charybdis
         [SerializeField] private MonsterTarget _target;
         [SerializeField] private Animator _animator;
         [SerializeField] private GameObject _monsterVisuals;
+        [SerializeField] private GameObject _warningVisuals;
         [SerializeField] private Transform _visualAnchor;
 
         private bool _isMoving = true;
@@ -42,6 +43,8 @@ namespace AltCtrl.Charybdis
                 StartCoroutine(StartTyphoonCooldown());
 
             PlaySpawnAnimation();
+
+            _warningVisuals.SetActive(false);
         }
 
         private void OnDestroy()
@@ -169,11 +172,14 @@ namespace AltCtrl.Charybdis
             // ----- AUDIO ----- //
 
             //_animator.SetBool("Indicator", true);
+            _warningVisuals.SetActive(true);
+
         }
 
         private void OnMonsterTyphoonStopIndication()
         {
             //_animator.SetBool("Indicator", false);
+            _warningVisuals.SetActive(false);
         }
         #endregion
 
