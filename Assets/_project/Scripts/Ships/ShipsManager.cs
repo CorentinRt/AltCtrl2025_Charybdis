@@ -66,6 +66,9 @@ namespace AltCtrl.Charybdis
 
         public event Action OnDestroyShip;
         public event Action OnValidateShip;
+        public event Action OnValidateShipWithoutObjective;
+
+        public event Action OnControlNewShipWithRadio;
 
         private void Start()
         {
@@ -426,6 +429,7 @@ namespace AltCtrl.Charybdis
             ship.OnShipValidated -= ReactOnValidateShip;
             ship.OnShipValidatedWithoutObjective -= ReactOnValidateShipWithoutObjective;
 
+            OnValidateShipWithoutObjective?.Invoke();
         }
         #endregion
 
@@ -446,6 +450,7 @@ namespace AltCtrl.Charybdis
 
             _currentControlledShip.SetControlledValue(true);
 
+            OnControlNewShipWithRadio?.Invoke();
         }
 
         public bool CheckShipWithFrequencyExist((int, int) frequency)

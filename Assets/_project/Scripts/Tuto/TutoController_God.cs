@@ -23,6 +23,7 @@ namespace AltCtrl.Charybdis
         protected override void Start()
         {
             ShipsManager.Instance.SetEnableShipsSpawn(false, true);
+
             ShipsManager.Instance.OnDestroyShip += ReceiveOnDestroyShip;
             ShipsManager.Instance.OnValidateShip += ReceiveOnValidateShip;
 
@@ -39,6 +40,8 @@ namespace AltCtrl.Charybdis
             ShipsManager.Instance.OnValidateShip -= ReceiveOnValidateShip;
 
             VictoryManager.Instance.OnGodVictory -= ReceiveOnGodVictory;
+
+            base.OnDestroy();
         }
 
         protected override void StartTuto()
@@ -52,6 +55,9 @@ namespace AltCtrl.Charybdis
             }
 
             _tutoGodCoroutine = StartCoroutine(TutoGodCoroutine());
+
+            InputManager.Instance.SetDetectGodInput(true);
+            InputManager.Instance.SetDetectHumanInput(false);
         }
 
         private void ReceiveOnDestroyShip()
@@ -66,6 +72,8 @@ namespace AltCtrl.Charybdis
 
         private void ReceiveOnGodVictory()
         {
+            InputManager.Instance.SetDetectGodInput(true);
+            InputManager.Instance.SetDetectHumanInput(true);
             VictoryManager.Instance.OnGodVictory -= ReceiveOnGodVictory;
             ShipsManager.Instance.SetEnableShipsSpawn(false, true);
         }
