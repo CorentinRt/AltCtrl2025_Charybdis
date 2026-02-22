@@ -27,6 +27,7 @@ namespace AltCtrl.Charybdis
 
         [Header("General Spawn Parameters")]
         [SerializeField] private LayerMask _islandsLayerMask;
+        [SerializeField] private bool _blockSetEnableShipSpawnOnChangeGamePhase = false;
 
         [Header("Spawn Ships Parameters")]
         [SerializeField] private float _spawnDistanceCheck = 10f;
@@ -156,8 +157,11 @@ namespace AltCtrl.Charybdis
             }
         }
 
-        public void SetEnableShipsSpawn(bool enabled)
+        public void SetEnableShipsSpawn(bool enabled, bool force = false)
         {
+            if (_blockSetEnableShipSpawnOnChangeGamePhase && !force)
+                return;
+
             _enabledShipsSpawn = enabled;
         }
 
@@ -170,7 +174,7 @@ namespace AltCtrl.Charybdis
             _randomTimeSpawn = UnityEngine.Random.Range(spawnRandomMinRate, spawnRandomMaxRate);
         }
 
-        private void SpawnShip(int iteration = 0)
+        public void SpawnShip(int iteration = 0)
         {
             SPAWN_LOCATION randomSpawn = (SPAWN_LOCATION)UnityEngine.Random.Range(0, 4);
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace AltCtrl.Charybdis
 {
-    public class TutoController_Human : MonoBehaviour
+    public class TutoController_Human : TutoController
     {
         #region Fields
 
