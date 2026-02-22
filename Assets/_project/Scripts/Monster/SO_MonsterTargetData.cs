@@ -7,7 +7,7 @@ namespace AltCtrl.Charybdis
     {
         // ----- FIELDS ----- //
         [Header("Movement")]
-        [SerializeField] private float _moveSpeed = 5f;
+        [SerializeField] private float _moveSpeed = 7f;
         // ----- FIELDS ----- //
 
         // ----- PROPERTIES ----- //

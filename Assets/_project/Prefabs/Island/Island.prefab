@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4090648861339499300
 Transform:
   m_ObjectHideFlags: 0
@@ -252,6 +252,8 @@ MonoBehaviour:
   _animator: {fileID: 294662110273686439}
   _activationAnimTime: 2
   _deactivationAnimTime: 3
+  _minDelayBetweenToggles: 1
+  _disabledStorm: 1
 --- !u!1 &6907844295120302349
 GameObject:
   m_ObjectHideFlags: 0

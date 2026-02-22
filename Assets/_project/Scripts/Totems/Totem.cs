@@ -14,7 +14,10 @@ namespace AltCtrl.Charybdis
         [SerializeField] private float _activationAnimTime = 2f;
         [SerializeField] private float _deactivationAnimTime = 3f;
         [SerializeField] private float _minDelayBetweenToggles = 1f; // anti-spam (g mis haut pour les tests)
-    
+
+        [Header("Enabled")]
+        [SerializeField] private bool _disabledStorm = true;
+
         private bool _inputState = false;  
 
         // Timers
@@ -27,10 +30,18 @@ namespace AltCtrl.Charybdis
         {
             _visuals.SetActive(false);
             _storm.Collider.enabled = false;
+
+            if (_disabledStorm)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public void SetActive(bool active)
         {
+            if (_disabledStorm)
+                return;
+
             // Anti-spam
             if (Time.time - _lastToggleTime < _minDelayBetweenToggles && active)
                 return;
@@ -75,6 +86,9 @@ namespace AltCtrl.Charybdis
 
         private void Update()
         {
+            if (_disabledStorm)
+                return;
+
             if (!_isTransitioning)
                 return;
 
