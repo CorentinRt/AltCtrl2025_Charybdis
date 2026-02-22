@@ -120,7 +120,7 @@ namespace AltCtrl.Charybdis
             if (HasWon || _preventGodVictory)
                 return;
 
-            float personalMultiplier = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetMonsterMaxSpeed() : _data.GodPersonalMultiplier;
+            float personalMultiplier = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetGodPointsFactor() : _data.GodPersonalMultiplier;
 
             _victorySlider.value += personalMultiplier * _addGodScoreOnDestroyShip * _currentMultiplier;
 
@@ -134,7 +134,7 @@ namespace AltCtrl.Charybdis
             if (HasWon || _preventHumanVictory)
                 return;
 
-            float personalMultiplier = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetMonsterMaxSpeed() : _data.GodPersonalMultiplier;
+            float personalMultiplier = TweakableOptionsManager.Exist ? TweakableOptionsManager.Instance.GetHumansPointsFactor() : _data.GodPersonalMultiplier;
 
             _victorySlider.value -= personalMultiplier * _addHumanScoreOnLeaveShip * _currentMultiplier;
 
