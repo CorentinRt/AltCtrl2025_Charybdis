@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _radiusCheckSpawnObjective: 0.7
   _offsetFromBordersSpawnObjective: 1
-  _checkpointScaleMultiplier: 2.5
+  _checkpointScaleMultiplier: 2.35
