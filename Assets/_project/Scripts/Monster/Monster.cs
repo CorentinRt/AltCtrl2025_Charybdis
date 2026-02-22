@@ -71,13 +71,23 @@ namespace AltCtrl.Charybdis
             if (_target == null)
                 return;
 
-            // add _monsterVisuals look at target
-
             Vector2 currentPosition = _rb.position;
             Vector2 targetPosition = _target.GetComponent<Rigidbody2D>().position;
 
             Vector2 toTarget = targetPosition - currentPosition;
             float distance = toTarget.magnitude;
+
+            // Check underwater anim
+            if (distance < _monsterData.TargetUnderwaterMinDistance && _isUnderwater && _canTyphoon)
+            {
+                _isUnderwater = false;
+                _animator.SetBool("Surface", true);
+            }
+            else if (!_isUnderwater)
+            {
+                _isUnderwater = true;
+                _animator.SetBool("Surface", false);
+            }
 
             if (distance < 0.05f)
             {
@@ -98,18 +108,6 @@ namespace AltCtrl.Charybdis
                     targetRotation,
                     _monsterData.RotationSpeed * deltaTime
                 );
-            }
-
-            // Check underwater anim
-            if (distance < _monsterData.TargetUnderwaterMinDistance && _isUnderwater)
-            {
-                _isUnderwater = false;
-                _animator.SetBool("Surface", true);
-            }
-            else if (distance > _monsterData.TargetUnderwaterMinDistance && !_isUnderwater)
-            {
-                _isUnderwater = true;
-                _animator.SetBool("Surface", false);
             }
 
             Vector2 dirToTarget = toTarget.normalized;
@@ -173,7 +171,6 @@ namespace AltCtrl.Charybdis
 
             //_animator.SetBool("Indicator", true);
             _warningVisuals.SetActive(true);
-
         }
 
         private void OnMonsterTyphoonStopIndication()
@@ -187,9 +184,9 @@ namespace AltCtrl.Charybdis
         {
             yield return new WaitForSeconds(_monsterData.TyphoonCooldown - _monsterData.IndicationBeforeTyphoon);
 
-            OnMonsterTyphoonIndication();
-
             yield return new WaitForSeconds(_monsterData.IndicationBeforeTyphoon);
+
+            OnMonsterTyphoonIndication();
 
             _canTyphoon = true;
         }
