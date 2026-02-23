@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e40d00335b58441806b0e72d5e803e, type: 3}
   m_Name: SO_TutoData_Human
   m_EditorClassIdentifier: 
-  _showTutoDuration: 10
+  _showTutoDuration: 0.4

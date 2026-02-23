@@ -71,6 +71,16 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void SetDetectGodInput(bool enable)
+    {
+        _detectGodInputs = enable;
+    }
+
+    public void SetDetectHumanInput(bool enable)
+    {
+        _detectHumanInputs = enable;
+    }
+
     private void Update()
     {
         if (_detectGodInputs)

@@ -13,6 +13,7 @@ namespace AltCtrl.Charybdis
         [Header("Anim param")]
         [SerializeField] private float _disappearDuration = 1f;
         [SerializeField] private Ease _disappearEase;
+        [SerializeField] private bool _playAnimWithGamePhase = true;
 
         private Tween _scaleDisappearTween;
         #endregion
@@ -45,22 +46,28 @@ namespace AltCtrl.Charybdis
                 case GameManager.GAME_PHASES.PRE_GAME:
                 case GameManager.GAME_PHASES.IN_GAME:
                 case GameManager.GAME_PHASES.POST_GAME:
-                    HideTuto();
+                    if (_playAnimWithGamePhase)
+                    {
+                        HideTuto();
+                    }
                     break;
                 case GameManager.GAME_PHASES.TUTO_SHOW:
-                    ShowTuto();
+                    if (_playAnimWithGamePhase)
+                    {
+                        ShowTuto();
+                    }
                     break;
             }
         }
 
-        private void ShowTuto()
+        public void ShowTuto()
         {
             StopScaleDisappearAnim();
 
             _concernedTutoUI.SetActive(true);
         }
 
-        private void HideTuto()
+        public void HideTuto()
         {
             if (!_concernedTutoUI.activeSelf)
                 return;

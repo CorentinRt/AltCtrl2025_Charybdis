@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 3
   _smoothTime: 0.5
+  _arcStartDistance: 2
+  _targetUnderwaterMinDistance: 4
+  _rotationSpeed: 5
   _typhoonCantMoveTime: 0
   _typhoonCooldown: 6.5
   _indicationBeforeTyphoon: 1.5
