@@ -50,6 +50,7 @@ MonoBehaviour:
   _containerPopupTuto: {fileID: 0}
   _disappearDuration: 1
   _disappearEase: 6
+  _playAnimWithGamePhase: 1
 --- !u!1001 &1913054286849672512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 341730355804712239, guid: 351a8a437033d1446a28c7ddf420aced, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4384326770916784074, guid: 351a8a437033d1446a28c7ddf420aced, type: 3}
       propertyPath: m_LocalPosition.x
