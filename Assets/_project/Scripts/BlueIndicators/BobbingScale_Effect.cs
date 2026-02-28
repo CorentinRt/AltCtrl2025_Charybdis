@@ -6,13 +6,18 @@ namespace AltCtrl.Charybdis
     public class BobbingScale_Effect : MonoBehaviour
     {
         #region Fields
+        [Header("Param effect")]
         [SerializeField] private bool _infinite;
         [SerializeField] private float _duration;
         [SerializeField] private Ease _ease;
-
         [SerializeField] private float _targetScale;
 
+        [Header("Play on start")]
+        [SerializeField] private bool _playOnStart = false;
+
         private Vector3 _startScale;
+
+        private Tween _bobbingEffectTween;
 
         #endregion
 
@@ -32,16 +37,43 @@ namespace AltCtrl.Charybdis
         {
             transform.localScale = Vector3.zero;
 
-            transform.DOScale(_targetScale, _duration).SetEase(_ease).OnComplete(() => PlayBobbingEffect());
+            if (_playOnStart)
+            {
+                PlayBobbingEffect(false);
+            }
+            else
+            {
+                if (_bobbingEffectTween == null)
+                {
+                    _bobbingEffectTween = transform.DOScale(_startScale.x
+                    , _duration).SetEase(_ease);
+                }
+            }
         }
 
-        private void PlayBobbingEffect(bool invert = false)
+        public void PlayBobbingEffect(bool invert = false)
         {
-            transform.DOScale(invert ? _targetScale : _startScale.x
+            StopBobbingEffect();
+
+            _bobbingEffectTween = transform.DOScale(invert ? _targetScale : _startScale.x
                 , _duration).SetEase(_ease).OnComplete(() =>
             {
                 PlayBobbingEffect(!invert);
             });
+        }
+
+        public void StopBobbingEffect(bool resetScale = false)
+        {
+            if (_bobbingEffectTween != null)
+            {
+                _bobbingEffectTween.Kill(false);
+                _bobbingEffectTween = null;
+            }
+
+            if (resetScale)
+            {
+                _bobbingEffectTween = transform.DOScale(_startScale.x, _duration).SetEase(_ease);
+            }
         }
 
     }
