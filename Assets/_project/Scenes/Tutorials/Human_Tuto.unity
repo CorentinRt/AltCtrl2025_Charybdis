@@ -160,6 +160,14 @@ PrefabInstance:
       propertyPath: _playAnimWithGamePhase
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2175970131350628463, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3492404946912087810, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4550026364844531056, guid: 1ef6bf0c4a0ebeb4b9348d20aed579b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

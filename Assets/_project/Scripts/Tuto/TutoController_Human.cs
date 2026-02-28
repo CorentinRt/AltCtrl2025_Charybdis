@@ -111,6 +111,7 @@ namespace AltCtrl.Charybdis
 
             // apparition tuto fréquence
             SetEnabledTutorialUI(true);
+            GoToTutorialUIPart("Frequency");
 
             yield return new WaitForSeconds(2f);
 
@@ -138,11 +139,19 @@ namespace AltCtrl.Charybdis
             ShipsManager.Instance.OnValidateShipWithoutObjective -= ReceiveOnDestroyShip;
             ShipsManager.Instance.OnValidateShip -= ReceiveOnValidateShip;
 
-            yield return new WaitForSeconds(1.5f);
-
+            GoToTutorialUIPart("Fade");
             SetEnabledTutorialUI(false);
 
+            yield return new WaitForSeconds(1.5f);
+
             SetEnabledAllIslands(true);
+            SetEnabledTutorialUI(true);
+            GoToTutorialUIPart("Dangers");
+
+            yield return new WaitForSeconds(10f);
+
+            GoToTutorialUIPart("Fade");
+            SetEnabledTutorialUI(false);
 
             ShipsManager.Instance.SetEnableShipsSpawn(true, true);
 
