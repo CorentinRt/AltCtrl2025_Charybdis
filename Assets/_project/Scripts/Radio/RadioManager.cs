@@ -12,6 +12,9 @@ namespace AltCtrl.Charybdis
         [Header("Data")]
         [SerializeField] private SO_RadioData _data;
 
+        [Header("Param")]
+        [SerializeField] private bool _inputEnableByGamePhase = true;
+
         private List<(int, int)> _allFrequencies = new();
 
         private HashSet<(int, int)> _usedFrequencies = new();
@@ -26,6 +29,8 @@ namespace AltCtrl.Charybdis
         private float _canRadioInputCooldown;
 
         private bool _inputEnable = true;
+
+        private bool _enableRadioOnPause = false;
 
         #endregion
 
@@ -72,12 +77,17 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        public void EnableRadioOnPause(bool enabled)
+        {
+            _enableRadioOnPause = enabled;
+        }
+
         private void OnMoveRadioRotateInput(int dir)
         {
             if (!_inputEnable)
                 return;
 
-            if (Time.timeScale == 0f)
+            if (Time.timeScale == 0f && !_enableRadioOnPause)
                 return;
 
             if (_canRadioInputCooldown > 0f)
@@ -98,7 +108,14 @@ namespace AltCtrl.Charybdis
         {
             if (_canRadioInputCooldown >= 0f)
             {
-                _canRadioInputCooldown -= Time.deltaTime;
+                if (_enableRadioOnPause)
+                {
+                    _canRadioInputCooldown -= Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    _canRadioInputCooldown -= Time.deltaTime;
+                }
             }
 
             if (_pressedRadioInputThisFrame)
@@ -188,8 +205,11 @@ namespace AltCtrl.Charybdis
             _usedFrequencies.Remove(frequency);
         }
 
-        public void SetEnableRadioInput(bool enable)
+        public void SetEnableRadioInput(bool enable, bool force = false)
         {
+            if (!_inputEnableByGamePhase && !force)
+                return;
+
             _inputEnable = enable;
         }
     }

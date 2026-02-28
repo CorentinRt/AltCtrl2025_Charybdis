@@ -39,6 +39,9 @@ namespace AltCtrl.Charybdis
         public bool GodHasWon => _godHasWon;
         public bool HumanHasWon => _humanHasWon;
 
+        public bool PreventGodVictory { get => _preventGodVictory; set => _preventGodVictory = value; }
+        public bool PreventHumanVictory { get => _preventHumanVictory; set => _preventHumanVictory = value; }
+
         public event Action OnGodVictory;
         public event Action OnHumanVictory;
         public event Action OnVictory;

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AltCtrl.Charybdis
 {
@@ -43,6 +44,9 @@ namespace AltCtrl.Charybdis
 
         #endregion
 
+        public UnityEvent OnStartSelectionHover;
+        public UnityEvent OnEndSelectionHover;
+
         private void Awake()
         {
             _startScale = transform.localScale.x;
@@ -61,6 +65,8 @@ namespace AltCtrl.Charybdis
             _selectionColorEffectTween = _selectableSpriteRenderer.DOColor(_selectedColor, _colorTransitionDuration).SetEase(_selectedColorEase);
 
             _selectionScaleEffectTween = _selectableVisuals.DOScale(_selectedTargetScale, _scaleTransitionDuration).SetEase(_selectedScaleEase);
+
+            OnStartSelectionHover?.Invoke();
         }
 
         public void NotifyOnEndSelectionHover()
@@ -70,6 +76,8 @@ namespace AltCtrl.Charybdis
             _selectionColorEffectTween = _selectableSpriteRenderer.DOColor(_startColor, _colorTransitionDuration).SetEase(_selectedColorEase);
 
             _selectionScaleEffectTween = _selectableVisuals.DOScale(_startScale, _scaleTransitionDuration).SetEase(_selectedScaleEase);
+
+            OnEndSelectionHover?.Invoke();
         }
 
         private void StopSelectionEffectTween()

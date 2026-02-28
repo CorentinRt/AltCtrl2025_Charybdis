@@ -48,10 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc550c55f00dc824ea0483cfe3b855e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _infinite: 0
+  _infinite: 1
   _duration: 0.8
   _ease: 13
   _targetScale: 1.25
+  _playOnStart: 0
 --- !u!95 &898077311096046667
 Animator:
   serializedVersion: 7
@@ -101,12 +102,42 @@ MonoBehaviour:
   _selectableVisuals: {fileID: 2388840912885119675}
   _selectableSpriteRenderer: {fileID: 2852727609294378763}
   _selectableEffect: 0
-  _selectedColor: {r: 0.007453905, g: 0.8679245, b: 0, a: 1}
+  _selectedColor: {r: 1, g: 1, b: 1, a: 1}
   _colorTransitionDuration: 0.7
   _selectedColorEase: 6
-  _selectedTargetScale: 1.3
+  _selectedTargetScale: 1.25
   _scaleTransitionDuration: 0.5
   _selectedScaleEase: 6
+  OnStartSelectionHover:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2134722039208626480}
+        m_TargetAssemblyTypeName: AltCtrl.Charybdis.BobbingScale_Effect, AltCtrl.Charybdis
+        m_MethodName: PlayBobbingEffect
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnEndSelectionHover:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2134722039208626480}
+        m_TargetAssemblyTypeName: AltCtrl.Charybdis.BobbingScale_Effect, AltCtrl.Charybdis
+        m_MethodName: StopBobbingEffect
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &5080738593590257223
 GameObject:
   m_ObjectHideFlags: 0

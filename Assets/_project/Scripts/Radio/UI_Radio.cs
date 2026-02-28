@@ -59,21 +59,21 @@ namespace AltCtrl.Charybdis
             switch (gamePhase)
             {
                 case GameManager.GAME_PHASES.PRE_GAME:
-                    SetEnablePostGame(false);
+                    SetEnableGamePhase(false);
                     break;
                 case GameManager.GAME_PHASES.IN_GAME:
-                    SetEnablePostGame(true);
+                    SetEnableGamePhase(true);
                     break;
                 case GameManager.GAME_PHASES.POST_GAME:
-                    SetEnablePostGame(false);
+                    SetEnableGamePhase(false);
                     break;
                 case GameManager.GAME_PHASES.TUTO_SHOW:
-                    SetEnablePostGame(false);
+                    SetEnableGamePhase(false);
                     break;
             }
         }
 
-        private void SetEnablePostGame(bool enabled)
+        public void SetEnableGamePhase(bool enabled)
         {
             _mainAnchor.SetActive(enabled);
         }
