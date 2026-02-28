@@ -155,6 +155,8 @@ namespace AltCtrl.Charybdis
             GoToTutorialUIPart("Fade");
             SetEnabledTutorialUI(false);
 
+            ShipsManager.Instance.SpawnShip();
+
             ShipsManager.Instance.SetEnableShipsSpawn(true, true);
 
             VictoryManager.Instance.PreventHumanVictory = false;
