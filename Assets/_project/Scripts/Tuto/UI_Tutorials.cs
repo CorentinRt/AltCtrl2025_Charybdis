@@ -15,6 +15,8 @@ namespace AltCtrl.Charybdis
         [SerializeField] private Ease _disappearEase;
         [SerializeField] private bool _playAnimWithGamePhase = true;
 
+        private float _startScale;
+
         private Tween _scaleDisappearTween;
         #endregion
 
@@ -25,10 +27,14 @@ namespace AltCtrl.Charybdis
 
         private void Awake()
         {
+            _startScale = _containerPopupTuto.transform.localScale.x;
+
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnGamePhaseChanged += ReactGamePhaseChanged;
             }
+
+            _containerPopupTuto.transform.localScale = Vector3.zero;
         }
 
         private void OnDestroy()
@@ -55,6 +61,7 @@ namespace AltCtrl.Charybdis
                     if (_playAnimWithGamePhase)
                     {
                         ShowTuto();
+                        TriggerAnimTuto("Start");
                     }
                     break;
             }
@@ -62,9 +69,12 @@ namespace AltCtrl.Charybdis
 
         public void ShowTuto()
         {
+            _concernedTutoUI.SetActive(true);
+
             StopScaleDisappearAnim();
 
-            _concernedTutoUI.SetActive(true);
+            _scaleDisappearTween = _containerPopupTuto.transform.DOScale(_startScale, _disappearDuration).SetEase(_disappearEase);
+
         }
 
         public void HideTuto()
@@ -89,5 +99,22 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        public void TriggerAnimTuto(string triggerName)
+        {
+            if (!_concernedTutoUI)
+            {
+                Debug.LogWarning("Error : Try to go to tuto part, but no concerned tuto set in UI_Tutorials !", this);
+                return;
+            }
+
+            if (_concernedTutoUI.TryGetComponent<Animator>(out Animator animator))
+            {
+                animator.SetTrigger(triggerName);
+            }
+            else
+            {
+                Debug.LogWarning("Error : No animator found on UI_Tutorials concerned tuto !", this);
+            }
+        }
     }
 }

@@ -67,5 +67,10 @@ namespace AltCtrl.Charybdis
             }
         }
 
+        protected void GoToTutorialUIPart(string triggerPartName)
+        {
+            _uiTutorials.TriggerAnimTuto(triggerPartName);
+        }
+
     }
 }

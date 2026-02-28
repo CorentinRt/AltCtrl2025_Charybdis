@@ -11,6 +11,8 @@ namespace AltCtrl.Charybdis
 
         private bool _hasDestroyedOneShip = false;
 
+        private bool _hasUsedBeer = false;
+
         private Coroutine _tutoGodCoroutine;
 
         #endregion
@@ -31,6 +33,8 @@ namespace AltCtrl.Charybdis
 
             VictoryManager.Instance.OnGodVictory += ReceiveOnGodVictory;
 
+            WindIndicator.Instance.OnStartWindOnBoats += ReceiveOnStartWindOnBoat;
+
             base.Start();
         }
 
@@ -40,6 +44,8 @@ namespace AltCtrl.Charybdis
             ShipsManager.Instance.OnValidateShip -= ReceiveOnValidateShip;
 
             VictoryManager.Instance.OnGodVictory -= ReceiveOnGodVictory;
+
+            WindIndicator.Instance.OnStartWindOnBoats -= ReceiveOnStartWindOnBoat;
 
             base.OnDestroy();
         }
@@ -70,6 +76,11 @@ namespace AltCtrl.Charybdis
             ShipsManager.Instance.SpawnShip();
         }
 
+        private void ReceiveOnStartWindOnBoat(Vector3 windForce)
+        {
+            _hasUsedBeer = true;
+        }
+
         private void ReceiveOnGodVictory()
         {
             InputManager.Instance.SetDetectGodInput(true);
@@ -80,16 +91,20 @@ namespace AltCtrl.Charybdis
 
         private IEnumerator TutoGodCoroutine()
         {
+            SetEnabledTutorialUI(false);
             SetEnabledAllIslands(false);
 
             // wait cooldown
             yield return new WaitForSeconds(3f);
 
-            // show tuto UI
+            // show tuto UI move
             SetEnabledTutorialUI(true);
+            GoToTutorialUIPart("Move");
 
             yield return new WaitForSeconds(10f);
 
+            // hide tutorial ui
+            GoToTutorialUIPart("Fade");
             SetEnabledTutorialUI(false);
 
             // Spawn bateau à détruire
@@ -109,14 +124,26 @@ namespace AltCtrl.Charybdis
             // ship destroyed wait before next phase
             yield return new WaitForSeconds(1f);
 
-            /*
             // Faire apparaitre tuto biere
             SetEnabledTutorialUI(true);
+            GoToTutorialUIPart("Beer");
 
-            yield return new WaitForSeconds(10f);
+            _hasUsedBeer = false;
 
+            // wait use beer
+            while (!_hasUsedBeer)
+            {
+
+                yield return null;
+            }
+
+            WindIndicator.Instance.OnStartWindOnBoats -= ReceiveOnStartWindOnBoat;
+
+            // Hide tutorial ui
+            GoToTutorialUIPart("Fade");
             SetEnabledTutorialUI(false);
-            */
+
+            yield return new WaitForSeconds(3f);
 
             // spawn iles
             SetEnabledAllIslands(true);
