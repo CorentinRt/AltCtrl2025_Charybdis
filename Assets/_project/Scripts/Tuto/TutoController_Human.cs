@@ -6,6 +6,8 @@ namespace AltCtrl.Charybdis
     public class TutoController_Human : TutoController
     {
         #region Fields
+        [Header("Data")]
+        [SerializeField] private SO_HumanTutoController_Data _data;
 
         [Header("UI Radio")]
         [SerializeField] private UI_Radio _uiRadio;
@@ -102,18 +104,18 @@ namespace AltCtrl.Charybdis
             // désactiver iles
             SetEnabledAllIslands(false);
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(_data.TimeBeforeSpawnFirstShip);
 
             // apparition bateau avec frequence
             ShipsManager.Instance.SpawnShip();
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(_data.TimeBeforeFrequencyTutoAppear);
 
             // apparition tuto fréquence
             SetEnabledTutorialUI(true);
             GoToTutorialUIPart("Frequency");
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(_data.TimeBeforeFreezeTime);
 
             _uiRadio.SetEnableGamePhase(true);
             RadioManager.Instance.SetEnableRadioInput(true, true);
@@ -142,16 +144,18 @@ namespace AltCtrl.Charybdis
             GoToTutorialUIPart("Fade");
             SetEnabledTutorialUI(false);
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(_data.TimeBeforeDangerTutoAndIslandsAppear);
 
             SetEnabledAllIslands(true);
             SetEnabledTutorialUI(true);
             GoToTutorialUIPart("Dangers");
 
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(_data.TimeBeforeDemoGameStart);
 
             GoToTutorialUIPart("Fade");
             SetEnabledTutorialUI(false);
+
+            ShipsManager.Instance.SpawnShip();
 
             ShipsManager.Instance.SetEnableShipsSpawn(true, true);
 
