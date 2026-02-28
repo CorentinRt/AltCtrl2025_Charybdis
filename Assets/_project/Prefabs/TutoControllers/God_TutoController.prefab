@@ -44,3 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4b656532f67b543bfded85d10afdb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _islandHolder: {fileID: 0}
+  _uiTutorials: {fileID: 0}
+  OnEnableAllIslands:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDisableAllIslands:
+    m_PersistentCalls:
+      m_Calls: []
+  _data: {fileID: 11400000, guid: e5f02c10f71d5d04ba4dfedb5f678974, type: 2}

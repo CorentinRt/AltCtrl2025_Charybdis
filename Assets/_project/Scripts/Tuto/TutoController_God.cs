@@ -7,7 +7,8 @@ namespace AltCtrl.Charybdis
     {
         #region Fields
 
-
+        [Header("Data")]
+        [SerializeField] private SO_GodTutoController_Data _data;
 
         private bool _hasDestroyedOneShip = false;
 
@@ -95,13 +96,13 @@ namespace AltCtrl.Charybdis
             SetEnabledAllIslands(false);
 
             // wait cooldown
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(_data.TimeBeforeMoveTutoAppear);
 
             // show tuto UI move
             SetEnabledTutorialUI(true);
             GoToTutorialUIPart("Move");
 
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(_data.TimeBeforeSpawnFirstShip);
 
             // hide tutorial ui
             GoToTutorialUIPart("Fade");
@@ -122,7 +123,7 @@ namespace AltCtrl.Charybdis
             ShipsManager.Instance.OnValidateShip -= ReceiveOnValidateShip;
 
             // ship destroyed wait before next phase
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(_data.TimeBeforeTutoBeerAppear);
 
             // Faire apparaitre tuto biere
             SetEnabledTutorialUI(true);
@@ -143,12 +144,14 @@ namespace AltCtrl.Charybdis
             GoToTutorialUIPart("Fade");
             SetEnabledTutorialUI(false);
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(_data.TimeBeforeSpawnIslands);
 
             // spawn iles
             SetEnabledAllIslands(true);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(_data.TimeBeforeSpawnShipsDemoGame);
+
+            ShipsManager.Instance.SpawnShip();
 
             ShipsManager.Instance.SetEnableShipsSpawn(true, true);
 
