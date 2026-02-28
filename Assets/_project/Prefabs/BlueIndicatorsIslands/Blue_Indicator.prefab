@@ -51,6 +51,7 @@ MonoBehaviour:
   _infinite: 1
   _duration: 0.8
   _ease: 13
+  _startScale: 1
   _targetScale: 1.25
   _playOnStart: 0
 --- !u!95 &898077311096046667

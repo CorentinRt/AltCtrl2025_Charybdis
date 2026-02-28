@@ -10,12 +10,12 @@ namespace AltCtrl.Charybdis
         [SerializeField] private bool _infinite;
         [SerializeField] private float _duration;
         [SerializeField] private Ease _ease;
+        [SerializeField] private float _startScale = 1f;
         [SerializeField] private float _targetScale;
 
         [Header("Play on start")]
         [SerializeField] private bool _playOnStart = false;
 
-        private Vector3 _startScale;
 
         private Tween _bobbingEffectTween;
 
@@ -28,8 +28,6 @@ namespace AltCtrl.Charybdis
 
         private void Start()
         {
-            _startScale = transform.localScale;
-
             Init();
         }
 
@@ -45,7 +43,7 @@ namespace AltCtrl.Charybdis
             {
                 if (_bobbingEffectTween == null)
                 {
-                    _bobbingEffectTween = transform.DOScale(_startScale.x
+                    _bobbingEffectTween = transform.DOScale(_startScale
                     , _duration).SetEase(_ease);
                 }
             }
@@ -55,7 +53,7 @@ namespace AltCtrl.Charybdis
         {
             StopBobbingEffect();
 
-            _bobbingEffectTween = transform.DOScale(invert ? _targetScale : _startScale.x
+            _bobbingEffectTween = transform.DOScale(invert ? _targetScale : _startScale
                 , _duration).SetEase(_ease).OnComplete(() =>
             {
                 PlayBobbingEffect(!invert);
@@ -72,7 +70,7 @@ namespace AltCtrl.Charybdis
 
             if (resetScale)
             {
-                _bobbingEffectTween = transform.DOScale(_startScale.x, _duration).SetEase(_ease);
+                _bobbingEffectTween = transform.DOScale(_startScale, _duration).SetEase(_ease);
             }
         }
 

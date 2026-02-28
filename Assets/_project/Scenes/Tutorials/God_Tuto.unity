@@ -413,6 +413,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4094692831248445298, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094692831248445298, guid: 55ac55b595f27704eb45787474702829, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.37
+      objectReference: {fileID: 0}
     - target: {fileID: 4462988683970536525, guid: 55ac55b595f27704eb45787474702829, type: 3}
       propertyPath: _blockSetEnableShipSpawnOnChangeGamePhase
       value: 1
