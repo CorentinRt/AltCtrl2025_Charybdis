@@ -48,10 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc550c55f00dc824ea0483cfe3b855e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _infinite: 0
+  _infinite: 1
   _duration: 0.8
   _ease: 13
-  _targetScale: 1
+  _targetScale: 1.25
+  _playOnStart: 0
 --- !u!95 &898077311096046667
 Animator:
   serializedVersion: 7
