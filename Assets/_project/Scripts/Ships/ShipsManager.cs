@@ -42,6 +42,10 @@ namespace AltCtrl.Charybdis
         [Header("Other")]
         [SerializeField] private bool _isMainMenu;
 
+        [Header("Debug")]
+        [SerializeField] private bool _debugGameplayBounds;
+        [SerializeField] private Color _debugBoundsColor;
+
         private List<ShipBehaviour> _ships = new List<ShipBehaviour>();
 
         private Dictionary<(int, int), ShipBehaviour> _frequencyToShip = new Dictionary<(int, int), ShipBehaviour>();
@@ -56,6 +60,11 @@ namespace AltCtrl.Charybdis
         private bool _enabledShipsSpawn;
 
         private HashSet<Color> _usedShipsColors = new HashSet<Color>();
+
+        private Vector2 _gameplayMinZone;
+        private Vector2 _gameplayMaxZone;
+
+        private Vector3 _centerGameplayZone;
 
         #endregion
 
@@ -72,7 +81,25 @@ namespace AltCtrl.Charybdis
 
         private void Start()
         {
-            _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+            Camera camera = Camera.main;
+
+            float leftViewport = ViewportAdjusterManager.LeftLimit;
+
+            Vector3 bottomLeft = camera.ViewportToWorldPoint(
+                new Vector3(leftViewport, 0f, camera.nearClipPlane)
+            );
+
+            Vector3 topRight = camera.ViewportToWorldPoint(
+                new Vector3(1f, 1f, camera.nearClipPlane)
+            );
+
+            _gameplayMinZone = bottomLeft;
+            _gameplayMaxZone = topRight;
+
+            _screenBounds.x = (_gameplayMaxZone.x - _gameplayMinZone.x) * 0.5f;
+            _screenBounds.y = (_gameplayMaxZone.y - _gameplayMinZone.y) * 0.5f;
+
+            _centerGameplayZone = (_gameplayMaxZone + _gameplayMinZone) / 2f;
 
             if (RadioManager.Exist)
             {
@@ -181,7 +208,7 @@ namespace AltCtrl.Charybdis
         {
             SPAWN_LOCATION randomSpawn = (SPAWN_LOCATION)UnityEngine.Random.Range(0, 4);
 
-            Vector3 centerPos = Camera.main.transform.position;
+            Vector3 centerPos = _centerGameplayZone;
 
             Vector3 targetPosition;
 
@@ -286,7 +313,7 @@ namespace AltCtrl.Charybdis
             }
             else
             {
-                Vector3 centerPos = Camera.main.transform.position;
+                Vector3 centerPos = _centerGameplayZone;
 
                 Vector2 centerSpawnZone = Vector2.zero;
 
@@ -518,5 +545,30 @@ namespace AltCtrl.Charybdis
         }
 
         #endregion
+
+        private void OnDrawGizmos()
+        {
+            if (!_debugGameplayBounds || !Application.isPlaying)
+                return;
+
+            Gizmos.color = _debugBoundsColor;
+
+            Vector3 bottomLeft = new Vector3(-_screenBounds.x, -_screenBounds.y, 0f);
+            bottomLeft += _centerGameplayZone;
+
+            Vector3 topRight = new Vector3(_screenBounds.x, _screenBounds.y, 0f);
+            topRight += _centerGameplayZone;
+
+            Vector3 topLeft = new Vector3(-_screenBounds.x, _screenBounds.y, 0f);
+            topLeft += _centerGameplayZone;
+
+            Vector3 bottomRight = new Vector3(_screenBounds.x, -_screenBounds.y, 0f);
+            bottomRight += _centerGameplayZone;
+
+            Gizmos.DrawLine(bottomLeft, topLeft);
+            Gizmos.DrawLine(topLeft, topRight);
+            Gizmos.DrawLine(topRight, bottomRight);
+            Gizmos.DrawLine(bottomRight, bottomLeft);
+        }
     }
 }

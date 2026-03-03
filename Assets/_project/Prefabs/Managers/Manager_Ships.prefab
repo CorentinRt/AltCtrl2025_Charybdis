@@ -48,11 +48,12 @@ MonoBehaviour:
   _shipPrefab: {fileID: 5872407553750334156, guid: 3240a37bf75d5cf4298bd641daa5082d, type: 3}
   _islandsLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
+  _blockSetEnableShipSpawnOnChangeGamePhase: 0
   _spawnDistanceCheck: 10
   _checkRadius: 0.3
-  _useSpawnAroundIslandsMode: 1
   _islands: []
-  _radiusSpawnIslands: []
   _objectiveData: {fileID: 11400000, guid: ccac1ca662eb30a43a74e38069a35431, type: 2}
   _isMainMenu: 0
+  _debugGameplayBounds: 1
+  _debugBoundsColor: {r: 0.30054832, g: 1, b: 0, a: 1}

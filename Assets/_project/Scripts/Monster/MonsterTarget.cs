@@ -16,6 +16,11 @@ namespace AltCtrl.Charybdis
 
         private Vector2 _screenBounds;
 
+        private Vector2 _gameplayMinZone;
+        private Vector2 _gameplayMaxZone;
+
+        private Vector3 _centerGameplayZone;
+
         private Vector2 _moveDirection;
         private Rigidbody2D _rb;
 
@@ -26,7 +31,25 @@ namespace AltCtrl.Charybdis
         {
             _rb = GetComponent<Rigidbody2D>();
 
-            _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+            Camera camera = Camera.main;
+
+            float leftViewport = ViewportAdjusterManager.LeftLimit;
+
+            Vector3 bottomLeft = camera.ViewportToWorldPoint(
+                new Vector3(leftViewport, 0f, camera.nearClipPlane)
+            );
+
+            Vector3 topRight = camera.ViewportToWorldPoint(
+                new Vector3(1f, 1f, camera.nearClipPlane)
+            );
+
+            _gameplayMinZone = bottomLeft;
+            _gameplayMaxZone = topRight;
+
+            _screenBounds.x = (_gameplayMaxZone.x - _gameplayMinZone.x) * 0.5f;
+            _screenBounds.y = (_gameplayMaxZone.y - _gameplayMinZone.y) * 0.5f;
+
+            _centerGameplayZone = (_gameplayMaxZone + _gameplayMinZone) / 2f;
 
             if (InputManager.Instance != null)
             {
@@ -54,8 +77,8 @@ namespace AltCtrl.Charybdis
             Vector2 move = _moveDirection.normalized * _monsterTargetData.MoveSpeed * deltaTime;
             Vector2 newPosition = _rb.position + move;
 
-            newPosition.x = Mathf.Clamp(newPosition.x, -_screenBounds.x + _objectWidth, _screenBounds.x - _objectWidth);
-            newPosition.y = Mathf.Clamp(newPosition.y, -_screenBounds.y + _objectHeight, _screenBounds.y - _objectHeight);
+            newPosition.x = Mathf.Clamp(newPosition.x, _gameplayMinZone.x + _objectWidth, _gameplayMaxZone.x - _objectWidth);
+            newPosition.y = Mathf.Clamp(newPosition.y, _gameplayMinZone.y + _objectHeight, _gameplayMaxZone.y - _objectHeight);
 
             _rb.MovePosition(newPosition);
         }
