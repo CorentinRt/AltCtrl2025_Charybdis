@@ -15,7 +15,7 @@ MonoBehaviour:
   _moveSpeed: 2.5
   _smoothTime: 0.5
   _arcStartDistance: 2
-  _targetUnderwaterMinDistance: 4
+  _targetUnderwaterMinDistance: 3
   _rotationSpeed: 5
   _typhoonCantMoveTime: 0
   _typhoonCooldown: 6.5
