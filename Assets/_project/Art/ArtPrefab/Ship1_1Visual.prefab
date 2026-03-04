@@ -468,10 +468,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderers:
-  - {fileID: 0}
+  - {fileID: 1935851726298978362}
   - {fileID: 3112034864885032914}
   - {fileID: 507724523781145310}
   - {fileID: 1374906720890496584}
+  - {fileID: 119966574537630339}
+  - {fileID: 495458586014157101}
+  - {fileID: 5889666035064624017}
 --- !u!1 &2689073017414181091
 GameObject:
   m_ObjectHideFlags: 0
