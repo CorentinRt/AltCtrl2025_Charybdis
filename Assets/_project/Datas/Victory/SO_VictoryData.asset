@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8709b5c5714daab459f9b7139e834287, type: 3}
   m_Name: SO_VictoryData
   m_EditorClassIdentifier: 
-  _add1MultiplierEachTime: 10
-  _godPersonalMultiplier: 1
+  _add1MultiplierEachTime: 20
+  _godPersonalMultiplier: 0.75
   _humanPersonalMultiplier: 1
