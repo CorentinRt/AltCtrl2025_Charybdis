@@ -102,7 +102,7 @@ public class InputManager : MonoBehaviour
             if (move1 !=  Vector2.zero)
             {
                 Debug.Log($"move 1 : {move1}");
-                OnMoveMonsterPressed?.Invoke(move1);
+                OnMoveTurboPressed?.Invoke(move1);
             }
 
             for (int i = 0; i < card1.allControls.Count; i++)
@@ -125,7 +125,7 @@ public class InputManager : MonoBehaviour
             if (move2 != Vector2.zero)
             {
                 Debug.Log($"move 2 : {move2}"); 
-                OnMoveTurboPressed?.Invoke(move2);
+                OnMoveMonsterPressed?.Invoke(move2);
             }
         }
     }
