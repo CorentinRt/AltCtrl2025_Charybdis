@@ -1,7 +1,9 @@
+using NUnit.Framework;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 
@@ -67,7 +69,8 @@ namespace AltCtrl.Charybdis
 
                 if (!portFound)
                 {
-                    Debug.LogWarning("Aucun message READY détecté, on essaie quand même sur le port par défaut...");
+                    Debug.LogError("Aucun Arduino détecté parmi les ports disponibles.");
+                    return;
                 }
 
                 // Ensuite, ouvre le port réellement
@@ -89,6 +92,7 @@ namespace AltCtrl.Charybdis
                 Debug.LogError("Erreur d'initialisation Arduino : " + e.Message);
             }
         }
+
 
         private void ReadSerial()
         {
@@ -116,10 +120,10 @@ namespace AltCtrl.Charybdis
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning("Erreur lors de la lecture série : " + e.Message);
+                        Debug.LogWarning("Erreur lors de la lecture serie : " + e.Message);
                     }
 
-                    Thread.Sleep(1); // éviter de surcharger le CPU
+                    Thread.Sleep(1); // �viter de surcharger le CPU
                 }
             }
             catch (Exception e)
@@ -173,7 +177,7 @@ namespace AltCtrl.Charybdis
             }
             catch (Exception e)
             {
-                Debug.LogWarning("Erreur lors de l'arrêt du thread Arduino : " + e.Message);
+                Debug.LogWarning("Erreur lors de l'arret du thread Arduino : " + e.Message);
             }
 
             try
@@ -183,7 +187,7 @@ namespace AltCtrl.Charybdis
             }
             catch (Exception e)
             {
-                Debug.LogWarning("Erreur lors de la fermeture du port série : " + e.Message);
+                Debug.LogWarning("Erreur lors de la fermeture du port serie : " + e.Message);
             }
 
             _arduino = null;
