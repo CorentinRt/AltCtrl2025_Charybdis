@@ -38,7 +38,7 @@ namespace AltCtrl.Charybdis
                     Debug.Log($"Test du port {port}...");
                     using (var testPort = new SerialPort(port, _baudRate))
                     {
-                        testPort.ReadTimeout = 500;
+                        testPort.ReadTimeout = 2000;
                         testPort.DtrEnable = true;
                         testPort.RtsEnable = true;
 

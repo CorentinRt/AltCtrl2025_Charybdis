@@ -1,7 +1,9 @@
 using AltCtrl.Charybdis;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class InputManager : MonoBehaviour
 {
@@ -35,6 +37,8 @@ public class InputManager : MonoBehaviour
     private string _currentMicrophone = "";
     private int _currentMicrophoneIndex = -1;
     private int _nbrMicrophoneDevices = -1;
+
+    private bool _lastWindState = true;
     // ----- FIELDS ----- //
 
     private void Awake()
@@ -60,6 +64,11 @@ public class InputManager : MonoBehaviour
         }
 
         GetCurrentOrFirstMicrophone();
+
+        foreach (var d in InputSystem.devices)
+        {
+            Debug.Log(d);
+        }
     }
 
     private void OnDestroy()
@@ -83,50 +92,41 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        if (_detectGodInputs)
+        //Debug.Log($"Cards nbr : {Joystick.all.Count}");
+
+        // Carte 1 (Joystick 1)
+        if (Joystick.all.Count > 0) // ou Joystick.all.Count si c'est un joystick
         {
-            float xMonster = 0f;
-            float yMonster = 0f;
-
-            if (Input.GetKey(KeyCode.D))
+            var card1 = Joystick.all[0]; // première carte
+            Vector2 move1 = card1.stick.ReadValue(); // stick gauche
+            if (move1 !=  Vector2.zero)
             {
-                xMonster = 1f;
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                xMonster = -1f;
+                Debug.Log($"move 1 : {move1}");
+                OnMoveMonsterPressed?.Invoke(move1);
             }
 
-            if (Input.GetKey(KeyCode.W))
+            for (int i = 0; i < card1.allControls.Count; i++)
             {
-                yMonster = 1f;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                yMonster = -1f;
+                var control = card1.allControls[i];
+                if (control is ButtonControl button && button.isPressed)
+                {
+                    Debug.Log($"Button pressed: {control.name} (index {i})");
+                }
             }
 
-            Vector2 dirMonster = new Vector2(xMonster, yMonster);
-
-            OnMoveMonsterPressed?.Invoke(dirMonster);
         }
 
-        if (_detectHumanInputs)
+        // Carte 2 (Joystick 2)
+        if (Joystick.all.Count > 1)
         {
-            float yHuman = 0f;
-
-            if (Input.GetKey(KeyCode.I))
+            var card2 = Joystick.all[1];
+            //Debug.Log(card2);
+            Vector2 move2 = card2.stick.ReadValue();
+            if (move2 != Vector2.zero)
             {
-                yHuman = 1f;
+                Debug.Log($"move 2 : {move2}"); 
+                OnMoveTurboPressed?.Invoke(move2);
             }
-            else if (Input.GetKey(KeyCode.K))
-            {
-                yHuman = -1f;
-            }
-
-            Vector2 dirHuman = new Vector2(0f, yHuman);
-
-            OnMoveTurboPressed?.Invoke(dirHuman);
         }
     }
 
