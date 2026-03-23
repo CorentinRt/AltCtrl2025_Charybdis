@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618de18e5ae4be641b6f2815f08771cb, type: 3}
   m_Name: SO_MonsterData
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
+  _moveSpeed: 2.5
   _smoothTime: 0.5
   _arcStartDistance: 2
-  _targetUnderwaterMinDistance: 4
+  _targetUnderwaterMinDistance: 3
   _rotationSpeed: 5
   _typhoonCantMoveTime: 0
   _typhoonCooldown: 6.5

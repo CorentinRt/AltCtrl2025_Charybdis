@@ -52,3 +52,4 @@ MonoBehaviour:
   _preventGodVictory: 0
   _preventHumanVictory: 0
   _preventManualChangeScene: 0
+  _useTotemButtonsToTriggerMennuButtons: 0

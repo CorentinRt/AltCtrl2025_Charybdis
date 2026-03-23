@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_HumanTutoController_Data
   m_EditorClassIdentifier: 
   _timeBeforeSpawnFirstShip: 5
-  _timeBeforeFrequencyTutoAppear: 1
+  _timeBeforeFrequencyTutoAppear: 1.5
   _timeBeforeFreezeTime: 2
   _timeBeforeDangerTutoAndIslandsAppear: 1.5
-  _timeBeforeDemoGameStart: 8
+  _timeBeforeDemoGameStart: 6
